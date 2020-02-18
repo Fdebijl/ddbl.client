@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api_url: 'https://twatteridentityservice.azurewebsites.net/api',
+  api_url: 'https://ddblserverindentityservice.azurewebsites.net/api',
   websocket_url: 'wss://echo.websocket.org/'
   // const URL = 'ws://localhost:8060/default/';
 };
