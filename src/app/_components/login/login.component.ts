@@ -41,9 +41,6 @@ export class LoginComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
-
-    particlesJS.load('particles-js', 'assets/particles.json', () => {
-    });
   }
 
   // convenience getter for easy access to form fields

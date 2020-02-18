@@ -34,9 +34,6 @@ export class RegisterComponent implements OnInit {
         Validators.minLength(8)
       ]]
     });
-
-    particlesJS.load('particles-js', 'assets/particles.json', () => {
-    });
   }
 
   get f(): { [key: string]: AbstractControl } {
