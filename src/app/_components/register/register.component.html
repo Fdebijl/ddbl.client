@@ -1,0 +1,39 @@
+<div class="uk-flex uk-flex-center uk-flex-middle uk-flex-column ssl-center">
+  <div uk-spinner="ratio: 3" [ngClass]="loading ? 'loading' : 'idle'"></div>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" [ngClass]="loading ? 'loading' : 'idle'">
+    <h2 class="ssl-freefloat">Secure Smart Lock</h2>
+    <span class="horizontal"><h4>Register a new account</h4></span>
+    <div class="warning" *ngIf="wrongcreds">{{wrongcreds}}</div>
+    <div class="uk-margin">
+        <div class="uk-inline">
+            <span class="uk-form-icon" uk-icon="icon: user"></span>
+            <input class="uk-input uk-form-large uk-form-width-large" type="text" autocomplete="username" placeholder="Username" formControlName="username" aria-required="true">
+        </div>
+    </div>
+    <div class="uk-margin">
+      <div class="uk-inline">
+          <span class="uk-form-icon">F</span>
+          <input class="uk-input uk-form-large uk-form-width-large" type="text" autocomplete="name" placeholder="First name" formControlName="firstname" aria-required="true">
+      </div>
+  </div>
+  <div class="uk-margin">
+    <div class="uk-inline">
+        <span class="uk-form-icon">L</span>
+        <input class="uk-input uk-form-large uk-form-width-large" type="text" autocomplete="family-name" placeholder="Last name" formControlName="lastname" aria-required="true">
+    </div>
+</div>
+    <div class="uk-margin">
+        <div class="uk-inline">
+            <span class="uk-form-icon" uk-icon="icon: lock"></span>
+            <input class="uk-input uk-form-large uk-form-width-large" type="password" autocomplete="current-password" placeholder="Password" formControlName="password" aria-required="true">
+        </div>
+        <div *ngIf="f.password.hasError('minlength')">Password must be eight characters or longer</div>
+    </div>
+    <div class="uk-margin">
+        <div class="uk-inline">
+            <input [disabled]="loading" type="submit" value="Register" class="uk-button uk-button-primary uk-form-width-large">
+        </div>
+    </div>
+  </form>
+  <div id="particles-js" [ngClass]="loading ? 'loading' : 'idle'"></div>
+</div>

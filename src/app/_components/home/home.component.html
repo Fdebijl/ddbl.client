@@ -1,0 +1,28 @@
+<div class="home-container">
+    <div class="time-line">
+      <h1>Home</h1>
+      <div class="twat-input">
+        <img class="profile-picture" src={{user.profile_image_url}}>
+        <textarea class="uk-input" [(ngModel)]='twatText' maxlength="140" name="listFilter" placeholder="What's happening?"></textarea>
+        <button
+          class="uk-button uk-button-primary"
+          [disabled]="!twatText"
+          (click)="sendTwat()">
+          Twat</button>
+        <p class="char-left">Characters left: {{140 - twatText.length}}</p>
+      </div>
+      <div class="twat" *ngFor="let twat of twats">
+        <div class="twat-left">
+          <img class="profile-picture" src={{twat.user.profile_image_url}}>
+        </div>
+        <div class="twat-right">
+          <div class="twat-right-top">
+            <p class="display-name">{{twat.user.displayname}}</p>
+            <p class="username">@{{twat.user.username}}</p>
+            <p class="twat-time-stamp" title={{twat.formatTitle()}}>{{twat.formatTimestamp()}}</p>
+          </div>
+          <p class="twat-text">{{twat.text}}</p>
+        </div>
+      </div>
+    </div>
+  </div>

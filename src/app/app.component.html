@@ -1,0 +1,29 @@
+<main>
+  <div class="row top bar">
+    <div class="logowrapper">
+      <img src="https://apps.bostonglobe.com/opinion/graphics/2017/12/president-twitter/assets/trumpBird.png">
+    </div>
+    
+    <div class="user-details" *ngIf="isAuthenticated()">
+      <img src={{user.profile_image_url}}>
+      <div class="user-names">
+        <span class="user-display-name">{{user.displayname}}</span>
+        <span class="user-user-name">@{{user.username}}</span>
+      </div>
+      
+    </div>
+  </div>
+
+  <div class="row content">
+    <aside class="side bar">
+      <ul class="sidebar-list" *ngIf="isAuthenticated()">
+        <li><a [routerLink]="['/home']">TL</a></li>
+        <li><a [routerLink]="['/login']" [queryParams]="{action: 'logout'}">L</a></li>
+      </ul>
+    </aside>
+
+    <section>
+      <router-outlet></router-outlet>
+    </section>
+  </div>
+</main>
