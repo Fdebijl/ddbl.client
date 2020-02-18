@@ -1,4 +1,3 @@
-import * as moment from 'moment';
 import { User } from './User';
 import { timestampToMoment, isLessThan24HoursAgo, momentToDate, momentToHours, momentToTimeAndDate } from '../_util/time';
 

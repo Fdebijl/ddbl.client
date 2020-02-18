@@ -8,7 +8,7 @@ import { User } from './_domain';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  private user: User;
+  user: User;
 
   constructor(
     private authenticationService: AuthenticationService,

@@ -12,7 +12,7 @@ import { StorageService } from 'src/app/_services';
 export class HomeComponent implements OnInit {
   public twats: Twat[] = [];
   public twatText: string;
-  private user: User;
+  user: User;
 
   constructor(
     private storageService: StorageService,
@@ -27,7 +27,6 @@ export class HomeComponent implements OnInit {
 
   private generateTwats(): void {
     let i = 0;
-    const twats: Twat[] = [];
     while ( i < 10) {
         const delay = (Math.random() * 10) + (i + 1) * 180;
         this.twats.push(
@@ -41,7 +40,6 @@ export class HomeComponent implements OnInit {
   }
 
   sendTwat() {
-    const date = new Date();
     const twat = new Twat(this.twatText, moment().format('x'), this.storageService.user.getValue());
     this.twats.unshift(twat);
     this.twatText = '';
