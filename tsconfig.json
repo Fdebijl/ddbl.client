@@ -13,8 +13,7 @@
     "importHelpers": true,
     "target": "es2015",
     "types": [
-      "node",
-      "mocha"
+      "node"
     ],
     "typeRoots": [
       "node_modules/@types"
