@@ -11,13 +11,11 @@ import { HeaderComponent } from './_components/partials/header/header.component'
 import { MainDashboardComponent } from './_components/main-dashboard/main-dashboard.component';
 import { CardVisualisationComponent } from './_components/card-visualisation/card-visualisation.component';
 import { CardGenericComponent } from './_components/card-generic/card-generic.component';
+import { FooterComponent, HeaderComponent } from './_components/partials';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    LoginComponent,
-    RegisterComponent,
     FooterComponent,
     HeaderComponent,
     MainDashboardComponent,
