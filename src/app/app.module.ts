@@ -7,6 +7,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FooterComponent, HeaderComponent } from './_components/partials';
 import { ErrorComponent } from './_components/error/error.component';
+import { LoginComponent } from './_components/user/login/login.component';
+import { ProfileComponent } from './_components/user/profile/profile.component';
+import { SuccessComponent } from './_components/user/success/success.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +17,9 @@ import { ErrorComponent } from './_components/error/error.component';
     FooterComponent,
     HeaderComponent,
     ErrorComponent,
+    LoginComponent,
+    ProfileComponent,
+    SuccessComponent,
   ],
   imports: [
     BrowserModule,

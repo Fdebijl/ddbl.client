@@ -1566,68 +1566,6 @@ body {
   padding-left: 8px;
 }
 
-/* login */
-.login {
-  margin: 0 auto;
-  padding: 80px 24px 40px 24px;
-  width: 400px;
-  margin-left: calc(50% -240px);
-}
-
-@media screen and (max-width: 528px) {
-  .login {
-    padding: 40px 24px 30px 24px;
-    width: 100%;
-  }
-}
-
-.login_input .title {
-  font-size: 32px;
-  font-weight: lighter;
-}
-
-.login_input .inputTitle {
-  display: block;
-  font-size: 14px;
-  font-weight: bold;
-  color: #999;
-}
-
-.login_input .rememberme {
-  display: block;
-  margin-top: 14px;
-}
-
-.login_input .rememberme:hover {
-  cursor: pointer;
-}
-
-.login_input .rememberme input {
-  display: inline-block;
-  vertical-align: 1px;
-  margin-right: 3px;
-}
-
-.login_input .rememberme input:hover {
-  cursor: pointer;
-}
-
-.login_input_errorMsg {
-  color: red;
-  font-size: 12px;
-}
-
-.login_alt {
-  font-size: 14px;
-  margin-top: 20px;
-  text-align: right;
-}
-
-.login_alt a {
-  text-decoration: none;
-  color: #666;
-}
-
 /* Full-width inputs */
 input[type=text], input[type=password] {
   width: 100%;
