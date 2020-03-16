@@ -11,8 +11,8 @@ const img = "/images.done/";
 const avtimg = "/images.done/avatar/";
 const dtimg = "/images.done/data/";
 
-//TODO: the directory for the datasets has to be moved to secure database!
-const dt = "/datasets/";
+//TODO: the directory for the datasets.done has to be moved to secure database!
+const dt = "/datasets.done/";
 
 exports.dblocal = dblocal;
 exports.dbremote = dbremote;

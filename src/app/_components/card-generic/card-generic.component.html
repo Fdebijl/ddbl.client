@@ -1,1 +1,6 @@
-<p>card-generic works!</p>
+<div class="dataCard_item_title title-drag">
+  <h2 class="text">{{tittle}} ({{year}})</h2>
+  <div class="hinder"></div>
+  <i class="fas fa-database" *ngIf="type == "Link" || type == "Web Page" || data[i].type == "Image/Graphic""></i>
+  <i class="fas fa-database" *ngIf="type == 'Database'"></i>
+</div>
