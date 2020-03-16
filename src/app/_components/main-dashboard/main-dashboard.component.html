@@ -1,0 +1,110 @@
+<!-- Tooltips for the owner controlled data: mp(map), ln(line)...-->
+<!-- TODO: Loop -->
+<div class="mp1-tooltip data-tooltip" aria-hidden="true"></div>
+<div class="ln1-tooltip data-tooltip" aria-hidden="true"></div>
+<div class="mp2-tooltip data-tooltip" aria-hidden="true"></div>
+<div class="mp3-tooltip data-tooltip" aria-hidden="true"></div>
+<div class="mp4-tooltip data-tooltip" aria-hidden="true"></div>
+<div class="mp5-tooltip data-tooltip" aria-hidden="true"></div>
+
+<div class="main">
+  <h1 class="main_title">Vitality Data Catalog</h1>
+  <p class="main_desc"></p>
+  <div class="main_dashboard grid-wrapper">
+    <!-- Filter controls -->
+    <div class="main_dashboard_controls filter-controls">
+
+      <div class="main_dashboard_controls_search control">
+        <div class="control-icon">
+          <i class="fas fa-search"></i>
+        </div>
+        <input class="search-field form-control" type="text" name="search" placeholder="Search..." />
+      </div>
+
+      <div class="main_dashboard_controls_filter control">
+        <div class="control-icon">
+          <i class="fas fa-filter"></i>
+        </div>
+
+        <div class="main_dashboard_controls_filter_select">
+          <select class="filter-field1 form-control custom-select1">
+            <option value="" selected>All Categories</option>
+            <!-- TODO: Loop -->
+            <option value="Demographic">Demographic</option>
+            <option value="Environment">Environment</option>
+            <option value="Infrastructure">Infrastructure</option>
+            <option value="Health">Health</option>
+            <option value="Social">Social</option>
+            <option value="Sports">Sports</option>
+            <option value="Other">Other</option>
+          </select>
+          <div class="filter-arrow"></div>
+        </div>
+        <div class="main_dashboard_controls_filter_select">
+          <select class="filter-field2 form-control custom-select1">
+            <option value="" selected>All Types</option>
+            <option value="Visualizations">Visualizations</option>
+            <option value="Datasets">Datasets</option>
+            <option value="Reports">Reports</option>
+            <option value="Web Pages">Web Pages</option>
+            <option value="Image/Graphics">Images/Graphics</option>
+            <option value="Videos">Videos</option>
+            <option value="Documents">Documents</option>
+            <option value="Others">Others</option>
+          </select>
+          <div class="filter-arrow"></div>
+        </div>
+
+        <div class="main_dashboard_controls_filter_select">
+          <select class="filter-field3 form-control custom-select1">
+            <option value="" selected>All Age Groups</option>
+            <option value="0-11">0-11</option>
+            <option value="0-18">0-18</option>
+            <option value="12-18">12-18</option>
+            <option value="19-64">19-64</option>
+            <option value="12+">12+</option>
+            <option value="19+">19+</option>
+            <option value="65+">65+</option>
+          </select>
+          <div class="filter-arrow"></div>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- grid layout cards -->
+    <div class="main_dashboard_container grid">
+      <!-- TODO make sure list of data only contains public data -->
+      <section *ngFor="let i of publicData" class="item" >
+        <div class="dataCard">
+          <div class="dataCard_item">
+            <!-- TODO make sure data has datatype tag -->
+            <div class="dataCard_item_title title-drag" *ngIf="i.dataType == 'visualisation'">
+
+            </div>
+            <div class="dataCard_item_title title-drag" *ngIf="i.dataType !== 'visualisation'">
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', ()=> {
+    mp1(11, 51.46, 5.450);
+    mp2(11, 51.46, 5.450);
+    mp3(11, 51.46, 5.450);
+    mp4(11, 51.46, 5.450);
+    //mp5(11, 51.46, 5.450);
+    ln1(11, 51.46, 5.450);
+  });
+
+</script>
+<!-- javascripts -->
+<!-- TODO add these files and stuff -->
+<script src="<%= js %>main.js"></script>
+<script src="<%= js %>visualization.js"></script>

@@ -127,6 +127,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ddbl"
+    }
+  },
+  "defaultProject": "ddbl",
+  "cli": {
+    "analytics": false
+  }
 }
