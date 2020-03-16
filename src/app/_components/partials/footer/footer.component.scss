@@ -1,0 +1,25 @@
+.l-footer {
+  height: 40px;
+  width: 100%;
+  background: #222;
+  position: absolute;
+  bottom: 0;
+}
+
+.l-footer_left {
+  display: inline-block;
+  width: auto;
+  height: 24px;
+  padding: 8px 0 8px 24px;
+}
+
+.l-footer_left_copyright {
+  color: #fff;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.l-footer_right {
+  display: inline-block;
+  width: auto;
+}
