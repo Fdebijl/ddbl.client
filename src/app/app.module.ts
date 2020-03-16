@@ -5,16 +5,11 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent, LoginComponent, RegisterComponent } from './_components';
-import { FooterComponent } from './_components/partials/footer/footer.component';
-import { HeaderComponent } from './_components/partials/header/header.component';
+import { FooterComponent, HeaderComponent } from './_components/partials';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    LoginComponent,
-    RegisterComponent,
     FooterComponent,
     HeaderComponent,
   ],
