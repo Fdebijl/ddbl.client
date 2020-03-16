@@ -9,6 +9,8 @@ export class MainDashboardComponent implements OnInit {
 
   constructor() { }
 
+  public publicData: Array<any>;
+
   ngOnInit(): void {
   }
 
