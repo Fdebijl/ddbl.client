@@ -24,7 +24,8 @@ import { FooterComponent, HeaderComponent } from './_components/partials';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
     HttpClient
