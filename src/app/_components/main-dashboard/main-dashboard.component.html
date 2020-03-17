@@ -79,12 +79,12 @@
       <ng-container *ngFor="let i of data">
         <!-- If data is publicly accessible -->
         <ng-container *ngIf="i.access == 'Public'">
-          <section  class="item" data-category="{{i.category}}" data-title="{{i.title}}" data-type="{{i.type}}" data-age="{{i.age_group}}">
+          <section  class="item">
             <div class="dataCard">
               <div class="dataCard_item">
                 <div class="dataCard_item_title title-drag">
                   <ng-container *ngIf="i.file.indexOf('mp') !== -1; else noLink">
-                    <a href="./visualizations/{{i._id}}">
+                    <a href="./visualizations/{{i.id}}">
                       <h2 class="text">{{i.title}} ({{i.year}})</h2>
                     </a>
                   </ng-container>
@@ -290,7 +290,7 @@
                             </a>
                           </ng-container>
                           <ng-template #otherType>
-                            <a href="../../../assets/datasets/{{i.file}}.{{i.format}}" class="link-download" download="{{i._id}}" >
+                            <a href="../../../assets/datasets/{{i.file}}.{{i.format}}" class="link-download" download="{{i.id}}" >
                               <div class="icon">
                                 <i class="fas fa-download"></i>
                               </div>
