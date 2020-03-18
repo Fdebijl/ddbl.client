@@ -1,10 +1,12 @@
+import {Contributor} from './contributor';
+
 export class Metadata {
   id: string;
   title: string;
   year: string;
   description: string;
   ageGroup: string;
-  contributor: string;
+  contributor: Contributor;
   category: string;
   type: string;
   format: string;
