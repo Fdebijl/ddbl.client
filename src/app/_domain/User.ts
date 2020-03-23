@@ -16,3 +16,5 @@ export class User {
   public profile_image_url: string;
   public token: string;
 }
+
+// TODO: Rewrite voor VLLDS

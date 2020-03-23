@@ -8,6 +8,7 @@ import { StorageService } from './storage.service';
 
 /**
  * The AuthenticationService handles all methods and checks related to logging in and registering.
+ * TODO: Rewrite for VLLDS
  */
 @Injectable({
   providedIn: 'root'

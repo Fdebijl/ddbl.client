@@ -5,14 +5,8 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MainDashboardComponent } from './_components/main-dashboard/main-dashboard.component';
-import { CardVisualisationComponent } from './_components/card-visualisation/card-visualisation.component';
-import { CardGenericComponent } from './_components/card-generic/card-generic.component';
+import { MainDashboardComponent, UploadComponent, RegisterComponent, ProfileComponent, LoginComponent, CardGenericComponent, ErrorComponent, CardVisualisationComponent } from './_components';
 import { FooterComponent, HeaderComponent } from './_components/partials';
-import { ErrorComponent } from './_components/error/error.component';
-import { LoginComponent } from './_components/user/login/login.component';
-import { ProfileComponent } from './_components/user/profile/profile.component';
-import { SuccessComponent } from './_components/user/success/success.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +19,8 @@ import { SuccessComponent } from './_components/user/success/success.component';
     ErrorComponent,
     LoginComponent,
     ProfileComponent,
-    SuccessComponent,
+    UploadComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
