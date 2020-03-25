@@ -36,7 +36,8 @@
               "node_modules/uikit/dist/js/uikit.min.js",
               "node_modules/uikit/dist/js/uikit-icons.min.js",
               "src/assets/js/main.js",
-              "src/assets/js/visualization.js"
+              "src/assets/js/visualization.js",
+              "node_modules/moment/moment.js"
             ]
           },
           "configurations": {

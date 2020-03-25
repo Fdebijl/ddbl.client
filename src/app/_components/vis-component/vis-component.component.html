@@ -1,16 +1,24 @@
-<section class="vizEach_content">
+<div class="mp1-tooltip data-tooltip" aria-hidden="true"></div>
+<div class="ln1-tooltip data-tooltip" aria-hidden="true"></div>
+<div class="mp2-tooltip data-tooltip" aria-hidden="true"></div>
+<div class="mp3-tooltip data-tooltip" aria-hidden="true"></div>
+<div class="mp4-tooltip data-tooltip" aria-hidden="true"></div>
+<div class="mp5-tooltip data-tooltip" aria-hidden="true"></div>
+
+<main class="vizEach">
+<section class="vizEach_content" title="{{mpNum.title}}">
   <div class="vizEach_content_title">
     <h1 class="text">{{mpNum.title}} ({{mpNum.year}})</h1>
     <div class="hinder"></div>
   </div>
 
   <div class="vizEach_content_visframe">
-    <div id="<%= data[mpNum].file %>" class="vizEach_content_visframe_canvas"><!-- datavis comes here --></div>
+    <div id="{{mpNum.file}}" class="vizEach_content_visframe_canvas"><!-- datavis comes here --></div>
     <!-- Only for "map" visualizations -->
     <ng-container *ngIf="mpNum.file.indexOf('mp') !== -1">
       <!-- if the name of file contains "mp" -->
       <div class="mp-layers" aria-hidden="true">
-        <ul class="mp-layers_list" id="on<%= data[mpNum].file %>"></ul>
+        <ul class="mp-layers_list" id="on{{mpNum.file}}"></ul>
       </div>
 
       <!-- selection for air quality data -->
@@ -123,7 +131,7 @@
     </ng-container>
 
     <div id="{{mpNum.file}}-loader" class="loader" aria-hidden="false">
-      <span class="loader_spin" style="background-image: url(~assets/images/loader.png)"></span>
+      <span class="loader_spin" style="background-image: url(../../../assets/images/loader.png)"></span>
     </div>
 
     </div><!-- vizEach_content_visframe -->
@@ -134,13 +142,13 @@
           <!-- <div class="descHinder"></div> -->
           <div class="post">
             <span class="post_title">Posted on</span>
-            <span class="post_date">moment({{mpNum.created}}).format('ll')</span> <!-- Need to use moment here... -->
+            <span class="post_date">{{dateTimePosted}}</span> <!-- Need to use moment here... -->
           </div>
           <div class="user">
             <div class="user_cont">
           <span class="user_cont_image">
             <!-- TODO: consider different extensions -->
-            <span class="avatar-s" style="background-image: url(~assets/images/avatar/user.png)"></span>
+            <span class="avatar-s" style="background-image: url(../../../assets/images/avatar/user.png)"></span>
             <!-- data[mpNum].contributor.avatar -->
           </span>
               <span class="user_cont_text">{{mpNum.contributor.name}} ({{mpNum.contributor.organization}})</span>
@@ -359,7 +367,7 @@
     </div>
   </div>
 </aside>
-
+</main>
 
 <script>
   const printSingleDataviz = document.getElementById('printSingleDataviz');
@@ -368,6 +376,3 @@
   });
 </script>
 <!-- javascripts -->
-<script src="../../../assets/js/main.js"></script>
-<script src="../../../assets/js/visualization.js"></script>
-<script src="../../_services/moment.js"></script>

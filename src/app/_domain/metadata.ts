@@ -1,4 +1,4 @@
-import {Contributor} from './contributor';
+import {MongoUser} from './mongoUser';
 
 export class Metadata {
   id: string;
@@ -6,7 +6,7 @@ export class Metadata {
   year: string;
   description: string;
   ageGroup: string;
-  contributor: Contributor;
+  contributor: MongoUser;
   category: string;
   type: string;
   format: string;

@@ -84,7 +84,7 @@
               <div class="dataCard_item">
                 <div class="dataCard_item_title title-drag">
                   <ng-container *ngIf="i.file.indexOf('mp') !== -1; else noLink">
-                    <a href="./visualizations/{{i.id}}">
+                    <a routerLink="./visualization" (click)="saveObjForVisualizationPage(i.id)">
                       <h2 class="text">{{i.title}} ({{i.year}})</h2>
                     </a>
                   </ng-container>
@@ -93,12 +93,14 @@
                   </ng-template>
                   <div class="hinder"></div>
                   <div class="icon">
-                    <ng-container *ngIf="i.type == 'Visualization'">
+                    <ng-container *ngIf="i.type == 'Visualization' else link">
                       <i class="fas fa-eye"></i>
                     </ng-container>
-                    <ng-container *ngIf="i.type == 'link' || i.type == 'Web Page' || i.type == 'Image/Graphic'; else otherIcon">
-                      <i class="fas fa-link"></i>
-                    </ng-container>
+                    <ng-template #link>
+                      <ng-container *ngIf="i.type == 'link' || i.type == 'Web Page' || i.type == 'Image/Graphic'; else otherIcon">
+                        <i class="fas fa-link"></i>
+                      </ng-container>
+                    </ng-template>
                     <ng-template #otherIcon>
                       <i class="fas fa-database"></i>
                     </ng-template>
@@ -114,9 +116,9 @@
                       <ul class="mp-layers_list" id="on{{i.file}}"></ul>
                     </div>
                     <div id="{{i.file}}-loader" class="loader" aria-hidden="false">
-                      <span class="loader_spin" style="background-image: url(~assets/images/loader.png)"></span>
+                      <span class="loader_spin" style="background-image: url(../../../assets/images/loader.png)"></span>
                     </div>
-                    <div class="map_legend" id="<%= data[i].file %>-legend" aria-hidden="false">
+                    <div class="map_legend" id="{{i.file}}-legend" aria-hidden="false">
                       <!-- add by js -->
                       <ng-container *ngIf="i.file == 'mp1';">
                         <span class="map_legend_title">Legend (%)</span>
@@ -226,23 +228,23 @@
                       <!-- description -->
                       <li class="dataCard_item_info_cont_desc">
                         <ng-container *ngIf="i.type != 'Visualization'">
-                    <div class="descImage">
+                          <div class="descImage">
 
-                      <!-- TODO: consider different extensions -->
-                      <ng-container *ngIf="i.image != ''; else otherBackgroundImg">
-                        <span class="descImage_inner" [ngStyle]="{ 'background-image': 'url(~assets/images/data/' + i.image + '.png)'}"></span>
-                      </ng-container>
-                      <ng-template #otherBackgroundImg>
-                        <ng-container *ngIf="i.type == 'link'; else typeDataset">
-                        <span class="descImage_inner" style="background-image: url(~assets/images/data/link.png)"></span>
-                        </ng-container>
-                        <ng-template #typeDataset>
-                          <ng-container *ngIf="i.type == 'dataset'">
-                            <span class="descImage_inner" style="background-image: url(~assets/images/data/dataset.png)"></span>
-                          </ng-container>
-                        </ng-template>
-                      </ng-template>
-                    </div>
+                            <!-- TODO: consider different extensions -->
+                            <ng-container *ngIf="i.image != ''; else otherBackgroundImg">
+                              <span class="descImage_inner" [ngStyle]="{ 'background-image': 'url(../../../assets/images/data/' + i.image + '.png)'}"></span>
+                            </ng-container>
+                            <ng-template #otherBackgroundImg>
+                              <ng-container *ngIf="i.type == 'link'; else typeDataset">
+                              <span class="descImage_inner" style="background-image: url(../../../assets/images/data/link.png)"></span>
+                              </ng-container>
+                              <ng-template #typeDataset>
+                                <ng-container *ngIf="i.type == 'dataset'">
+                                  <span class="descImage_inner" style="background-image: url(../../../assets/images/data/dataset.png)"></span>
+                                </ng-container>
+                              </ng-template>
+                            </ng-template>
+                          </div>
                         </ng-container>
                         {{i.description}}
                       </li>
@@ -259,7 +261,7 @@
 
                         <!-- TODO consider different extensions -->
 
-                        <span class="avatar-s" style="background-image: url(~assets/images/avatar/user.png)"></span>
+                        <span class="avatar-s" style="background-image: url(../../../assets/images/avatar/user.png)"></span>
 
                       </span>
 
@@ -319,7 +321,103 @@
                   </div>
                 </ng-container>
                 <ng-template #ariaHiddenFalse>
-                  <div class="dataCard_item_info" aria-hidden="false"></div>
+                  <div class="dataCard_item_info" aria-hidden="false">
+                    <ul class="dataCard_item_info_cont">
+
+                      <!-- description -->
+                      <li class="dataCard_item_info_cont_desc">
+                        <ng-container *ngIf="i.type != 'Visualization'">
+                          <div class="descImage">
+
+                            <!-- TODO: consider different extensions -->
+                            <ng-container *ngIf="i.image != ''; else otherBackgroundImg">
+                              <span class="descImage_inner" [ngStyle]="{ 'background-image': 'url(../../../assets/images/data/' + i.image + '.png)'}"></span>
+                            </ng-container>
+                            <ng-template #otherBackgroundImg>
+                              <ng-container *ngIf="i.type == 'link'; else typeDataset">
+                                <span class="descImage_inner" style="background-image: url(../../../assets/images/data/link.png)"></span>
+                              </ng-container>
+                              <ng-template #typeDataset>
+                                <ng-container *ngIf="i.type == 'dataset'">
+                                  <span class="descImage_inner" style="background-image: url(../../../assets/images/data/dataset.png)"></span>
+                                </ng-container>
+                              </ng-template>
+                            </ng-template>
+                          </div>
+                        </ng-container>
+                        {{i.description}}
+                      </li>
+
+                      <!-- contributor -->
+                      <li class="dataCard_item_info_cont_contributor">
+                        <div class="descHinder"></div>
+                        <div class="post">
+                          <span class="post_title">Posted on</span>
+                          <span class="post_date">moment({{i.created}}).format('ll')</span> <!-- Need to use moment here...-->
+                        </div>
+                        <div class="user">
+                      <span class="user_image">
+
+                        <!-- TODO consider different extensions -->
+
+                        <span class="avatar-s" style="background-image: url(../../../assets/images/avatar/user.png)"></span>
+
+                      </span>
+
+                          <span class="user_text">Organization's name</span>
+
+                          <div class="hinder"></div>
+                        </div>
+                      </li>
+                      <!-- action -->
+                      <li class="dataCard_item_info_cont_action">
+                        <div class="dataCard_item_info_cont_action_left">
+                          <div class="access">
+                        <span class="access_icon">
+                          <i class="fas fa-globe"></i>
+                        </span>
+                            <span class="access_text">Public</span>
+                          </div>
+                          <!-- add download later -->
+                          <ng-container *ngIf="i.type == 'Link' || i.type == 'Web Page' || i.type == 'Image/Graphic' else otherType">
+                            <a href="{{i.file}}>" class="link-download" target="_blank">
+                              <div class="icon">
+                                <i class="fa fa-external-link-alt"></i>
+                              </div>
+                              <div class="format">
+                                <span class="format_header">Format: </span>
+                                <span class="format_name">{{i.format}}</span>
+                              </div>
+                            </a>
+                          </ng-container>
+                          <ng-template #otherType>
+                            <a href="../../../assets/datasets/{{i.file}}.{{i.format}}" class="link-download" download="{{i.id}}" >
+                              <div class="icon">
+                                <i class="fas fa-download"></i>
+                              </div>
+                              <div class="format">
+                                <span class="format_header">Format: </span>
+                                <span class="format_name">{{i.format}}</span>
+                              </div>
+                            </a>
+                          </ng-template>
+                        </div>
+                        <div class="dataCard_item_info_cont_action_right">
+                          <div class="contact" aria-disabled="true">
+                            <!-- add action here later -->
+                            <i class="fas fa-envelope"></i>
+                          </div>
+                        </div>
+                        <div class="hinder"></div>
+                      </li>
+                      <!-- source -->
+                      <li class="dataCard_item_info_cont_source">
+                        <span class="header">Source:</span>
+                        <span class="content">{{i.source}}</span>
+                        <span class="hinder"></span>
+                      </li>
+                    </ul>
+                  </div>
                 </ng-template>
               </div>
             </div>
@@ -332,17 +430,13 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', ()=> {
+  window.onLoad = ()=> {
     mp1(11, 51.46, 5.450);
     mp2(11, 51.46, 5.450);
     mp3(11, 51.46, 5.450);
     mp4(11, 51.46, 5.450);
     //mp5(11, 51.46, 5.450);
     ln1(11, 51.46, 5.450);
-  });
+  };
 
 </script>
-<!-- javascripts -->
-<script src="../../../assets/js/main.js"></script>
-<script src="../../../assets/js/visualization.js"></script>
-<script src="../../_services/moment.js"></script>

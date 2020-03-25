@@ -14,6 +14,7 @@ import { LoginComponent } from './_components/user/login/login.component';
 import { ProfileComponent } from './_components/user/profile/profile.component';
 import { SuccessComponent } from './_components/user/success/success.component';
 import { VisComponentComponent } from './_components/vis-component/vis-component.component';
+import {MongodbService} from './_services/mongodb.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { VisComponentComponent } from './_components/vis-component/vis-component
     HttpClientModule
   ],
   providers: [
-    HttpClient
+    HttpClient,
+    MongodbService
   ],
   bootstrap: [
     AppComponent
