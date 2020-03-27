@@ -64,6 +64,7 @@ export class MainDashboardComponent implements OnInit {
       console.log(data.category);
       console.log(data.type);
       console.log(data.ageGroup);
+      // TODO make separate functions
       if ((data.category === cat || cat === '') && (data.type === type || type === '') && (data.ageGroup === ageGroup || ageGroup === '')
         && (input === '' || input === undefined || data.title.includes(input))) {
         cardList.push(data);

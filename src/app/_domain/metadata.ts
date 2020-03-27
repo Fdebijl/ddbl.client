@@ -5,6 +5,7 @@ export class Metadata {
   title: string;
   year: string;
   description: string;
+  // TODO get users and ageGroup
   ageGroup: string;
   contributor: MongoUser;
   category: string;
