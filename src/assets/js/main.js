@@ -27,7 +27,7 @@ document.querySelectorAll('.dataCard_item_infoBtn').forEach(infoBtn => {
   	console.log('clicked');
     const target = e.target;
     console.log(target);
-    
+
     const infoWindow = target.nextElementSibling;
     if (target.getAttribute('aria-selected') =='false') {
     	target.setAttribute('aria-selected', 'true');
@@ -45,7 +45,7 @@ document.querySelectorAll('.legend-controller').forEach(Lgd => {
   	console.log('clicked');
     const target = e.target.parentNode;
     console.log(target);
-    
+
     const legendWindow = target.nextElementSibling;
     if (target.getAttribute('aria-selected') =='false') {
     	target.setAttribute('aria-selected', 'true');
@@ -59,7 +59,7 @@ document.querySelectorAll('.legend-controller').forEach(Lgd => {
 
 
 // Muuri for search, sort drag/drop data viz cards
-document.addEventListener('DOMContentLoaded', ()=> {
+window.onload =()=>{
 
 	let grid = null,
 		wrapper = document.querySelector('.grid-wrapper'),
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
 	filterField1.addEventListener('change', filter);
 	filterField2.addEventListener('change', filter);
 	filterField3.addEventListener('change', filter);
-	  
+
 	//Sort field event binding
 	//sortField.addEventListener('change', sort);
 
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
 	      	return isSearchMatch && isFilter1Match && isFilter2Match && isFilter3Match;
 	    });
 	}
-  
+
     // Sorting
     function sort() {
       	// Do nothing if sort value did not change.
@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
     	);
       	sortFieldValue = currentSort;
     }
-  
+
     // Compare data-title
     function compareItemTitle(a, b) {
     	let aVal = a.getElement().getAttribute(searchAttr) || '';
@@ -165,5 +165,5 @@ document.addEventListener('DOMContentLoaded', ()=> {
       	return aVal < bVal ? -1 : aVal > bVal ? 1 : 0;
     }
 
-}); // Muuri ends
+}; // Muuri ends
 

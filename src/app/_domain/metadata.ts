@@ -1,10 +1,13 @@
+import {MongoUser} from './mongoUser';
+
 export class Metadata {
   id: string;
   title: string;
   year: string;
   description: string;
+  // TODO get users and ageGroup
   ageGroup: string;
-  contributor: string;
+  contributor: MongoUser;
   category: string;
   type: string;
   format: string;

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ajaxPost } from 'rxjs/internal/observable/dom/AjaxObservable';
 import { ajax } from 'rxjs/ajax';
 
-import { environment } from '../../environments/environment'
+import { environment } from '../../environments/environment';
 import { User } from '../_domain/User';
 import { StorageService } from './storage.service';
 

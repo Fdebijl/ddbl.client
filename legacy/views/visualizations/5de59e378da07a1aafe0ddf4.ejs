@@ -27,20 +27,20 @@
 	    <%# mp5Num = i; %>
 	    <% } %>
 	<% } %>
-	<%- include('./commons/visContainer', {mp1Num: mp1Num, mp2Num: mp2Num, mp3Num:mp3Num, mp4Num:mp4Num, mpNum:mpNum}) %> 
+	<%- include('./commons/visContainer', {mp1Num: mp1Num, mp2Num: mp2Num, mp3Num:mp3Num, mp4Num:mp4Num, mpNum:mpNum}) %>
 	<!-- emove mp5Num:mp5Num for now -->
 </main>
 <!-- javascripts -->
 
 <script type="text/javascript">
-document.addEventListener('DOMContentLoaded', ()=> { 
+document.addEventListener('DOMContentLoaded', ()=> {
 	//mp5(12, 51.445, 5.450, false, true); //open csocket io & mp5 is presented
 	mpOverlay ('mp1', 'mp1OverlayCont', 'Gray', 12, 51.445, 5.450);
 });
 
 </script>
 
-<script src="<%= js %>main.js"></script>
+<script src="main.js"></script>
 <script src="<%= js %>visualization.js"></script>
 
 <%- include('../partials/footer') %>

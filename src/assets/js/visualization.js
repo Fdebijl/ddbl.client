@@ -16,7 +16,7 @@
 /*jshint -W061 */
 /*jshint unused:false*/
 
-const dataPath = '/datasets.done/'; //change this when we move data to a secure server
+const dataPath = '/assets/datasets/'; //change this when we move data to a secure server
 
 // Path to each dataset
 //const nb_path = dataPath + 'eh_ngbr.json'; //neighborhoods
@@ -61,6 +61,7 @@ let aqRadioChnage;
 
 let mp5InputChecked;
 
+// TODO replace with vizmap component
 let vizmaps = function vizmaps(container, mapType, purpose, zoomLev, lat, lon, data) {
 
 	let mapPurpose = arguments[2]
@@ -1243,7 +1244,7 @@ function mp5(zoomLev, lat, lon) {
 }
 // Socket io for real-time air quality data
 
-function mpOverlay(baseMapId, overlayContId, Base, zoomLev, lat, lon) {
+window.mpOverlay = (baseMapId, overlayContId, Base, zoomLev, lat, lon) => {
 
 	// const socket = io();
 
