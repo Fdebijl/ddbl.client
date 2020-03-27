@@ -61,6 +61,7 @@ let aqRadioChnage;
 
 let mp5InputChecked;
 
+// TODO replace with vizmap component
 let vizmaps = function vizmaps(container, mapType, purpose, zoomLev, lat, lon, data) {
 
 	let mapPurpose = arguments[2]
