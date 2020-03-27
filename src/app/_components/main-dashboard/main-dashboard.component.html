@@ -18,7 +18,7 @@
         <div class="control-icon">
           <i class="fas fa-search"></i>
         </div>
-        <input class="search-field form-control" type="text" name="search" placeholder="Search..." />
+        <input class="search-field form-control" type="text" name="search" placeholder="Search..." (change)="filterCards()" [(ngModel)]="filterInput"/>
       </div>
 
       <div class="main_dashboard_controls_filter control">
@@ -27,7 +27,7 @@
         </div>
 
         <div class="main_dashboard_controls_filter_select">
-          <select class="filter-field1 form-control custom-select1">
+          <select class="filter-field1 form-control custom-select1" (change)="filterCards()" [(ngModel)]="filterCategory">
             <option value="" selected>All Categories</option>
             <!-- TODO: Loop -->
             <option value="Demographic">Demographic</option>
@@ -41,22 +41,22 @@
           <div class="filter-arrow"></div>
         </div>
         <div class="main_dashboard_controls_filter_select">
-          <select class="filter-field2 form-control custom-select1">
+          <select class="filter-field2 form-control custom-select1" [(ngModel)]="filterType" (change)="filterCards()">
             <option value="" selected>All Types</option>
-            <option value="Visualizations">Visualizations</option>
-            <option value="Datasets">Datasets</option>
-            <option value="Reports">Reports</option>
-            <option value="Web Pages">Web Pages</option>
-            <option value="Image/Graphics">Images/Graphics</option>
-            <option value="Videos">Videos</option>
-            <option value="Documents">Documents</option>
-            <option value="Others">Others</option>
+            <option value="Visualization">Visualizations</option>
+            <option value="Dataset">Datasets</option>
+            <option value="Report">Reports</option>
+            <option value="Web Page">Web Pages</option>
+            <option value="Image/Graphic">Images/Graphics</option>
+            <option value="Video">Videos</option>
+            <option value="Document">Documents</option>
+            <option value="Other">Others</option>
           </select>
           <div class="filter-arrow"></div>
         </div>
 
         <div class="main_dashboard_controls_filter_select">
-          <select class="filter-field3 form-control custom-select1">
+          <select class="filter-field3 form-control custom-select1" [(ngModel)]="filterAgeGroup" (change)="filterCards()">
             <option value="" selected>All Age Groups</option>
             <option value="0-11">0-11</option>
             <option value="0-18">0-18</option>
@@ -74,9 +74,8 @@
     </div>
     <!-- grid layout cards -->
     <div class="main_dashboard_container grid">
-      <!-- TODO figure out what "data" is -->
       <!-- repeat the process by the number of dataset in metadata -->
-      <ng-container *ngFor="let i of data">
+      <ng-container *ngFor="let i of showData">
         <!-- If data is publicly accessible -->
         <ng-container *ngIf="i.access == 'Public'">
           <section  class="item">
@@ -426,17 +425,4 @@
       </ng-container>
     </div>
   </div>
-
 </div>
-
-<script>
-  window.onLoad = ()=> {
-    mp1(11, 51.46, 5.450);
-    mp2(11, 51.46, 5.450);
-    mp3(11, 51.46, 5.450);
-    mp4(11, 51.46, 5.450);
-    //mp5(11, 51.46, 5.450);
-    ln1(11, 51.46, 5.450);
-  };
-
-</script>
