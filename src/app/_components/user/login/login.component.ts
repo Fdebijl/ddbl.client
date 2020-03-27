@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
   submitted = false;
+  redirectTo: string;
   message = {
     user: '',
     password: '',
@@ -28,14 +29,20 @@ export class LoginComponent implements OnInit {
 
     // Allow an action to be passed in the url (i.e. example.com/login?action=logout)
     switch (snapshot.root.queryParams.action) {
-      case 'logout':
+      case 'logout': {
         this.authenticationService.logout();
         this.router.navigate(['/login']);
         break;
-      case 'postcreation':
+      }
+      case 'postcreation': {
         // Let the user know the account has been created and they should login
         this.message.generic = 'Your account has been created succesfully, you may now login.';
         break;
+      }
+      case 'loginFirst': {
+        this.message.generic = 'You have to login before accessing this page.'
+        this.redirectTo = snapshot.root.queryParams.redirectTo;
+      }
     }
 
     if (this.authenticationService.isAuthenticated()) {
@@ -59,7 +66,11 @@ export class LoginComponent implements OnInit {
 
     this.authenticationService.login(this.f.username.value, this.f.password.value)
       .then(() => {
-        this.router.navigate(['/home']);
+        if (this.redirectTo) {
+          this.router.navigate([this.redirectTo]);
+        } else {
+          this.router.navigate(['/home']);
+        }
       })
       .catch(() => {
         this.message.generic = 'Invalid username or password';

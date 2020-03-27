@@ -34,6 +34,18 @@ export class AuthenticationService {
 
   public async login(username: string, password: string): Promise<void> {
     return new Promise((resolve, reject) => {
+      // TODO: Remove to implement real login
+      const u = new User({
+        id: '000001',
+        displayname: 'Floris de Bijl',
+        username: 'fdebijl',
+        email: 'floris.debijl@gmail.com',
+        token: 'ABC'
+      });
+      this.storageService.user.next(u);
+      resolve();
+      return;
+
       const url = new URL(`${environment.api_url}/identity/authorize`);
       url.searchParams.append('userName', username);
       url.searchParams.append('password', password);

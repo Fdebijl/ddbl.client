@@ -11,7 +11,7 @@ import { UserService } from 'src/app/_services/user.service';
 })
 export class ProfileComponent implements OnInit {
   private id: string;
-  private user: User;
+  user: User;
 
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router,
