@@ -40,7 +40,9 @@ export class MainDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.newService.GetMetadata().then(data => {this.allData = data; this.showData = data});
-    this.loadMaps();
+    setTimeout(() => {
+      this.loadMaps();
+    }, 1000)
   }
 
   public saveObjForVisualizationPage(id: string) {

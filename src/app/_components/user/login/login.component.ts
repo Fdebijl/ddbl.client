@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
         if (this.redirectTo) {
           this.router.navigate([this.redirectTo]);
         } else {
-          this.router.navigate(['/home']);
+          this.router.navigate(['/']);
         }
       })
       .catch(() => {
