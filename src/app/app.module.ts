@@ -5,24 +5,36 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent, LoginComponent, RegisterComponent } from './_components';
+import { MainDashboardComponent, UploadComponent, RegisterComponent, ProfileComponent, LoginComponent, CardGenericComponent, ErrorComponent, CardVisualisationComponent, VisComponentComponent } from './_components';
+import { FooterComponent, HeaderComponent } from './_components/partials';
+import { MongodbService } from './_services/mongodb.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+    FooterComponent,
+    HeaderComponent,
+    MainDashboardComponent,
+    CardVisualisationComponent,
+    CardGenericComponent,
+    ErrorComponent,
     LoginComponent,
+    ProfileComponent,
+    UploadComponent,
     RegisterComponent,
+    VisComponentComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
-    HttpClient
+    HttpClient,
+    MongodbService
   ],
   bootstrap: [
     AppComponent

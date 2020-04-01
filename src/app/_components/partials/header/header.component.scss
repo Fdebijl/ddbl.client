@@ -1,0 +1,79 @@
+.l-header_content {
+  padding-right: 24px;
+  padding-left: 24px;
+  background: #f37021;
+  height: 70px;
+  position: relative;
+}
+
+.l-header_content_left {
+  width: 220px;
+  border-bottom: 70px solid #fff;
+  border-right: 56px solid transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.l-header_content_left > a {
+  position: absolute;
+  top: 6px;
+  left: 24px;
+}
+
+.l-header_content_right {
+  padding-left: 200px;
+  height: 70px;
+}
+
+.l-header_content_right #dataSystem-title {
+  font-family: "Roboto Slab", Helvetica, Arial, sans-serif;
+  color: #fff;
+  font-size: 26px;
+  font-weight: bold;
+  width: auto;
+  display: inline-block;
+  margin-top: 20px;
+}
+
+.l-header_content_right_options {
+  display: inline-block;
+  height: 30px;
+  width: auto;
+  float: right;
+  margin-top: 22px;
+}
+
+.l-header_content_right_options a {
+  text-decoration: none;
+}
+
+.l-header_content_right_options .control-icon {
+  color: #fff;
+  margin-left: 8px;
+}
+
+.l-header_content_right_options .control-icon .fa-user-circle {
+  font-size: 24px;
+  vertical-align: middle;
+  opacity: 1;
+  -webkit-transition: opacity 0.4s;
+  transition: opacity 0.4s;
+}
+
+.l-header_content_right_options .control-icon .fa-user-circle:hover {
+  cursor: pointer;
+  opacity: 0.8;
+  -webkit-transition: opacity 0.4s;
+  transition: opacity 0.4s;
+}
+
+.l-header_content_right_options .control-icon .fa-bars {
+  vertical-align: middle;
+}
+
+.l-header_content_right_options .user-name {
+  text-decoration: none;
+  color: #fff;
+  vertical-align: middle;
+}
