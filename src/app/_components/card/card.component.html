@@ -1,0 +1,216 @@
+<div class="card">
+  <div class="card-title-block">
+    <!-- Turns cards with map visualisation to link -->
+    <ng-container *ngIf="cardData.file.indexOf('mp') !== -1 && cardData.type === 'Visualization'; else noLink">
+      <a routerLink="./visualization" (click)="saveObjForVisualizationPage()">
+        <h2 class="card-title">{{cardData.title}} ({{cardData.year}})</h2>
+      </a>
+    </ng-container>
+    <ng-template #noLink>
+      <h2 class="card-title">{{cardData.title}} ({{cardData.year}})</h2>
+    </ng-template>
+    <div class="hinder"></div>
+    <div class="icon">
+      <i class="fas {{getIcon()}}"></i>
+    </div>
+  </div>
+  <!-- Only for visualizations -->
+  <ng-container *ngIf="cardData.type == 'Visualization'">
+    <div id="{{cardData.file}}" class="item-canvas"><!-- datavis comes here --></div>
+    <!-- Only for "map" visualizations -->
+    <ng-container *ngIf="cardData.file.indexOf('mp') !== -1">
+      <!-- if the name of file contains "mp" -->
+      <div class="mp-layers" aria-hidden="true">
+        <ul class="mp-layers_list" id="on{{cardData.file}}"></ul>
+      </div>
+      <div id="{{cardData.file}}-loader" class="loader" aria-hidden="false">
+        <span class="loader_spin" style="background-image: url(../../../assets/images/loader.png)"></span>
+      </div>
+      <div class="map_legend" id="{{cardData.file}}-legend" [attr.aria-hidden]="legendHiddenAria">
+        <!-- add by js -->
+        <ng-container *ngIf="cardData.file == 'mp1';">
+          <span class="map_legend_title">Legend (%)</span>
+          <table class="map_legend_table">
+            <col width="16">
+            <col width="">
+            <tr class="value4 row">
+              <td class="box"></td>
+              <td class="text">70 < 80</td>
+            </tr>
+            <tr class="value3 row">
+              <td class="box"></td>
+              <td class="text">60 < 70</td>
+            </tr>
+            <tr class="value2 row">
+              <td class="box"></td>
+              <td class="text">50 < 60</td>
+            </tr>
+            <tr class="value1 row">
+              <td class="box"></td>
+              <td class="text">40 < 50</td>
+            </tr>
+            <tr class="noData row">
+              <td class="box"></td>
+              <td class="text">No data</td>
+            </tr>
+          </table>
+        </ng-container>
+        <ng-container *ngIf="cardData.file == 'mp3'">
+          <span class="map_legend_title">Legend (Type)</span>
+          <table class="map_legend_table">
+            <col width="16">
+            <col width="">
+            <tr class="value7 row">
+              <td class="box"></td>
+              <td class="text">Allotments</td>
+            </tr>
+            <tr class="value6 row">
+              <td class="box"></td>
+              <td class="text">Farm</td>
+            </tr>
+            <tr class="value5 row">
+              <td class="box"></td>
+              <td class="text">Forest</td>
+            </tr>
+            <tr class="value4 row">
+              <td class="box"></td>
+              <td class="text">Grass</td>
+            </tr>
+            <tr class="value3 row">
+              <td class="box"></td>
+              <td class="text">Meadow</td>
+            </tr>
+            <tr class="value2 row">
+              <td class="box"></td>
+              <td class="text">Orchard</td>
+            </tr>
+            <tr class="value1 row">
+              <td class="box"></td>
+              <td class="text">Park</td>
+            </tr>
+            <tr class="noData row">
+              <td class="box"></td>
+              <td class="text">Not Identified</td>
+            </tr>
+          </table>
+        </ng-container>
+        <ng-container *ngIf="cardData.file == 'mp5'">
+          <div class="content"></div>
+          <div class="labels">
+            <span class="labels_low">Low</span>
+            <span class="labels_mod">Moderate</span>
+            <span class="labels_high">High</span>
+          </div>
+        </ng-container>
+
+      </div>
+      <!-- selection for air quality data -->
+      <ng-container *ngIf="cardData.file == 'mp5'">
+        <div id="mp5filter" class="filter-general">
+          <div class="filter-general_select">
+            <select id="mp5select">
+              <option value="PM1">PM1</option>
+              <option value="PM2.5">PM2.5</option>
+              <option value="PM10">PM10</option>
+              <option value="UFP">UFP</option>
+              <option value="Ozone">Ozone</option>
+              <option value="NO2">NO2</option>
+            </select>
+            <div class="filter-arrow"></div>
+          </div>
+        </div>
+      </ng-container>
+      <!-- Ends-Only for "map" visualizations -->
+
+      <i class="dataCard_item_infoBtn fas fa-info-circle fa-lg" aria-selected="false" (click)="updateAriaSelected()"></i>
+
+      <!-- Ends-Only for visualizations -->
+    </ng-container>
+  </ng-container>
+  <!-- if card is visualization it gets an extra class -->
+  <div class="card-info {{getVisualizationTypeForClass()}}" [attr.aria-hidden]="cardInfoAria">
+    <ul class="card-info-content">
+      <li class="card-description">
+        <div class="descImage" *ngIf="cardData.type != 'Visualization'">
+
+          <!-- TODO: consider different extensions -->
+          <ng-container *ngIf="cardData.image != ''; else otherBackgroundImg">
+            <span class="descImage_inner" [ngStyle]="{ 'background-image': 'url(../../../assets/images/data/' + cardData.image + '.png)'}"></span>
+          </ng-container>
+          <ng-template #otherBackgroundImg>
+            <ng-container *ngIf="cardData.type == 'link'; else typeDataset">
+              <span class="descImage_inner" style="background-image: url(../../../assets/images/data/link.png)"></span>
+            </ng-container>
+            <ng-template #typeDataset>
+              <ng-container *ngIf="cardData.type == 'dataset'">
+                <span class="descImage_inner" style="background-image: url(../../../assets/images/data/dataset.png)"></span>
+              </ng-container>
+            </ng-template>
+          </ng-template>
+        </div>
+        <p>{{cardData.description}}</p>
+      </li>
+      <li class="card-contributor">
+        <div class="descHinder"></div>
+        <div class="post">
+          <p class="post_title">Posted on <span class="post_date">{{dateTimePosted}}</span></p>
+
+        </div>
+        <div class="user">
+          <span class="user_image">
+            <!-- TODO consider different extensions -->
+            <span class="avatar-s" style="background-image: url(../../../assets/images/avatar/user.png)"></span>
+          </span>
+          <!-- TODO add actual organizations name -->
+          <span class="user_text">Organization's name</span>
+          <div class="hinder"></div>
+        </div>
+      </li>
+      <li class="card-action">
+        <div class="action-left">
+          <div class="access">
+                          <span class="access_icon">
+                            <i class="fas fa-globe"></i>
+                          </span>
+            <span class="access_text">Public</span>
+          </div>
+          <!-- add download later -->
+          <ng-container *ngIf="cardData.type == 'Link' || cardData.type == 'Web Page' || cardData.type == 'Image/Graphic' else otherType">
+            <a href="{{cardData.file}}>" class="link-download" target="_blank">
+              <div class="icon">
+                <i class="fa fa-external-link-alt"></i>
+              </div>
+              <div class="format">
+                <p class="format_header">Format: </p>
+                <p class="format_name">{{cardData.format}}</p>
+              </div>
+            </a>
+          </ng-container>
+          <ng-template #otherType>
+            <a href="assets/datasets/{{cardData.file}}.{{cardData.format}}" class="link-download" download="{{cardData.id}}" >
+              <div class="icon">
+                <i class="fas fa-download"></i>
+              </div>
+              <div class="format">
+                <span class="format_header">Format: </span>
+                <span class="format_name">{{cardData.format}}</span>
+              </div>
+            </a>
+          </ng-template>
+        </div>
+        <div class="action-right">
+          <div class="contact" aria-disabled="true">
+            <!-- add action here later -->
+            <i class="fas fa-envelope"></i>
+          </div>
+        </div>
+        <div class="hinder"></div>
+      </li>
+      <li class="card-source">
+        <p class="header">Source:</p>
+        <p class="content">{{cardData.source}}</p>
+      <span class="hinder"></span>
+    </li>
+    </ul>
+  </div>
+</div>
