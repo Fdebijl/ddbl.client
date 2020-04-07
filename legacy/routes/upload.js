@@ -5,7 +5,7 @@ const express = require("express");
 const metadata = require("../models/metadata");
 const Users = require("../models/users");
 //remove validation for now
-//const { check, validationResult} = require("express-validator/check"); 
+//const { check, validationResult} = require("express-validator/check");
 const directory = require("../models/directories");
 const jwt = require("jsonwebtoken");
 
@@ -29,11 +29,11 @@ router.get('/', async (req, res) => {
 
     const token = req.cookies.jwt || "";
     const decoded = jwt.verify(token, "secret");
-    req.user = decoded.user;
+    req.email = decoded.user;
     userId = await Users.findById(req.user.id);
 
     console.log(userId);
-    
+
   } catch (e) {
     res.send({ message: "Error in Fetching user" });
   }
@@ -82,7 +82,7 @@ router.post(
         //const createdAt = moment().format('YYYY-MM-DD HH:mm:ss');
 
         try {
-            
+
             meta = new metadata({
                 'title': dataTitle,
                 'year': dataYear,
@@ -100,7 +100,7 @@ router.post(
                 //'created > default'
             });
 
-            
+
             await meta.save();
 
             console.log(userId);

@@ -3,9 +3,9 @@
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login" [ngClass]="loading ? 'loading' : 'idle'">
     <div class="login_input">
       <h1 class="title">Log in</h1>
-      <label for="username" class="inputTitle"><b>Email</b></label>
-      <input type="text" placeholder="Enter email address" id="username" name="username" id="username" formControlName="username" required>
-      <div class="login_input_errorMsg" style="margin-bottom: 12px;" *ngIf="message.user">{{message.user}}}}</div>
+      <label for="email" class="inputTitle"><b>Email</b></label>
+      <input type="text" placeholder="Enter email address" id="email" name="username" formControlName="email" required>
+      <div class="login_input_errorMsg" style="margin-bottom: 12px;" *ngIf="message.email">{{message.email}}}}</div>
 
       <label for="password" class="inputTitle"><b>Password</b></label>
       <input type="password" placeholder="Enter password" id="password" name="password" formControlName="password" required>

@@ -1,24 +1,24 @@
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register">
   <div class="register_input">
     <h1 class="title">Register</h1>
-    <label class="inputTitle required"><b>Email</b></label>
-    <input type="text" placeholder="Enter email address" name="email" required>
+    <label for="email" class="inputTitle required"><b>Email</b></label>
+    <input type="text" placeholder="Enter email address" name="email" id="email" required formControlName="email">
     <div class="register_input_errorMsg" style="margin-bottom: 12px;" *ngIf="message.email">{{message.email}}</div>
 
-    <label class="inputTitle required"><b>Display name</b></label>
-    <input type="text" placeholder="Enter display name" name="displayName" required>
+    <label for="displayName" class="inputTitle required"><b>Display name</b></label>
+    <input type="text" placeholder="Enter display name" name="displayName" id="displayName" required formControlName="displayName">
     <div class="register_input_errorMsg" *ngIf="message.displayName">{{message.displayName}}</div>
 
-    <label class="inputTitle"><b>Bio</b></label>
-    <input type="text" placeholder="Enter bio" name="bio" required>
+    <label for="bio" class="inputTitle"><b>Bio</b></label>
+    <input type="text" placeholder="Enter bio" name="bio" id="bio" formControlName="bio">
     <div class="register_input_errorMsg" *ngIf="message.bio">{{message.bio}}</div>
 
-    <label class="inputTitle"><b>Affiliation</b></label>
-    <input type="text" placeholder="Enter affiliation" name="affiliation" required>
+    <label for="affiliation" class="inputTitle"><b>Affiliation</b></label>
+    <input type="text" placeholder="Enter affiliation" name="affiliation" id="affiliation" formControlName="affiliation">
     <div class="register_input_errorMsg" *ngIf="message.affiliation">{{message.affiliation}}</div>
 
-    <label class="inputTitle required"><b>Password</b></label>
-    <input type="password" placeholder="Enter password" name="password" required>
+    <label for="password" class="inputTitle required"><b>Password</b></label>
+    <input type="password" placeholder="Enter password" name="password" id="password" required formControlName="password">
     <div class="register_input_errorMsg" *ngIf="message.password">{{message.password}}</div>
 
     <p class="inputTitle">* Required fields</p>

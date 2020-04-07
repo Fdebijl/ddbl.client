@@ -80,7 +80,7 @@ router.post(
             await user.save();
 
             const payload = {
-                user: {
+                email: {
                     id: user.id
                 }
             };
@@ -133,7 +133,7 @@ router.post(
       });
       if (!user) {
         res.render('user/login',{
-           messageUser :"User Not Exist", messagePassword : '', messageError: "", css: css, js: js, img: img, avtimg: avtimg, dtimg: dtimg, dt: dt, username: undefined
+           messageUser :"User Not Exist", messagePassword : '', messageError: "", css: css, js: js, img: img, avtimg: avtimg, dtimg: dtimg, dt: dt, email: undefined
         });
       }
         // return res.status(400).json({
@@ -143,7 +143,7 @@ router.post(
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
         res.render('user/login',{
-           messageUser :"", messagePassword : 'Incorrect Password', messageError: "", css: css, js: js, img: img, avtimg: avtimg, dtimg: dtimg, dt: dt, username: undefined
+           messageUser :"", messagePassword : 'Incorrect Password', messageError: "", css: css, js: js, img: img, avtimg: avtimg, dtimg: dtimg, dt: dt, email: undefined
         });
       }
         // return res.status(400).json({
@@ -151,7 +151,7 @@ router.post(
         // });
 
       const payload = {
-        user: {
+        email: {
           id: user.id
         }
       };
@@ -209,7 +209,7 @@ router.get("/me", auth, async (req, res) => {
     console.log(user.name);
     //res.json(user);
     res.render('user/me', {
-           css: css, js: js, img: img, avtimg: avtimg, dtimg: dtimg, dt: dt, username: username
+           css: css, js: js, img: img, avtimg: avtimg, dtimg: dtimg, dt: dt, email: username
       });
   } catch (e) {
     res.send({ message: "Error in Fetching user" });

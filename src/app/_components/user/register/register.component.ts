@@ -46,6 +46,12 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.message.email = null;
+    this.message.displayName = null;
+    this.message.bio = null;
+    this.message.affiliation = null;
+    this.message.password = null;
+    this.message.generic = null;
     this.submitted = true;
     this.loading = true;
 
@@ -55,8 +61,9 @@ export class RegisterComponent implements OnInit {
       .then(() => {
           this.router.navigate(['/login?action=postcreation']);
       })
-      .catch(() => {
-        this.message.generic = 'Some input fields are invalid. Please check form.';
+      .catch((error) => {
+        // Failed login
+        this.message.generic = error?.message || 'Invalid email or password';
 
         setTimeout(() => {
           this.message.generic = null;
