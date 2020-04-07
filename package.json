@@ -7,6 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
+    "lintfix": "eslint --fix-dry-run src/app",
     "e2e": "ng e2e",
     "deploy": "npm run test && npm run e2e && npm run build"
   },
