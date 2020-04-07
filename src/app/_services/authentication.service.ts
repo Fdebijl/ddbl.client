@@ -3,8 +3,9 @@ import { ajaxPost } from 'rxjs/internal/observable/dom/AjaxObservable';
 import { ajax } from 'rxjs/ajax';
 
 import { environment } from '../../environments/environment';
-import { User } from '../_domain/User';
 import { StorageService } from './storage.service';
+import { User } from '../_domain/User';
+import { GenericError } from '../_domain';
 
 /**
  * The AuthenticationService handles all methods and checks related to logging in and registering.
@@ -34,39 +35,55 @@ export class AuthenticationService {
 
   public async login(username: string, password: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      // TODO: Remove to implement real login
-      const u = new User({
-        id: '000001',
-        displayname: 'Floris de Bijl',
-        username: 'fdebijl',
-        email: 'floris.debijl@gmail.com',
-        token: 'ABC'
-      });
-      this.storageService.user.next(u);
-      resolve();
-      return;
-
-      const url = new URL(`${environment.api_url}/identity/authorize`);
-      url.searchParams.append('userName', username);
-      url.searchParams.append('password', password);
-      fetch(url.toString(), {
+      fetch(`${environment.api_url}/login`, {
         method: 'POST',
         credentials: 'omit',
-        cache: 'no-cache'
+        cache: 'no-cache',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: username,
+          password: password
+        })
       })
-        .then((response) => response.text())
+        .then((response) => response.json())
         .then((data) => {
-          if (data) {
-            this.getUser(data).then((user) => {
-              user.token = data;
-              user.profile_image_url = user.profile_image_url || 'https://pbs.twimg.com/profile_images/874276197357596672/kUuht00m_400x400.jpg';
-              this.storageService.user.next(user);
-              resolve();
+          if (data.error) {
+            reject(data.error as GenericError);
+            return;
+          }
+
+          if (data.user) {
+            const user = new User({
+              id: data.user.id,
+              email: data.user.email,
+              token: data.user.token,
+              tokenExpiration: data.user.tokenExpiration
             })
+
+            this.storageService.user.next(user);
+            resolve();
           } else {
-            reject();
+            reject(new GenericError({
+              name: 'NoContentError',
+              message: 'Could not login due to a server error, please contact support if the issue persists.'
+            }));
           }
         })
+        .catch((error) => {
+          // Check for internet connection
+          if (!navigator.onLine) {
+            reject(new GenericError({
+              name: 'NoNetworkError',
+              message: 'There is no network connection right now. Check your internet connection and try again.'
+            }));
+            return;
+          }
+
+          console.log(error);
+          reject(error);
+        });
     });
   }
 
@@ -88,31 +105,4 @@ export class AuthenticationService {
   public async logout(): Promise<void> {
     return this.storageService.user.clear();
   }
-
-  private async getUser(token: string): Promise<User> {
-    return new Promise((resolve, reject) => {
-      const url = new URL(`${environment.api_url}/identity/getUser`);
-      url.searchParams.append('token', token);
-      ajax({
-        url: url.toString(),
-        withCredentials: false,
-        crossDomain: true,
-        method: 'GET'
-      }).subscribe({
-        error: (error) => {
-          reject();
-        },
-        next: data => {
-          const user = new User({
-            id: data.response.id,
-            username: data.response.userName,
-            displayname: data.response.displayName,
-            email: data.response.email
-          });
-
-          resolve(user);
-        }
-      })
-    });
-  };
 }

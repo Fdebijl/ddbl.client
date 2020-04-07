@@ -1,27 +1,30 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login">
-  <div class="login_input">
-    <h1 class="title">Log in</h1>
-    <label for="email" class="inputTitle"><b>Email</b></label>
-    <input type="text" placeholder="Enter email address" name="email" required>
-    <div class="login_input_errorMsg" style="margin-bottom: 12px;" *ngIf="message.user">{{message.user}}}}</div>
+<div class="uk-flex uk-flex-center uk-flex-middle uk-flex-column ssl-center">
+  <div uk-spinner="ratio: 3" [ngClass]="loading ? 'loading' : 'idle'"></div>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login" [ngClass]="loading ? 'loading' : 'idle'">
+    <div class="login_input">
+      <h1 class="title">Log in</h1>
+      <label for="username" class="inputTitle"><b>Email</b></label>
+      <input type="text" placeholder="Enter email address" id="username" name="username" id="username" formControlName="username" required>
+      <div class="login_input_errorMsg" style="margin-bottom: 12px;" *ngIf="message.user">{{message.user}}}}</div>
 
-    <label for="password" class="inputTitle"><b>Password</b></label>
-    <input type="password" placeholder="Enter password" name="password" required>
-    <div class="login_input_errorMsg" *ngIf="message.password">{{message.password}}</div>
+      <label for="password" class="inputTitle"><b>Password</b></label>
+      <input type="password" placeholder="Enter password" id="password" name="password" formControlName="password" required>
+      <div class="login_input_errorMsg" *ngIf="message.password">{{message.password}}</div>
 
-    <input type="submit" class="basic-button blue" style="margin-top: 24px;" value="Log in" />
-    <!--  <label class="rememberme">
-      <input type="checkbox" checked="" name="remember"> Remember me
-    </label> -->
+      <input type="submit" class="basic-button blue" style="margin-top: 24px;" value="Log in" />
+      <!--  <label class="rememberme">
+        <input type="checkbox" checked="" name="remember"> Remember me
+      </label> -->
 
-    <div class="login_input_errorMsg" style="margin-top: 12px;" *ngIf="message.generic">{{message.generic}}</div>
-  </div>
-  
-  <div class="login_alt">
-    <a href="#" type="button" class="login_alt_cancel">Cancel</a>
-    <span class="login_alt_sep">&nbsp;|&nbsp;</span>
-    <a href="#" class="login_alt_cancel">Forgot password?</a>
-  </div>
+      <div class="login_input_errorMsg" style="margin-top: 12px;" *ngIf="message.generic">{{message.generic}}</div>
+    </div>
+    
+    <div class="login_alt">
+      <a href="#" type="button" class="login_alt_cancel">Cancel</a>
+      <span class="login_alt_sep">&nbsp;|&nbsp;</span>
+      <a href="#" class="login_alt_cancel">Forgot password?</a>
+    </div>
 
-  <div class="login_errorMsg" aria-hidden="true">Email or password is not correct</div>
-</form>
+    <div class="login_errorMsg" aria-hidden="true">Email or password is not correct</div>
+  </form>
+</div>

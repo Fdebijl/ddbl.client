@@ -11,11 +11,11 @@
         DataSystem
       </div>
       <div class="l-header_content_right_options">
-        <a href="/user/me">
+        <a href="/user/me" title="Profile">
           <div class="control-icon">
             <i class="far fa-user-circle"></i>
           </div>
-          <span class="user-name">{{user.username || ''}}</span>
+          <span class="user-name" *ngIf="showUser">{{user.displayname || ''}}</span>
         </a>
         <div class="control-icon">
           <i class="fas fa-bars fa-lg"></i>
