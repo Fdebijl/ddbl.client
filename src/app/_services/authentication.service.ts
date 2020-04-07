@@ -54,14 +54,16 @@ export class AuthenticationService {
             return;
           }
 
-          if (data) {
+          if (data.user) {
+            const user = new User({
+              id: data.user.id,
+              email: data.user.email,
+              token: data.user.token,
+              tokenExpiration: data.user.tokenExpiration
+            })
+
+            this.storageService.user.next(user);
             resolve();
-            // TODO: Add once getUsers works
-            // this.getUser(data).then((user) => {
-            //   user.token = data;
-            //   this.storageService.user.next(user);
-            //   resolve();
-            // })
           } else {
             reject(new GenericError({
               name: 'NoContentError',
@@ -103,29 +105,4 @@ export class AuthenticationService {
   public async logout(): Promise<void> {
     return this.storageService.user.clear();
   }
-
-  private async getUser(token: string): Promise<User> {
-    return new Promise((resolve, reject) => {
-      const url = new URL(`${environment.api_url}/identity/getUser`);
-      url.searchParams.append('token', token);
-      ajax({
-        url: url.toString(),
-        withCredentials: false,
-        crossDomain: true,
-        method: 'GET'
-      }).subscribe({
-        error: (error) => {
-          reject();
-        },
-        next: data => {
-          // TODO: Implement getUser once the API has this functionality
-          const user = new User({
-            id: data.response.id,
-          });
-
-          resolve(user);
-        }
-      })
-    });
-  };
 }
