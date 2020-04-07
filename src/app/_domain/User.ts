@@ -12,12 +12,12 @@ export class User {
     this.affiliation = affiliation;
   }
 
-  public id: string;
-  public email: string;
-  public displayname: string;
-  public password?: string;
-  public token: string;
-  public tokenExpiration: Date;
-  public bio?: string;
-  public affiliation?: string;
+  public id: string
+  public email: string
+  public displayname: string
+  public password?: string
+  public token: string
+  public tokenExpiration: Date
+  public bio?: string
+  public affiliation?: string
 }
