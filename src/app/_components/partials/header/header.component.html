@@ -3,7 +3,7 @@
   <div class="l-header_content">
     <div class="l-header_content_left">
       <a href="/">
-        <!-- <img REF SRC LOGO HERE alt="Vitality Living Lab logo" height="56px"> -->
+        <img src="/assets/images/VLL_logo.png" alt="Vitality Living Lab logo" height="56px">
       </a>
     </div>
     <div class="l-header_content_right">
@@ -11,11 +11,11 @@
         DataSystem
       </div>
       <div class="l-header_content_right_options">
-        <a href="/user/login">
+        <a href="/user/me">
           <div class="control-icon">
             <i class="far fa-user-circle"></i>
           </div>
-          <span class="user-name"><!-- REF USERNAME HERE --></span>
+          <span class="user-name">{{user.username || ''}}</span>
         </a>
         <div class="control-icon">
           <i class="fas fa-bars fa-lg"></i>

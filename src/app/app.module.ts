@@ -24,9 +24,10 @@ import { CardComponent } from './_components/card/card.component';
     ErrorComponent,
     LoginComponent,
     ProfileComponent,
-    SuccessComponent,
     VisComponentComponent,
     CardComponent,
+    UploadComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
