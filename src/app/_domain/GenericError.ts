@@ -1,11 +1,15 @@
 export class GenericError {
-  public message: string | undefined;
-  public status: string | undefined;
-  public stack: string | undefined;
+  public name?: string;
+  public message?: string;
+  public statusCode?: string;
+  public stack?: string;
 
-  constructor({message, status, stack}: {message?: string; status?: string; stack?: string}) {
+  constructor({name, message, statusCode, stack}: {name?: string; message?: string; statusCode?: string; stack?: string}) {
+    this.name = name;
     this.message = message;
-    this.status = status;
+    this.statusCode = statusCode;
     this.stack = stack;
   }
 }
+
+//{"statusCode":403,"name":"ForbiddenError","message":"Username and/or password combination incorrect"}}

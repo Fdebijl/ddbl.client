@@ -5,6 +5,7 @@ import { ajax } from 'rxjs/ajax';
 import { environment } from '../../environments/environment';
 import { StorageService } from './storage.service';
 import { User } from '../_domain/User';
+import { GenericError } from '../_domain';
 
 /**
  * The AuthenticationService handles all methods and checks related to logging in and registering.
@@ -46,18 +47,41 @@ export class AuthenticationService {
           password: password
         })
       })
-        .then((response) => response.text())
+        .then((response) => response.json())
         .then((data) => {
+          if (data.error) {
+            reject(data.error as GenericError);
+            return;
+          }
+
           if (data) {
-            this.getUser(data).then((user) => {
-              user.token = data;
-              this.storageService.user.next(user);
-              resolve();
-            })
+            resolve();
+            // TODO: Add once getUsers works
+            // this.getUser(data).then((user) => {
+            //   user.token = data;
+            //   this.storageService.user.next(user);
+            //   resolve();
+            // })
           } else {
-            reject();
+            reject(new GenericError({
+              name: 'NoContentError',
+              message: 'Could not login due to a server error, please contact support if the issue persists.'
+            }));
           }
         })
+        .catch((error) => {
+          // Check for internet connection
+          if (!navigator.onLine) {
+            reject(new GenericError({
+              name: 'NoNetworkError',
+              message: 'There is no network connection right now. Check your internet connection and try again.'
+            }));
+            return;
+          }
+
+          console.log(error);
+          reject(error);
+        });
     });
   }
 

@@ -9,6 +9,7 @@ import { StorageService } from 'src/app/_services';
 })
 export class HeaderComponent implements OnInit {
   user: User;
+  showUser: boolean;
 
   constructor(
     private storageService: StorageService
@@ -16,8 +17,12 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.storageService.user.getValue();
+    this.showUser = !!this.user;
     this.storageService.user.subscribe({
-      next: user => this.user = user
+      next: user => {
+        this.user = user
+        this.showUser = !!this.user;
+      }
     })
   }
 

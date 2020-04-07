@@ -58,3 +58,39 @@
   text-decoration: none;
   color: #666;
 }
+
+[uk-spinner] {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  z-index: 100;
+  background: rgba(0,0,0,0.5);
+  color: #FFF;
+}
+
+[uk-spinner] svg,
+[uk-spinner] svg > circle {
+  color: #FFF !important;
+  stroke-width: 1px;
+}
+
+[uk-spinner].idle {
+  display: none !important;
+}
+
+[uk-spinner].loading {
+  display: flex !important;
+}
+
+form.loading {
+  filter: blur(15px);
+}
+
+form.idle {
+  filter: blur(0px);
+}

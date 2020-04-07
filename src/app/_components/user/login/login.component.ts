@@ -61,23 +61,28 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.message.user = null;
+    this.message.password = null;
+    this.message.generic = null;
     this.submitted = true;
     this.loading = true;
 
     this.authenticationService.login(this.f.username.value, this.f.password.value)
       .then(() => {
+        // On succesfull login
         if (this.redirectTo) {
           this.router.navigate([this.redirectTo]);
         } else {
           this.router.navigate(['/']);
         }
       })
-      .catch(() => {
-        this.message.generic = 'Invalid username or password';
+      .catch((error) => {
+        // Failed login
+        this.message.generic = error?.message || 'Invalid username or password';
 
         setTimeout(() => {
           this.message.generic = null;
-        }, 10000);
+        }, 15 * 1000);
       })
       .finally(() => {
         this.submitted = false;
