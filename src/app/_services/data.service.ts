@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import {Metadata} from '../_domain/metadata';
+import {Metadata} from '../_domain/Metadata';
 import {ajax} from 'rxjs/ajax';
 import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DataServiceService {
+export class DataService {
   // TODO Set endpoints
   constructor(private storageService: StorageService) { }
 
@@ -20,7 +20,7 @@ export class DataServiceService {
         crossDomain: true,
         method: 'GET'
       }).subscribe({
-        error: (error) => {
+        error: () => {
           reject();
         },
         next: data => {
@@ -41,12 +41,12 @@ export class DataServiceService {
         crossDomain: true,
         method: 'GET'
       }).subscribe({
-        error: (error) => {
+        error: () => {
           reject();
         },
         next: data => {
           // TODO see which data
-
+          data.status;
           resolve('Return json');
         }
       });

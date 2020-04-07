@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import {Metadata} from '../../_domain/metadata';
-import {MongodbService} from '../../_services/mongodb.service';
+import { Metadata, MongoUser} from '../../_domain';
+import { MongodbService } from '../../_services';
 import * as moment from 'moment';
-import {MongoUser} from '../../_domain/mongoUser';
 
 declare function mpOverlay(baseMapId, overlayContId, Base, zoomLev, lat, lon);
 
 @Component({
   selector: 'app-vis-component',
-  templateUrl: './vis-component.component.html',
-  styleUrls: ['./vis-component.component.scss']
+  templateUrl: './vis.component.html',
+  styleUrls: ['./vis.component.scss']
 })
-export class VisComponentComponent implements OnInit {
+export class VisComponent implements OnInit {
 
-  constructor(private newService: MongodbService, ) { }
+  constructor(private newService: MongodbService) { }
 
   public mpNum: Metadata;
   public mp1Num: Metadata;
@@ -23,12 +22,13 @@ export class VisComponentComponent implements OnInit {
   public dateTimePosted: string;
   public contributor: MongoUser;
 
-  public getContributor() {
+  public getContributor(): void {
     this.newService.GetUserById(this.mpNum.contributor.toString()).then( data => {
-      this.contributor = data;
+      this.contributor = data as MongoUser;
     });
   }
-  private splitDataArrayToObjects(data: Array<Metadata>) {
+
+  private splitDataArrayToObjects(data: Array<Metadata>): void {
     console.log(data.length);
     for (let i = 0, len = data.length; i < len; i++) {
       console.log(data[i].file);
@@ -54,7 +54,8 @@ export class VisComponentComponent implements OnInit {
       }
     }
   }
-  private setOverlayContent() {
+
+  private setOverlayContent(): void {
     switch (this.mpNum.id) {
       case this.mp1Num.id: {
         // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
@@ -82,7 +83,7 @@ export class VisComponentComponent implements OnInit {
         break; }
     }
   }
-  private processData(data: Array<Metadata>) {
+  private processData(data: Array<Metadata>): void {
     this.splitDataArrayToObjects(data);
     this.setOverlayContent();
   }
@@ -92,7 +93,7 @@ export class VisComponentComponent implements OnInit {
     this.dateTimePosted = moment(this.mpNum.created).format('ll');
     this.newService.GetMetadataVis().then(data => {
       console.log(data);
-      this.processData(data);
+      this.processData(data as Metadata[]);
     });
     this.getContributor();
   }

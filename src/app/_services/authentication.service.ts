@@ -91,10 +91,10 @@ export class AuthenticationService {
       ajaxPost(`${environment.api_url}/user/register`, {username, firstName, lastName, password}, {
         'Content-Type': 'application/json'
       }).subscribe({
-        error: error => {
+        error: () => {
           reject();
         },
-        next: data => {
+        next: () => {
           resolve();
         }
       })

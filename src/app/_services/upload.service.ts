@@ -5,9 +5,7 @@ import {ajaxPost} from 'rxjs/internal/observable/dom/AjaxObservable';
 @Injectable({
   providedIn: 'root'
 })
-export class UploadServiceService {
-  constructor() { }
-
+export class UploadService {
   // Post metadata from the form
   public async postFormMetadata(
     dataTitle: string,
@@ -36,10 +34,10 @@ export class UploadServiceService {
       }, {
         'Content-Type': 'application/json'
       }).subscribe({
-        error: error => {
+        error: () => {
           reject();
         },
-        next: data => {
+        next: () => {
           resolve();
         }
       });

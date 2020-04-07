@@ -1,10 +1,9 @@
 /* eslint-disable */
 
 const express = require('express');
-const path = require('path');
 const bodyParser = require('body-parser');
 const mongo = require('mongoose');
-
+const cors = require('cors');
 
 const db = mongo.connect("mongodb://localhost:27017/VLLDataSystem", function (err, response) {
   if (err){
@@ -14,18 +13,11 @@ const db = mongo.connect("mongodb://localhost:27017/VLLDataSystem", function (er
   }
 });
 
-let app = express()
+const app = express()
 app.use(bodyParser());
 app.use(bodyParser.json({limit:'5mb'}));
 app.use(bodyParser.urlencoded({extended: true}));
-
-app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  next();
-});
+app.use(cors({credentials: true, origin: true}));
 
 const Schema = mongo.Schema;
 const ObjectId = Schema.Types.ObjectId;
@@ -130,5 +122,5 @@ app.get("/api/getUserById", function (req,res) {
 })
 
 app.listen(6969, function () {
-  console.log('Example app listening on port 8080!')
+  console.log('VLL DS Mockserver listening on port 8080!')
 })

@@ -7,11 +7,19 @@ import { GenericError } from 'src/app/_domain';
   styleUrls: ['./error.component.scss']
 })
 export class ErrorComponent implements OnInit {
-  error: GenericError;
-
-  constructor() { }
-
-  ngOnInit(): void {
+  error: GenericError = {
+    name: 'PlaceHolder',
+    message: 'Placeholder',
+    statusCode: '200',
+    stack: 'placeholder'
   }
 
+  constructor() {
+    return;
+  }
+
+  ngOnInit(): void {
+    return;
+  }
+  // TODO: Add error input;
 }

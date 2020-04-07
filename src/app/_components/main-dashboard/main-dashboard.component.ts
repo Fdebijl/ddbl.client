@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Metadata} from '../../_domain/metadata';
-import {MongodbService} from '../../_services/mongodb.service';
-import {Meta} from '@angular/platform-browser';
+import { Metadata } from '../../_domain/Metadata';
+import { MongodbService } from '../../_services/mongodb.service';
 
 declare function mp1(zoomLev, lat, lon);
 declare function mp2(zoomLev, lat, lon);
@@ -29,7 +28,7 @@ export class MainDashboardComponent implements OnInit {
   public filterType = '';
   public filterAgeGroup = '';
 
-  private loadMaps() {
+  private loadMaps(): void {
     mp1(11, 51.46, 5.450);
     mp2(11, 51.46, 5.450);
     mp3(11, 51.46, 5.450);
@@ -39,18 +38,22 @@ export class MainDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.newService.GetMetadata().then(data => {this.allData = data; this.showData = data});
+    this.newService.GetMetadata().then(data => {
+      this.allData = data as Metadata[];
+      this.showData = data as Metadata[];
+    });
+
     setTimeout(() => {
       this.loadMaps();
     }, 1000)
   }
 
-  public saveObjForVisualizationPage(id: string) {
+  public saveObjForVisualizationPage(id: string): void {
     const obj = this.allData.find(x => x.id === id);
     localStorage.setItem('visData', JSON.stringify(obj));
   }
 
-  public filterCards() {
+  public filterCards(): void {
     const cardList = [];
     const input = this.filterInput;
     const cat = this.filterCategory;
@@ -75,5 +78,4 @@ export class MainDashboardComponent implements OnInit {
     this.showData = cardList;
     console.log('items: ' + this.showData.length);
   }
-
 }

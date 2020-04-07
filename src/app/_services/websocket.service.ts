@@ -5,8 +5,6 @@ import * as Rx from 'rxjs';
   providedIn: 'root'
 })
 export class WebsocketService {
-  constructor() { }
-
   private subject: Rx.Subject<MessageEvent>;
 
   // Singleton om een websocketverbinding tot stand te brengen en terug te geven
@@ -34,7 +32,7 @@ export class WebsocketService {
       });
     // creer een event om berichten te kunnen versturen
     const observer = {
-      next: (data: Object) => {
+      next: (data: object): void => {
         if (ws.readyState === WebSocket.OPEN) {
           ws.send(JSON.stringify(data));
         }

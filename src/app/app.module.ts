@@ -5,7 +5,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MainDashboardComponent, UploadComponent, RegisterComponent, ProfileComponent, LoginComponent, CardGenericComponent, ErrorComponent, CardVisualisationComponent, VisComponentComponent } from './_components';
+import { MainDashboardComponent, UploadComponent, RegisterComponent, ProfileComponent, LoginComponent, CardGenericComponent, ErrorComponent, CardVisualisationComponent, VisComponent } from './_components';
 import { FooterComponent, HeaderComponent } from './_components/partials';
 import { MongodbService } from './_services/mongodb.service';
 
@@ -22,7 +22,7 @@ import { MongodbService } from './_services/mongodb.service';
     ProfileComponent,
     UploadComponent,
     RegisterComponent,
-    VisComponentComponent,
+    VisComponent,
   ],
   imports: [
     BrowserModule,

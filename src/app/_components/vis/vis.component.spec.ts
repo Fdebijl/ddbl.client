@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VisComponentComponent } from './vis-component.component';
+import { VisComponent } from './vis.component';
 
-describe('VisComponentComponent', () => {
-  let component: VisComponentComponent;
-  let fixture: ComponentFixture<VisComponentComponent>;
+describe('VisComponent', () => {
+  let component: VisComponent;
+  let fixture: ComponentFixture<VisComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VisComponentComponent ]
+      declarations: [ VisComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VisComponentComponent);
+    fixture = TestBed.createComponent(VisComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

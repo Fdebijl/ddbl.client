@@ -1,4 +1,4 @@
-import {MongoUser} from './mongoUser';
+import { MongoUser } from './';
 
 export class Metadata {
   id: string;
