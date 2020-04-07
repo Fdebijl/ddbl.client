@@ -16,11 +16,13 @@
 
     <div class="login_input_errorMsg" style="margin-top: 12px;" *ngIf="message.generic">{{message.generic}}</div>
   </div>
-  
+
   <div class="login_alt">
-    <a href="#" type="button" class="login_alt_cancel">Cancel</a>
+    <a routerLink="/" type="button" class="login_alt_cancel">Cancel</a>
     <span class="login_alt_sep">&nbsp;|&nbsp;</span>
     <a href="#" class="login_alt_cancel">Forgot password?</a>
+    <span class="login_alt_sep">&nbsp;|&nbsp;</span>
+    <a routerLink="/register" class="login_alt_cancel">Register</a>
   </div>
 
   <div class="login_errorMsg" aria-hidden="true">Email or password is not correct</div>

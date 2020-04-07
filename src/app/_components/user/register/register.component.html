@@ -1,39 +1,38 @@
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="login">
-  <div class="login_input">
-    <h1 class="title">Log in</h1>
-    <label class="inputTitle"><b>Email</b></label>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register">
+  <div class="register_input">
+    <h1 class="title">Register</h1>
+    <label class="inputTitle required"><b>Email</b></label>
     <input type="text" placeholder="Enter email address" name="email" required>
-    <div class="login_input_errorMsg" style="margin-bottom: 12px;" *ngIf="message.email">{{message.email}}</div>
+    <div class="register_input_errorMsg" style="margin-bottom: 12px;" *ngIf="message.email">{{message.email}}</div>
 
-    <label class="inputTitle"><b>Display name</b></label>
+    <label class="inputTitle required"><b>Display name</b></label>
     <input type="text" placeholder="Enter display name" name="displayName" required>
-    <div class="login_input_errorMsg" *ngIf="message.displayName">{{message.displayName}}</div>
+    <div class="register_input_errorMsg" *ngIf="message.displayName">{{message.displayName}}</div>
 
     <label class="inputTitle"><b>Bio</b></label>
     <input type="text" placeholder="Enter bio" name="bio" required>
-    <div class="login_input_errorMsg" *ngIf="message.bio">{{message.bio}}</div>
+    <div class="register_input_errorMsg" *ngIf="message.bio">{{message.bio}}</div>
 
     <label class="inputTitle"><b>Affiliation</b></label>
     <input type="text" placeholder="Enter affiliation" name="affiliation" required>
-    <div class="login_input_errorMsg" *ngIf="message.affiliation">{{message.affiliation}}</div>
+    <div class="register_input_errorMsg" *ngIf="message.affiliation">{{message.affiliation}}</div>
 
-    <label class="inputTitle"><b>Password</b></label>
+    <label class="inputTitle required"><b>Password</b></label>
     <input type="password" placeholder="Enter password" name="password" required>
-    <div class="login_input_errorMsg" *ngIf="message.password">{{message.password}}</div>
+    <div class="register_input_errorMsg" *ngIf="message.password">{{message.password}}</div>
+
+    <p class="inputTitle">* Required fields</p>
 
     <input type="submit" class="basic-button blue" style="margin-top: 24px;" value="Register" />
-    <!--  <label class="rememberme">
-      <input type="checkbox" checked="" name="remember"> Remember me
-    </label> -->
 
-    <div class="login_input_errorMsg" style="margin-top: 12px;" *ngIf="message.generic">{{message.generic}}</div>
+    <div class="register_input_errorMsg" style="margin-top: 12px;" *ngIf="message.generic">{{message.generic}}</div>
   </div>
 
-  <div class="login_alt">
-    <a href="#" type="button" class="login_alt_cancel">Cancel</a>
-    <span class="login_alt_sep">&nbsp;|&nbsp;</span>
-    <a href="#" class="login_alt_cancel">Forgot password?</a>
+  <div class="register_alt">
+    <a routerLink="/" type="button" class="register_alt_cancel">Cancel</a>
+    <span class="register_alt_sep">&nbsp;|&nbsp;</span>
+    <a routerLink="/login" class="register_alt_cancel">Already an account? Login.</a>
   </div>
 
-  <div class="login_errorMsg" aria-hidden="true">Email or password is not correct</div>
+  <div class="register_errorMsg" aria-hidden="true">Some input fields are invalid</div>
 </form>

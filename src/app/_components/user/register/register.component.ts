@@ -16,9 +16,9 @@ export class RegisterComponent implements OnInit {
   message = {
     email: '',
     displayName: '',
-    password: '',
     bio: '',
     affiliation: '',
+    password: '',
     generic: ''
   };
 
@@ -32,11 +32,11 @@ export class RegisterComponent implements OnInit {
     }
 
     this.registerForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      email: ['', Validators.required],
       displayName: ['', Validators.required],
-      password: ['', Validators.required],
       bio: [''],
-      affiliation: ['']
+      affiliation: [''],
+      password: ['', Validators.required]
     });
   }
 
@@ -49,16 +49,14 @@ export class RegisterComponent implements OnInit {
     this.submitted = true;
     this.loading = true;
 
-    this.authenticationService.login(this.f.username.value, this.f.password.value)
+    this.authenticationService.register(
+      this.f.email.value, this.f.displayName.value, this.f.bio.value, this.f.affiliation.value, this.f.password.value
+    )
       .then(() => {
-        if (this.redirectTo) {
-          this.router.navigate([this.redirectTo]);
-        } else {
-          this.router.navigate(['/']);
-        }
+          this.router.navigate(['/login?action=postcreation']);
       })
       .catch(() => {
-        this.message.generic = 'Invalid username or password';
+        this.message.generic = 'Some input fields are invalid. Please check form.';
 
         setTimeout(() => {
           this.message.generic = null;

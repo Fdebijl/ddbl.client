@@ -61,9 +61,9 @@ export class AuthenticationService {
     });
   }
 
-  public async register(username: string, firstName: string, lastName: string, password: string): Promise<void> {
+  public async register(username: string, displayName: string, bio: string, affiliation: string, password: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      ajaxPost(`${environment.api_url}/user/register`, {username, firstName, lastName, password}, {
+      ajaxPost(`${environment.api_url}/user/register`, {username, displayName, bio, affiliation, password}, {
         'Content-Type': 'application/json'
       }).subscribe({
         error: error => {

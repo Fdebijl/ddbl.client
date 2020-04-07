@@ -1,0 +1,45 @@
+.register {
+  margin: 0 auto;
+  padding: 80px 24px 40px 24px;
+  width: 400px;
+  margin-left: calc(50% - 240px);
+}
+
+@media screen and (max-width: 528px) {
+  .register {
+    padding: 40px 24px 30px 24px;
+    width: 100%;
+  }
+}
+
+.register_input .title {
+  font-size: 32px;
+  font-weight: lighter;
+}
+
+.register_input .inputTitle {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  color: #999;
+}
+
+.register_input_errorMsg {
+  color: red;
+  font-size: 12px;
+}
+
+.register_alt {
+  font-size: 14px;
+  margin-top: 20px;
+  text-align: right;
+}
+
+.register_alt a {
+  text-decoration: none;
+  color: #666;
+}
+
+.required b:after{
+  content: ' \002A';
+}
