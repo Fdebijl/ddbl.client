@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // convenience getter for easy access to form fields
+  // Convenience getter for easy access to form fields
   get f(): { [key: string]: AbstractControl } {
     return this.loginForm.controls;
   }

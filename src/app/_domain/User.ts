@@ -1,20 +1,23 @@
 export class User {
-  constructor({id, username, displayname, profile_image_url, email, token}: {id?: string; username?: string; displayname?: string; profile_image_url?: string; email?: string; token?: string}) {
+  constructor(
+    {id, email, displayname, password, token, tokenExpiration, bio, affiliation}:
+    {id?: string; email?: string; displayname?: string; password?: string; token?: string; tokenExpiration?: Date; bio?: string; affiliation?: string}) {
     this.id = id;
-    this.username = username;
-    this.displayname = displayname;
-    this.profile_image_url = profile_image_url;
     this.email = email;
+    this.displayname = displayname;
+    this.password = password;
     this.token = token;
+    this.tokenExpiration = tokenExpiration;
+    this.bio = bio;
+    this.affiliation = affiliation;
   }
 
-  public id: string;
-  public username: string;
-  public password: string;
-  public email: string;
-  public displayname: string;
-  public profile_image_url: string;
-  public token: string;
+  public id: string
+  public email: string
+  public displayname: string
+  public password?: string
+  public token: string
+  public tokenExpiration: Date
+  public bio?: string
+  public affiliation?: string
 }
-
-// TODO: Rewrite voor VLLDS
