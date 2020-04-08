@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {Metadata} from '../../_domain/metadata';
+import {Metadata} from '../../_domain/Metadata';
 import * as moment from 'moment';
 
 declare function mp1(zoomLev, lat, lon);
@@ -14,7 +14,9 @@ declare function ln1();
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-  constructor() { }
+  constructor() {
+    return;
+  }
 
   @Input() cardData: Metadata;
   public dateTimePosted: string;
@@ -22,11 +24,11 @@ export class CardComponent implements OnInit {
   public cardInfoAria: string;
   public legendHiddenAria: string;
 
-  public saveObjForVisualizationPage() {
+  public saveObjForVisualizationPage(): void {
     localStorage.setItem('visData', JSON.stringify(this.cardData));
   }
 
-  public updateAriaSelected() {
+  public updateAriaSelected(): void {
       if (this.infoSelectAria === 'true') {
         this.infoSelectAria = 'false';
         this.cardInfoAria = 'true';
@@ -47,7 +49,7 @@ export class CardComponent implements OnInit {
     }
   }
 
-  private initForVisualization() {
+  private initForVisualization(): void {
     this.cardInfoAria = 'true';
     this.infoSelectAria = 'false';
     switch (this.cardData.file) {

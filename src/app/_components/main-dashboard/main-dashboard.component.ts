@@ -38,7 +38,10 @@ export class MainDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.newService.GetMetadata().then(data => {this.allData = data; this.showData = data;} );
+    this.newService.GetMetadata().then(data => {
+      this.allData = data as Metadata[];
+      this.showData = data as Metadata[] ;
+    } );
   }
 
   public saveObjForVisualizationPage(id: string): void {
@@ -46,7 +49,7 @@ export class MainDashboardComponent implements OnInit {
     localStorage.setItem('visData', JSON.stringify(obj));
   }
 
-  private filterCat(cat: string, data: Metadata) {
+  private filterCat(cat: string, data: Metadata): boolean {
     if ((data.category === cat || cat === '')) {
       return true;
     } else {
@@ -54,7 +57,7 @@ export class MainDashboardComponent implements OnInit {
     }
   }
 
-  private filterInput(input: string, data: Metadata) {
+  private filterInput(input: string, data: Metadata): boolean {
     if (input === '' || input === undefined || data.title.toLowerCase().includes(input.toLowerCase())) {
       return true;
     } else {
@@ -62,7 +65,7 @@ export class MainDashboardComponent implements OnInit {
       }
     }
 
-  private filterType(type: string, data: Metadata) {
+  private filterType(type: string, data: Metadata): boolean {
     if ((data.type === type || type === '')) {
       return true;
     } else {
@@ -70,7 +73,7 @@ export class MainDashboardComponent implements OnInit {
     }
   }
 
-  private filterAgeGroup(ageGroup: string, data: Metadata) {
+  private filterAgeGroup(ageGroup: string, data: Metadata): boolean {
       if (data.ageGroup === ageGroup || ageGroup === '') {
         return true;
       } else {
@@ -78,7 +81,7 @@ export class MainDashboardComponent implements OnInit {
       }
     }
 
-  public filterCards() {
+  public filterCards(): void {
     const cardList = [];
     const input = this.filterInputString;
     const cat = this.filterCategoryString;
@@ -90,7 +93,7 @@ export class MainDashboardComponent implements OnInit {
     console.log('ageGroup: ' + ageGroup);
     for (const data of this.allData) {
       // TODO make separate functions
-      if ( this.filterInput(input, data) && this.filterCat(cat, data) && this.filterType(type, data)
+      if (this.filterInput(input, data) && this.filterCat(cat, data) && this.filterType(type, data)
         && this.filterAgeGroup(ageGroup, data)) {
         cardList.push(data);
       }

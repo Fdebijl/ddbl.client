@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ajaxPost } from 'rxjs/internal/observable/dom/AjaxObservable';
 
 import { environment } from '../../environments/environment';
 import { StorageService } from './storage.service';
