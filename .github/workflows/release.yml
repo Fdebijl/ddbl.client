@@ -50,3 +50,5 @@ jobs:
         run: npm ci
       - name: Run e2e
         run: npm run e2e
+        env:
+          MONGO_URL: ${{secrets.MONGO_URL}}

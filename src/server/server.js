@@ -14,7 +14,7 @@ const db = mongo.connect(mongoString, function (err, response) {
   if (err){
     console.log(err);
   } else {
-    console.log('Connected to ' + db, ' + ', response);
+    console.log('Connected to db');
   }
 });
 
