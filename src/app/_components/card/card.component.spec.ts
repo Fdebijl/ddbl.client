@@ -18,7 +18,7 @@ describe('CardComponent', () => {
     fixture = TestBed.createComponent(CardComponent);
     component = fixture.componentInstance;
     component.cardData = Metadata.mock();
-    (window as unknown as {mp1}).mp1 = () => {return;};
+    (window as unknown as {mp1}).mp1 = (): void => {return;};
     fixture.detectChanges();
   });
 

@@ -1,11 +1,11 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 
 import { VisComponent } from './vis.component';
-import { Metadata } from 'src/app/_domain';
+// import { Metadata } from 'src/app/_domain';
 
 describe('VisComponent', () => {
-  let component: VisComponent;
-  let fixture: ComponentFixture<VisComponent>;
+  // let component: VisComponent;
+  // let fixture: ComponentFixture<VisComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
