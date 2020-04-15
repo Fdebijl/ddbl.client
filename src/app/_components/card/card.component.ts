@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {Metadata} from '../../_domain/Metadata';
+import { Metadata } from '../../_domain';
 import * as moment from 'moment';
 
 declare function mp1(zoomLev, lat, lon);

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CardComponent } from './card.component';
-import { Metadata } from 'src/app/_domain';
+import { Metadata } from '../../_domain';
 
 describe('CardComponent', () => {
   let component: CardComponent;
