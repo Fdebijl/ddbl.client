@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "concurrently --kill-others \"node src/server/server.js\" \"ng test\"",
+    "test": "concurrently --success first --kill-others \"node src/server/server.js\" \"ng test\"",
     "lint": "eslint \"./src/app/**/*.ts\" --max-warnings 2",
     "nglint": "ng lint",
     "lintfix": "eslint --fix-dry-run src/app",
