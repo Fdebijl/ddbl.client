@@ -9,8 +9,9 @@
     "lint": "eslint \"./src/app/**/*.ts\" --max-warnings 2",
     "nglint": "ng lint",
     "lintfix": "eslint --fix-dry-run src/app",
-    "e2e": "concurrently --success first --kill-others \"node src/server/server.js\" \"ng e2e\"",
-    "deploy": "npm run test && npm run e2e && npm run build"
+    "e2e": "npm run updatewd && concurrently --success first --kill-others \"node src/server/server.js\" \"ng e2e\"",
+    "deploy": "npm run test && npm run e2e && npm run build",
+    "updatewd": "webdriver-manager update"
   },
   "private": true,
   "dependencies": {
