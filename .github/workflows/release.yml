@@ -20,6 +20,8 @@ jobs:
         run: npm ci
       - name: Run tests
         run: npm run test
+        env:
+          MONGO_URL: ${{secrets.MONGO_URL}}
   lint:
     name: Lint
     runs-on: ubuntu-18.04

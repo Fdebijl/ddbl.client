@@ -4,8 +4,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongo = require('mongoose');
 const cors = require('cors');
+const dotenv = require('dotenv');
 
-const db = mongo.connect("mongodb://localhost:27017/VLLDataSystem", function (err, response) {
+dotenv.config();
+
+const mongoString = process.env.MONGO_URL;
+
+const db = mongo.connect(mongoString, function (err, response) {
   if (err){
     console.log(err);
   } else {
