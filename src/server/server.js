@@ -1,7 +1,6 @@
 /* eslint-disable */
 
 const express = require('express');
-const bodyParser = require('body-parser');
 const mongo = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
@@ -10,7 +9,10 @@ dotenv.config();
 
 const mongoString = process.env.MONGO_URL;
 
-const db = mongo.connect(mongoString, function (err, response) {
+const db = mongo.connect(mongoString, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}, function (err, response) {
   if (err){
     console.log(err);
   } else {
@@ -19,9 +21,8 @@ const db = mongo.connect(mongoString, function (err, response) {
 });
 
 const app = express()
-app.use(bodyParser());
-app.use(bodyParser.json({limit:'5mb'}));
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.json({limit:'5mb'}));
+app.use(express.urlencoded({extended: true}));
 app.use(cors({credentials: true, origin: true}));
 
 const Schema = mongo.Schema;
