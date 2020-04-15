@@ -5,11 +5,8 @@ import { User } from '../_domain';
   providedIn: 'root'
 })
 export class UserService {
-
-  constructor() { }
-
   // TODO: Implement stub
   public getByID(id: string): User {
-    return null;
+    return new User({id});
   };
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Metadata} from '../../_domain/metadata';
-import {MongodbService} from '../../_services/mongodb.service';
-import {Meta} from '@angular/platform-browser';
+import { Metadata } from '../../_domain/Metadata';
+import { MongodbService } from '../../_services/mongodb.service';
 
 declare function mp1(zoomLev, lat, lon);
 declare function mp2(zoomLev, lat, lon);
@@ -24,12 +23,12 @@ export class MainDashboardComponent implements OnInit {
   public showData: Array<Metadata>;
   public allData: Array<Metadata>;
 
-  public filterInput: string;
-  public filterCategory = '';
-  public filterType = '';
-  public filterAgeGroup = '';
+  public filterInputString: string;
+  public filterCategoryString = '';
+  public filterTypeString = '';
+  public filterAgeGroupString = '';
 
-  private loadMaps() {
+  private loadMaps(): void {
     mp1(11, 51.46, 5.450);
     mp2(11, 51.46, 5.450);
     mp3(11, 51.46, 5.450);
@@ -39,41 +38,67 @@ export class MainDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.newService.GetMetadata().then(data => {this.allData = data; this.showData = data});
-    setTimeout(() => {
-      this.loadMaps();
-    }, 1000)
+    this.newService.GetMetadata().then(data => {
+      this.allData = data as Metadata[];
+      this.showData = data as Metadata[] ;
+    } );
   }
 
-  public saveObjForVisualizationPage(id: string) {
+  public saveObjForVisualizationPage(id: string): void {
     const obj = this.allData.find(x => x.id === id);
     localStorage.setItem('visData', JSON.stringify(obj));
   }
 
-  public filterCards() {
+  private filterCat(cat: string, data: Metadata): boolean {
+    if ((data.category === cat || cat === '')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  private filterInput(input: string, data: Metadata): boolean {
+    if (input === '' || input === undefined || data.title.toLowerCase().includes(input.toLowerCase())) {
+      return true;
+    } else {
+      return false;
+      }
+    }
+
+  private filterType(type: string, data: Metadata): boolean {
+    if ((data.type === type || type === '')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  private filterAgeGroup(ageGroup: string, data: Metadata): boolean {
+      if (data.ageGroup === ageGroup || ageGroup === '') {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+  public filterCards(): void {
     const cardList = [];
-    const input = this.filterInput;
-    const cat = this.filterCategory;
-    const type = this.filterType;
-    const ageGroup = this.filterAgeGroup;
+    const input = this.filterInputString;
+    const cat = this.filterCategoryString;
+    const type = this.filterTypeString;
+    const ageGroup = this.filterAgeGroupString;
     console.log('input: ' + input);
     console.log('cat: ' + cat);
     console.log('type: ' + type);
     console.log('ageGroup: ' + ageGroup);
-    let i = 0;
     for (const data of this.allData) {
-      console.log(i++);
-      console.log(data.category);
-      console.log(data.type);
-      console.log(data.ageGroup);
       // TODO make separate functions
-      if ((data.category === cat || cat === '') && (data.type === type || type === '') && (data.ageGroup === ageGroup || ageGroup === '')
-        && (input === '' || input === undefined || data.title.includes(input))) {
+      if (this.filterInput(input, data) && this.filterCat(cat, data) && this.filterType(type, data)
+        && this.filterAgeGroup(ageGroup, data)) {
         cardList.push(data);
       }
     }
     this.showData = cardList;
     console.log('items: ' + this.showData.length);
   }
-
 }

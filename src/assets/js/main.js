@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 'use strict';
 
 /*jshint loopfunc: true */
@@ -20,6 +22,7 @@ document.addEventListener('mousemove', e => {
 	yLocation = e.clientY;
 });
 
+/*
 // Info window for visualization data card
 document.querySelectorAll('.dataCard_item_infoBtn').forEach(infoBtn => {
   //console.log(infoBtn);
@@ -56,9 +59,10 @@ document.querySelectorAll('.legend-controller').forEach(Lgd => {
     }
   })
 }) //test
-
+*/
 
 // Muuri for search, sort drag/drop data viz cards
+/*
 window.onload =()=>{
 
 	let grid = null,
@@ -166,4 +170,5 @@ window.onload =()=>{
     }
 
 }; // Muuri ends
+*/
 

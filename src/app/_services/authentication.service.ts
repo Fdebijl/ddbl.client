@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ajaxPost } from 'rxjs/internal/observable/dom/AjaxObservable';
-import { ajax } from 'rxjs/ajax';
 
 import { environment } from '../../environments/environment';
 import { StorageService } from './storage.service';
@@ -33,7 +31,7 @@ export class AuthenticationService {
     return true;
   }
 
-  public async login(username: string, password: string): Promise<void> {
+  public async login(email: string, password: string): Promise<void> {
     return new Promise((resolve, reject) => {
       fetch(`${environment.api_url}/login`, {
         method: 'POST',
@@ -43,8 +41,8 @@ export class AuthenticationService {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          email: username,
-          password: password
+          email,
+          password
         })
       })
         .then((response) => response.json())
@@ -60,7 +58,7 @@ export class AuthenticationService {
               email: data.user.email,
               token: data.user.token,
               tokenExpiration: data.user.tokenExpiration
-            })
+            });
 
             this.storageService.user.next(user);
             resolve();
@@ -87,18 +85,60 @@ export class AuthenticationService {
     });
   }
 
-  public async register(username: string, firstName: string, lastName: string, password: string): Promise<void> {
+  public async register(email: string, displayName: string, bio: string, affiliation: string, password: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      ajaxPost(`${environment.api_url}/user/register`, {username, firstName, lastName, password}, {
-        'Content-Type': 'application/json'
-      }).subscribe({
-        error: error => {
-          reject();
+      fetch(`${environment.api_url}/register`, {
+        method: 'POST',
+        credentials: 'omit',
+        cache: 'no-cache',
+        headers: {
+          'Content-Type': 'application/json'
         },
-        next: data => {
-          resolve();
-        }
+        body: JSON.stringify({
+          email,
+          displayName,
+          bio,
+          affiliation,
+          password,
+        })
       })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.error) {
+            reject(data.error as GenericError);
+            return;
+          }
+
+          if (data.user) {
+            const user = new User({
+              id: data.user.id,
+              email: data.user.email,
+              token: data.user.token,
+              tokenExpiration: data.user.tokenExpiration
+            });
+
+            this.storageService.user.next(user);
+            resolve();
+          } else {
+            reject(new GenericError({
+              name: 'NoContentError',
+              message: 'Could not register due to a server error, please contact support if the issue persists.'
+            }));
+          }
+        })
+        .catch((error) => {
+          // Check for internet connection
+          if (!navigator.onLine) {
+            reject(new GenericError({
+              name: 'NoNetworkError',
+              message: 'There is no network connection right now. Check your internet connection and try again.'
+            }));
+            return;
+          }
+
+          console.log(error);
+          reject(error);
+        });
     });
   }
 

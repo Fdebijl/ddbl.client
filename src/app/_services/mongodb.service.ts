@@ -1,7 +1,4 @@
 import { Injectable } from '@angular/core';
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
-
-import { Observable} from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 
@@ -11,21 +8,19 @@ import 'rxjs/add/operator/do';
 })
 export class MongodbService {
 
-  constructor() { }
-
-  GetMetadata() {
+  GetMetadata(): Promise<unknown> {
     return fetch('http://localhost:6969/api/getMetadata').then(res => res.json()).then(data => {
       return data;
       });
   }
 
-  GetMetadataVis() {
+  GetMetadataVis(): Promise<unknown> {
     return fetch('http://localhost:6969/api/getMetadataVisualizations').then(res => res.json()).then(data => {
       return data;
     });
   }
 
-  GetUserById(id: string) {
+  GetUserById(id: string): Promise<unknown> {
     console.log('FUCK')
     return fetch('http://localhost:6969/api/getUserById', {body: id}).then(res => res.json()).then(data => {
       return data;
