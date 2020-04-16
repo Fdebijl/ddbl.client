@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Metadata } from '../../_domain';
+import { SetMeta } from '../../_domain/class';
 import * as moment from 'moment';
 
 declare function mp1(zoomLev, lat, lon);
@@ -18,7 +18,7 @@ export class CardComponent implements OnInit {
     return;
   }
 
-  @Input() cardData: Metadata;
+  @Input() cardData: SetMeta;
   public dateTimePosted: string;
   public infoSelectAria: string;
   public cardInfoAria: string;

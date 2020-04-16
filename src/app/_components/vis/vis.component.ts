@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Metadata, MongoUser} from '../../_domain';
+import { SetMeta, User} from '../../_domain/class';
 import { MongodbService } from '../../_services';
 import * as moment from 'moment';
 
@@ -14,21 +14,21 @@ export class VisComponent implements OnInit {
 
   constructor(private newService: MongodbService) { }
 
-  public mpNum: Metadata;
-  public mp1Num: Metadata;
-  public mp2Num: Metadata;
-  public mp3Num: Metadata;
-  public mp4Num: Metadata;
+  public mpNum: SetMeta;
+  public mp1Num: SetMeta;
+  public mp2Num: SetMeta;
+  public mp3Num: SetMeta;
+  public mp4Num: SetMeta;
   public dateTimePosted: string;
-  public contributor: MongoUser;
+  public contributor: User;
 
   public getContributor(): void {
     this.newService.GetUserById(this.mpNum.contributor.toString()).then( data => {
-      this.contributor = data as MongoUser;
+      this.contributor = data as User;
     });
   }
 
-  private splitDataArrayToObjects(data: Array<Metadata>): void {
+  private splitDataArrayToObjects(data: Array<SetMeta>): void {
     console.log(data.length);
     for (let i = 0, len = data.length; i < len; i++) {
       console.log(data[i].file);
@@ -83,7 +83,7 @@ export class VisComponent implements OnInit {
         break; }
     }
   }
-  private processData(data: Array<Metadata>): void {
+  private processData(data: Array<SetMeta>): void {
     this.splitDataArrayToObjects(data);
     this.setOverlayContent();
   }
@@ -93,7 +93,7 @@ export class VisComponent implements OnInit {
     this.dateTimePosted = moment(this.mpNum.created).format('ll');
     this.newService.GetMetadataVis().then(data => {
       console.log(data);
-      this.processData(data as Metadata[]);
+      this.processData(data as SetMeta[]);
     });
     this.getContributor();
   }

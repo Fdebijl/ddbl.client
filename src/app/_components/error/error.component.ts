@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GenericError } from 'src/app/_domain';
+import { GenericError } from '../../_domain/class';
 
 @Component({
   selector: 'app-error',

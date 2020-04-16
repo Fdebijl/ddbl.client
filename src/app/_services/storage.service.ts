@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User, StoredBehaviorSubject } from '../_domain';
+import { User, StoredBehaviorSubject } from '../_domain/class';
 
 @Injectable({
   providedIn: 'root'
