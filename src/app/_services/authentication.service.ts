@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { environment } from '../../environments/environment';
 import { StorageService } from './storage.service';
-import { User } from '../_domain/User';
-import { GenericError } from '../_domain';
+import { GenericError, User } from '../_domain/class';
 
 /**
  * The AuthenticationService handles all methods and checks related to logging in and registering.

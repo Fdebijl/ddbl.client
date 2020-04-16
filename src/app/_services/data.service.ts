@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import {Metadata} from '../_domain/Metadata';
+import {SetMeta} from '../_domain/class/data/SetMeta';
 import {ajax} from 'rxjs/ajax';
 import { StorageService } from './storage.service';
 
@@ -11,7 +11,7 @@ export class DataService {
   // TODO Set endpoints
   constructor(private storageService: StorageService) { }
 
-  public async getMainDashboardData(): Promise<Metadata[]> {
+  public async getMainDashboardData(): Promise<SetMeta[]> {
     return new Promise((resolve, reject) => {
       const url = new URL(`${environment.api_url}/visualization`);
       ajax({

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Metadata } from '../../_domain/Metadata';
+import { SetMeta } from '../../_domain/class/data/SetMeta';
 import { MongodbService } from '../../_services/mongodb.service';
 
 declare function mp1(zoomLev, lat, lon);
@@ -20,8 +20,8 @@ export class MainDashboardComponent implements OnInit {
 
   constructor(private newService: MongodbService, ) { }
 
-  public showData: Array<Metadata>;
-  public allData: Array<Metadata>;
+  public showData: Array<SetMeta>;
+  public allData: Array<SetMeta>;
 
   public filterInputString: string;
   public filterCategoryString = '';
@@ -39,8 +39,8 @@ export class MainDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.newService.GetMetadata().then(data => {
-      this.allData = data as Metadata[];
-      this.showData = data as Metadata[] ;
+      this.allData = data as SetMeta[];
+      this.showData = data as SetMeta[] ;
     } );
   }
 
@@ -49,7 +49,7 @@ export class MainDashboardComponent implements OnInit {
     localStorage.setItem('visData', JSON.stringify(obj));
   }
 
-  private filterCat(cat: string, data: Metadata): boolean {
+  private filterCat(cat: string, data: SetMeta): boolean {
     if ((data.category === cat || cat === '')) {
       return true;
     } else {
@@ -57,7 +57,7 @@ export class MainDashboardComponent implements OnInit {
     }
   }
 
-  private filterInput(input: string, data: Metadata): boolean {
+  private filterInput(input: string, data: SetMeta): boolean {
     if (input === '' || input === undefined || data.title.toLowerCase().includes(input.toLowerCase())) {
       return true;
     } else {
@@ -65,7 +65,7 @@ export class MainDashboardComponent implements OnInit {
       }
     }
 
-  private filterType(type: string, data: Metadata): boolean {
+  private filterType(type: string, data: SetMeta): boolean {
     if ((data.type === type || type === '')) {
       return true;
     } else {
@@ -73,7 +73,7 @@ export class MainDashboardComponent implements OnInit {
     }
   }
 
-  private filterAgeGroup(ageGroup: string, data: Metadata): boolean {
+  private filterAgeGroup(ageGroup: string, data: SetMeta): boolean {
       if (data.ageGroup === ageGroup || ageGroup === '') {
         return true;
       } else {
