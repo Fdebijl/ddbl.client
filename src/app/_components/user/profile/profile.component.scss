@@ -1,0 +1,24 @@
+.profile {
+  margin-top: 2em;
+}
+
+.datalist, .collections {
+  margin-top: 3em;
+
+  h1, h2, h3 {
+    margin-bottom: .5em;
+    line-height: 1;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  .nodata-notification {
+    margin: .5em 0;
+  }
+}
+
+.description {
+  font-style: italic;
+}

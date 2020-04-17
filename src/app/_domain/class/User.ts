@@ -10,6 +10,7 @@ export class User {
     this.tokenExpiration = tokenExpiration;
     this.bio = bio;
     this.affiliation = affiliation;
+    this.profilePicture = 'https://placehold.it/500x500'
   }
 
   public id: string
@@ -20,4 +21,22 @@ export class User {
   public tokenExpiration: Date
   public bio?: string
   public affiliation?: string
+  public profilePicture = 'https://placehold.it/500x500';
+
+  public getAbbreviation(): string {
+    if (!this.displayname) {
+      return '?';
+    }
+
+    const words = this.displayname.split(' ');
+    const first = words.shift();
+
+    if (words.length === 1) {
+      return first[0].toUpperCase();
+    }
+
+    const last = this.displayname.slice(-1, 1);
+
+    return first[0].toUpperCase() + last[0].toUpperCase();
+  }
 }
