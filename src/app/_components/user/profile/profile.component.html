@@ -1,6 +1,6 @@
 <section class="flex row center fw profile">
   <picture class="profile-picture">
-    <div class="set">Change</div>
+    <div class="flex center change">Change</div>
     <img [src]="user.profilePicture" *ngIf="user.profilePicture">
     <div *ngIf="!user.profilePicture" class="abbreviation">{{user.getAbbreviation()}}</div>
   </picture>

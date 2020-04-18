@@ -1,31 +1,29 @@
-<div class="uk-flex uk-flex-center uk-flex-middle uk-flex-column ssl-center">
+<div class="uk-flex uk-flex-center uk-flex-middle uk-flex-column">
   <div uk-spinner="ratio: 3" [ngClass]="loading ? 'loading' : 'idle'"></div>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login" [ngClass]="loading ? 'loading' : 'idle'">
     <div class="login_input">
-      <h1 class="title">Log in</h1>
+      <h1 class="title">DataSystem Login</h1>
+      <div class="message" [ngClass]="{good: messageGoodness === 'good', bad: messageGoodness === 'bad', neutral: messageGoodness === 'neutral', hidden: !messageShow}">{{message}}</div>
+
       <label for="email" class="inputTitle"><b>Email</b></label>
       <input type="text" placeholder="Enter email address" id="email" name="username" formControlName="email" required>
-      <div class="login_input_errorMsg" style="margin-bottom: 12px;" *ngIf="message.email">{{message.email}}}}</div>
 
       <label for="password" class="inputTitle"><b>Password</b></label>
       <input type="password" placeholder="Enter password" id="password" name="password" formControlName="password" required>
-      <div class="login_input_errorMsg" *ngIf="message.password">{{message.password}}</div>
 
-      <input type="submit" class="basic-button blue" style="margin-top: 24px;" value="Log in" />
-      <!--  <label class="rememberme">
-        <input type="checkbox" checked="" name="remember"> Remember me
-      </label> -->
+      <div class="submitGroup flex row">
+        <input type="submit" class="basic-button blue" value="Log in" />
+        
+        <div class="flex row center rememberme">
+          <label for="remember">Remember me</label><input type="checkbox" checked="" name="remember" id="remember">
+        </div>
+      </div>
+    </div>
 
-    <div class="login_input_errorMsg" style="margin-top: 12px;" *ngIf="message.generic">{{message.generic}}</div>
-  </div>
+    <div class="login_alt">
+      <a href="#" class="login_alt_cancel">Forgot password?</a><br>
+      <span>Don't have an account yet? <a routerLink="/register" class="login_alt_cancel">Register instead</a></span>
+    </div>
 
-  <div class="login_alt">
-    <a routerLink="/" type="button" class="login_alt_cancel">Cancel</a>
-    <span class="login_alt_sep">&nbsp;|&nbsp;</span>
-    <a href="#" class="login_alt_cancel">Forgot password?</a>
-    <span class="login_alt_sep">&nbsp;|&nbsp;</span>
-    <a routerLink="/register" class="login_alt_cancel">Register</a>
-  </div>
-
-  <div class="login_errorMsg" aria-hidden="true">Email or password is not correct</div>
-</form>
+    <div class="login_errorMsg" aria-hidden="true">Email or password is not correct</div>
+  </form>

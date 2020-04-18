@@ -750,7 +750,6 @@ body {
 input[type=text], input[type=password] {
   width: 100%;
   padding: 8px 12px;
-  margin: 12px 0;
   display: inline-block;
   border: 1px solid #999;
   box-sizing: border-box;
@@ -1797,10 +1796,10 @@ fieldset {
   &.column {
     flex-flow: column nowrap;
   }
+}
 
-  &.fw {
-    width: 100%;
-  }
+.fw {
+  width: 100%;
 }
 
 .barred {

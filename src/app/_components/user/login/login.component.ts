@@ -13,11 +13,10 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   redirectTo: string;
-  message = {
-    email: '',
-    password: '',
-    generic: ''
-  };
+
+  message: string;
+  messageGoodness: 'good' | 'bad' | 'neutral';
+  messageShow = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -31,16 +30,16 @@ export class LoginComponent implements OnInit {
     switch (snapshot.root.queryParams.action) {
       case 'logout': {
         this.authenticationService.logout();
-        this.router.navigate(['/login']);
+        this.showMessage('good', 'You are now logged out');
         break;
       }
       case 'postcreation': {
         // Let the user know the account has been created and they should login
-        this.message.generic = 'Your account has been created succesfully, you may now login.';
+        this.message = 'Your account has been created succesfully, you may now login.';
         break;
       }
       case 'loginFirst': {
-        this.message.generic = 'You have to login before accessing this page.'
+        this.message = 'You have to login before accessing this page.'
         this.redirectTo = snapshot.root.queryParams.redirectTo;
       }
     }
@@ -61,9 +60,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.message.email = null;
-    this.message.password = null;
-    this.message.generic = null;
+    this.message = null;
     this.submitted = true;
     this.loading = true;
 
@@ -78,15 +75,27 @@ export class LoginComponent implements OnInit {
       })
       .catch((error) => {
         // Failed login
-        this.message.generic = error?.message || 'Invalid email or password';
-
-        setTimeout(() => {
-          this.message.generic = null;
-        }, 15 * 1000);
+        this.showMessage('bad', error?.message || 'Invalid email or password')
       })
       .finally(() => {
         this.submitted = false;
         this.loading = false;
       });
+  }
+
+  private showMessage(type: 'bad' | 'good' | 'neutral', message: string, timeout = 15): void {
+    this.messageGoodness = type;
+    this.message = message;
+    this.messageShow = true;
+
+    if (timeout > 0) {
+      setTimeout(() => {
+        this.messageShow = false;
+
+        setTimeout(() => {
+          this.showMessage('neutral', 'Please log in to access the DataSystem', 0);
+        }, 1500)
+      }, timeout * 1000)
+    }
   }
 }

@@ -1,37 +1,35 @@
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register">
   <div class="register_input">
-    <h1 class="title">Register</h1>
+    <h1 class="title">DataSystem Registration</h1>
     <label for="email" class="inputTitle required"><b>Email</b></label>
-    <input type="text" placeholder="Enter email address" name="email" id="email" required formControlName="email">
+    <input type="text" placeholder="john@example.com" name="email" id="email" required formControlName="email">
     <div class="register_input_errorMsg" style="margin-bottom: 12px;" *ngIf="message.email">{{message.email}}</div>
 
-    <label for="displayName" class="inputTitle required"><b>Display name</b></label>
-    <input type="text" placeholder="Enter display name" name="displayName" id="displayName" required formControlName="displayName">
+    <label for="displayName" class="inputTitle required"><b>Name</b></label>
+    <input type="text" placeholder="John Doe" name="displayName" id="displayName" required formControlName="displayName">
     <div class="register_input_errorMsg" *ngIf="message.displayName">{{message.displayName}}</div>
 
     <label for="bio" class="inputTitle"><b>Bio</b></label>
-    <input type="text" placeholder="Enter bio" name="bio" id="bio" formControlName="bio">
+    <input type="text" placeholder="Data scientist" name="bio" id="bio" formControlName="bio">
     <div class="register_input_errorMsg" *ngIf="message.bio">{{message.bio}}</div>
 
     <label for="affiliation" class="inputTitle"><b>Affiliation</b></label>
-    <input type="text" placeholder="Enter affiliation" name="affiliation" id="affiliation" formControlName="affiliation">
+    <input type="text" placeholder="NASA" name="affiliation" id="affiliation" formControlName="affiliation">
     <div class="register_input_errorMsg" *ngIf="message.affiliation">{{message.affiliation}}</div>
 
     <label for="password" class="inputTitle required"><b>Password</b></label>
-    <input type="password" placeholder="Enter password" name="password" id="password" required formControlName="password">
+    <input type="password" placeholder="Enter a good password" name="password" id="password" required formControlName="password">
     <div class="register_input_errorMsg" *ngIf="message.password">{{message.password}}</div>
 
-    <p class="inputTitle">* Required fields</p>
+    <p class="inputTitle noticeRequired">* Required fields</p>
 
-    <input type="submit" class="basic-button blue" style="margin-top: 24px;" value="Register" />
+    <input type="submit" class="basic-button blue fw" style="margin-top: 24px;" value="Register" />
 
     <div class="register_input_errorMsg" style="margin-top: 12px;" *ngIf="message.generic">{{message.generic}}</div>
   </div>
 
   <div class="register_alt">
-    <a routerLink="/" type="button" class="register_alt_cancel">Cancel</a>
-    <span class="register_alt_sep">&nbsp;|&nbsp;</span>
-    <a routerLink="/login" class="register_alt_cancel">Already an account? Login.</a>
+    Already have an account? <a routerLink="/login" class="register_alt_cancel">Login instead.</a>
   </div>
 
   <div class="register_errorMsg" aria-hidden="true">Some input fields are invalid</div>
