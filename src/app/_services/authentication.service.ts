@@ -4,7 +4,6 @@ import { environment } from '../../environments/environment';
 import { StorageService } from './storage.service';
 import { UserService } from './user.service';
 import { GenericError, User } from '../_domain/class';
-import { UnsubscriptionError } from 'rxjs';
 
 /**
  * The AuthenticationService handles all methods and checks related to logging in and registering.
@@ -35,7 +34,7 @@ export class AuthenticationService {
 
   public async login(email: string, password: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      fetch(`${environment.api_url}/login`, {
+      fetch(`${environment.api_url}/account/login`, {
         method: 'POST',
         credentials: 'omit',
         cache: 'no-cache',
@@ -86,7 +85,7 @@ export class AuthenticationService {
 
   public async register(email: string, displayName: string, bio: string, affiliation: string, password: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      fetch(`${environment.api_url}/`, {
+      fetch(`${environment.api_url}/accounts/register`, {
         method: 'POST',
         credentials: 'omit',
         cache: 'no-cache',
