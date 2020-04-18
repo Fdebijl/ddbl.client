@@ -39,4 +39,11 @@ export class User {
 
     return first[0].toUpperCase() + last[0].toUpperCase();
   }
+
+  public static mock(): User {
+    return new User({
+      id: '1',
+      displayname: 'Floris de Bijl'
+    });
+  }
 }
