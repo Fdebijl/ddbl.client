@@ -55,11 +55,9 @@ export class RegisterComponent implements OnInit {
     this.submitted = true;
     this.loading = true;
 
-    this.authenticationService.register(
-      this.f.email.value, this.f.displayName.value, this.f.bio.value, this.f.affiliation.value, this.f.password.value
-    )
+    this.authenticationService.register(this.f.email.value, this.f.displayName.value, this.f.bio.value, this.f.affiliation.value, this.f.password.value)
       .then(() => {
-          this.router.navigate(['/login?action=postcreation']);
+        this.router.navigate(['/']);
       })
       .catch((error) => {
         // Failed login

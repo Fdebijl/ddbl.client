@@ -4,9 +4,7 @@
 
 export const environment = {
   production: false,
-  api_url: 'http://localhost:3000',
-  websocket_url: 'wss://echo.websocket.org/'
-  // const URL = 'ws://localhost:8060/default/';
+  api_url: 'http://vllgateway.kn01.fhict.nl',
 };
 
 /*

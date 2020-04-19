@@ -1,3 +1,35 @@
-TODO: Profile page<br>
-<br>
-<a [routerLink]="['/login']" [queryParams]="{action: 'logout'}">Logout</a> 
+<section class="flex row center fw profile">
+  <picture class="profile-picture">
+    <div class="flex center change">Change</div>
+    <img [src]="user.profilePicture" *ngIf="user.profilePicture">
+    <div *ngIf="!user.profilePicture" class="abbreviation">{{user.getAbbreviation()}}</div>
+  </picture>
+  <aside class="flex column displayname">
+    <h1>{{user.displayname}}</h1>
+  </aside>
+</section>
+
+<section class="flex column fw datalist">
+  <h2>Your data</h2>
+  <div class="barred">
+    <div *ngIf="dataSets.length === 0" class="nodata-notification">You have no datasets yet, go to the <a [routerLink]="['/upload']">upload page</a> to upload a new dataset.</div>
+    <ul *ngIf="dataSets.length > 0">
+      <ng-container *ngFor="let dataSet of dataSets">
+        <app-datalistitem [dataSet]="dataSet"></app-datalistitem>
+      </ng-container>
+    </ul>
+  </div>
+</section>
+
+<section class="flex column fw collections">
+  <h2>Collection</h2>
+  <span class="description">Collections are one or more datasets bundled in one map, report </span>
+  <div class="barred">
+    <div *ngIf="dataSets.length === 0" class="nodata-notification">You have no collections yet.</div>
+    <ul *ngIf="dataSets.length > 0">
+      <ng-container *ngFor="let dataSet of dataSets">
+        <app-datalistitem [dataSet]="dataSet"></app-datalistitem>
+      </ng-container>
+    </ul>
+  </div>
+</section>

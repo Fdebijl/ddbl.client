@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { environment } from '../../environments/environment';
 import { StorageService } from './storage.service';
+import { UserService } from './user.service';
 import { GenericError, User } from '../_domain/class';
 
 /**
@@ -13,7 +14,8 @@ import { GenericError, User } from '../_domain/class';
 })
 export class AuthenticationService {
   constructor(
-    private storageService: StorageService
+    private storageService: StorageService,
+    private userService: UserService
   ) { }
 
   public isAuthenticated(): boolean {
@@ -32,7 +34,7 @@ export class AuthenticationService {
 
   public async login(email: string, password: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      fetch(`${environment.api_url}/login`, {
+      fetch(`${environment.api_url}/account/login`, {
         method: 'POST',
         credentials: 'omit',
         cache: 'no-cache',
@@ -45,19 +47,16 @@ export class AuthenticationService {
         })
       })
         .then((response) => response.json())
-        .then((data) => {
+        .then(async (data) => {
           if (data.error) {
             reject(data.error as GenericError);
             return;
           }
 
-          if (data.user) {
-            const user = new User({
-              id: data.user.id,
-              email: data.user.email,
-              token: data.user.token,
-              tokenExpiration: data.user.tokenExpiration
-            });
+          if (data.id) {
+            const user = await this.userService.getByID(data.id);
+            user.token = data.token;
+            user.tokenExpiration = data.tokenExpiration;
 
             this.storageService.user.next(user);
             resolve();
@@ -86,7 +85,7 @@ export class AuthenticationService {
 
   public async register(email: string, displayName: string, bio: string, affiliation: string, password: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      fetch(`${environment.api_url}/register`, {
+      fetch(`${environment.api_url}/accounts/register`, {
         method: 'POST',
         credentials: 'omit',
         cache: 'no-cache',
@@ -96,25 +95,22 @@ export class AuthenticationService {
         body: JSON.stringify({
           email,
           displayName,
-          bio,
-          affiliation,
+          // bio,
+          // affiliation,
           password,
         })
       })
         .then((response) => response.json())
-        .then((data) => {
+        .then(async (data) => {
           if (data.error) {
             reject(data.error as GenericError);
             return;
           }
 
-          if (data.user) {
-            const user = new User({
-              id: data.user.id,
-              email: data.user.email,
-              token: data.user.token,
-              tokenExpiration: data.user.tokenExpiration
-            });
+          if (data.id) {
+            const user = await this.userService.getByID(data.id);
+            user.token = data.token;
+            user.tokenExpiration = data.tokenExpiration;
 
             this.storageService.user.next(user);
             resolve();

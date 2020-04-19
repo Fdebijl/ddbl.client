@@ -5,5 +5,7 @@ import { User, StoredBehaviorSubject } from '../_domain/class';
   providedIn: 'root'
 })
 export class StorageService {
-  public user: StoredBehaviorSubject<User> = new StoredBehaviorSubject<User>('user');
+  public user: StoredBehaviorSubject<User> = new StoredBehaviorSubject<User>('user', null, (user) => {
+    return new User(user);
+  });
 }

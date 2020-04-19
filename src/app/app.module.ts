@@ -9,6 +9,7 @@ import { MainDashboardComponent, UploadComponent, RegisterComponent, ProfileComp
 import { FooterComponent, HeaderComponent } from './_components/partials';
 import { MongodbService } from './_services/mongodb.service';
 import { CardComponent } from './_components/card/card.component';
+import { DatalistitemComponent } from './_components/partials/datalistitem/datalistitem.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { CardComponent } from './_components/card/card.component';
     UploadComponent,
     RegisterComponent,
     VisComponent,
+    DatalistitemComponent,
   ],
   imports: [
     BrowserModule,

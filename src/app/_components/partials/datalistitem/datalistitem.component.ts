@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { DataSet } from 'src/app/_domain/class';
 
 @Component({
   selector: 'app-datalistitem',
@@ -6,11 +7,14 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./datalistitem.component.scss']
 })
 export class DatalistitemComponent implements OnInit {
-  @Input() dataset;
+  @Input() dataSet: DataSet;
 
-  constructor() { }
+  constructor() {
+    return;
+  }
 
   ngOnInit(): void {
+    return;
   }
 
 }
