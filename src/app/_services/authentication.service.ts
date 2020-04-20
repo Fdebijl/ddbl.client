@@ -7,7 +7,6 @@ import { GenericError, User } from '../_domain/class';
 
 /**
  * The AuthenticationService handles all methods and checks related to logging in and registering.
- * TODO: Rewrite for VLLDS
  */
 @Injectable({
   providedIn: 'root'
@@ -85,7 +84,7 @@ export class AuthenticationService {
 
   public async register(email: string, displayName: string, bio: string, affiliation: string, password: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      fetch(`${environment.api_url}/accounts/register`, {
+      fetch(`${environment.api_url}/account/`, {
         method: 'POST',
         credentials: 'omit',
         cache: 'no-cache',

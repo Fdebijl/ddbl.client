@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 export class UserService {
   public getByID(id: string): Promise<User> {
     return new Promise((resolve) => {
-      fetch(`${environment.api_url}/account/users/${id}`, {
+      fetch(`${environment.api_url}/account/${id}`, {
         method: 'GET',
         credentials: 'omit',
         cache: 'no-cache'
