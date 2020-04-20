@@ -35,11 +35,11 @@ export class LoginComponent implements OnInit {
       }
       case 'postcreation': {
         // Let the user know the account has been created and they should login
-        this.message = 'Your account has been created succesfully, you may now login.';
+        this.showMessage('good', 'Your account has been created succesfully, you may now login.');
         break;
       }
       case 'loginFirst': {
-        this.message = 'You have to login before accessing this page.'
+        this.showMessage('bad', 'You have to login before accessing this page.');
         this.redirectTo = snapshot.root.queryParams.redirectTo;
       }
     }
