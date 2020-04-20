@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api_url: 'http://vll.floris.amsterdam',
+  api_url: 'https://vll.floris.amsterdam',
 };
 
 /*
