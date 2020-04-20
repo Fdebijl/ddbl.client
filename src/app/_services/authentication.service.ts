@@ -84,7 +84,7 @@ export class AuthenticationService {
 
   public async register(email: string, displayName: string, bio: string, affiliation: string, password: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      fetch(`${environment.api_url}/accounts`, {
+      fetch(`${environment.api_url}/account/`, {
         method: 'POST',
         credentials: 'omit',
         cache: 'no-cache',
