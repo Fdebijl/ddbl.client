@@ -1,10 +1,10 @@
 export class User {
   constructor(
-    {id, email, displayname, password, token, tokenExpiration, bio, affiliation, profilePicture}:
-    {id?: string; email?: string; displayname?: string; password?: string; token?: string; tokenExpiration?: Date; bio?: string; affiliation?: string; profilePicture?: string}) {
+    {id, email, displayName, password, token, tokenExpiration, bio, affiliation, profilePicture}:
+    {id?: string; email?: string; displayName?: string; password?: string; token?: string; tokenExpiration?: Date; bio?: string; affiliation?: string; profilePicture?: string}) {
     this.id = id;
     this.email = email;
-    this.displayname = displayname || 'Floris de Bijl';
+    this.displayName = displayName || 'Floris de Bijl';
     this.password = password;
     this.token = token;
     this.tokenExpiration = tokenExpiration;
@@ -15,7 +15,7 @@ export class User {
 
   public id: string
   public email: string
-  public displayname: string
+  public displayName: string
   public password?: string
   public token: string
   public tokenExpiration: Date
@@ -24,11 +24,11 @@ export class User {
   public profilePicture?: string;
 
   public getAbbreviation(): string {
-    if (!this.displayname) {
+    if (!this.displayName) {
       return '?';
     }
 
-    const words = this.displayname.split(' ');
+    const words = this.displayName.split(' ');
     const first = words.shift();
 
     if (words.length === 0) {
@@ -43,7 +43,7 @@ export class User {
   public static mock(): User {
     return new User({
       id: '1',
-      displayname: 'Floris de Bijl'
+      displayName: 'Floris de Bijl'
     });
   }
 }
