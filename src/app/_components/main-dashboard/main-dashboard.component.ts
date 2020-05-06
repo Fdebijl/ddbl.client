@@ -38,10 +38,17 @@ export class MainDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.allData = this.newService.GetMetaDataNoAPI() as SetMeta[];
+    this.showData = this.newService.GetMetaDataNoAPI() as SetMeta[];
+    /*
     this.newService.GetMetadata().then(data => {
+      console.log(data);
       this.allData = data as SetMeta[];
-      this.showData = data as SetMeta[] ;
+      this.showData = data as SetMeta[];
     } );
+    *?
+     */
   }
 
   public saveObjForVisualizationPage(id: string): void {

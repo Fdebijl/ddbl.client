@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SetMeta } from '../../_domain/class';
-import * as moment from 'moment';
+import moment from 'moment';
 
 declare function mp1(zoomLev, lat, lon);
 declare function mp2(zoomLev, lat, lon);
