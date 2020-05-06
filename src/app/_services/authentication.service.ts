@@ -82,7 +82,7 @@ export class AuthenticationService {
     });
   }
 
-  public async register(email: string, displayName: string, bio: string, affiliation: string, password: string): Promise<void> {
+  public async register(pendingUser: User): Promise<User> {
     return new Promise((resolve, reject) => {
       fetch(`${environment.api_url}/account/`, {
         method: 'POST',
@@ -92,11 +92,9 @@ export class AuthenticationService {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          email,
-          displayName,
-          // bio,
-          // affiliation,
-          password,
+          email: pendingUser.email,
+          displayName: pendingUser.displayName,
+          password: pendingUser.password,
         })
       })
         .then((response) => response.json())
@@ -112,7 +110,7 @@ export class AuthenticationService {
             user.tokenExpiration = data.tokenExpiration;
 
             this.storageService.user.next(user);
-            resolve();
+            resolve(user);
           } else {
             reject(new GenericError({
               name: 'NoContentError',
