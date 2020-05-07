@@ -43,18 +43,18 @@ export class ProfileComponent implements OnInit {
     this.affiliationEditMode = '';
   }
 
-  public updateEditMode() {
-    if (this.editMode) {
-      this.editMode = false;
-      this.displayNameEditMode = '';
-      this.bioEditMode = '';
-      this.affiliationEditMode = '';
-    } else {
-      this.editMode = true;
-      this.displayNameEditMode = this.user.displayName;
-      this.bioEditMode = this.user.bio;
-      this.affiliationEditMode = this.user.affiliation;
-    }
+  public activateEditMode() {
+    this.editMode = true;
+    this.displayNameEditMode = this.user.displayName;
+    this.bioEditMode = this.user.bio;
+    this.affiliationEditMode = this.user.affiliation;
+  }
+
+  public deactivateEditMode() {
+    this.editMode = false;
+    this.displayNameEditMode = '';
+    this.bioEditMode = '';
+    this.affiliationEditMode = '';
   }
 
   public saveChanges() {
@@ -73,7 +73,7 @@ export class ProfileComponent implements OnInit {
     this.storageService.user.subscribe({
       next: user => this.user = user
     })
-    this.updateEditMode();
+    this.deactivateEditMode();
   }
 
 }

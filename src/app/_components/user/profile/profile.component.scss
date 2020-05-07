@@ -52,7 +52,25 @@
       margin: 0;
       margin-left: .5em;
     }
+    h3 {
+       line-height: 1;
+       margin: 0;
+       margin-left: 1em;
+    }
+    p {
+      line-height: 1;
+      margin: 0;
+      margin-left: 1.5em;
+      max-width: 500px;
+      margin-top: 5px;
+    }
+    button {
+      margin: 0;
+      width: fit-content;
+      margin-right: 10px;
+    }
   }
+
 }
 
 .datalist, .collections {

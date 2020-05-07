@@ -4,17 +4,20 @@
     <img [src]="user.profilePicture" *ngIf="user.profilePicture">
     <div *ngIf="!user.profilePicture" class="abbreviation">{{user.getAbbreviation()}}</div>
   </picture>
-  <aside class="flex column displayname">
+  <aside class="flex column displayname" (click)="activateEditMode()">
     <h1 *ngIf="!editMode">{{user.displayName}}</h1>
     <h3 *ngIf="user.affiliation && !editMode">{{user.affiliation}}</h3>
     <p *ngIf="user.bio && !editMode">{{user.bio}}</p>
-    <input type="text" [(ngModel)]="displayNameEditMode" *ngIf="editMode">
-    <input type="text" [(ngModel)]="affiliationEditMode" *ngIf="editMode">
-    <input type="text" [(ngModel)]="bioEditMode" *ngIf="editMode">
-    <button (click)="updateEditMode()" *ngIf="!editMode && canBeEdited">edit</button>
-    <button (click)="updateEditMode()" *ngIf="editMode">cancel</button>
-    <button (click)="saveChanges()" *ngIf="editMode">save changes</button>
   </aside>
+  <form class="flex column">
+    <input type="text" [(ngModel)]="displayNameEditMode" *ngIf="editMode" name="displayName">
+    <input type="text" [(ngModel)]="affiliationEditMode" *ngIf="editMode" name="affiliation">
+    <input type="text" [(ngModel)]="bioEditMode" *ngIf="editMode" name="bio">
+    <div class="editButtons flex row" *ngIf="editMode">
+      <button (click)="deactivateEditMode()">Cancel</button>
+      <button (click)="saveChanges()">Save changes</button>
+    </div>
+  </form>
 </section>
 
 <section class="flex column fw datalist">
