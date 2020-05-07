@@ -61,7 +61,8 @@ export class OneComponent extends Messenger implements OnInit {
     if (countPwned) {
       this.showMessage(
         'bad',
-        `The password you used was found in <a href="https://haveibeenpwned.com/Passwords" rel="noopener" target="_blank">${countPwned} data ${Number.parseInt(countPwned) > 1 ? 'breaches' : 'breach'}</a>, please choose a new password and strongly consider changing this password if you use it elsewhere.`,
+        `The password you used was found in <a href="https://haveibeenpwned.com/Passwords" rel="noopener" target="_blank">${countPwned} data ${Number.parseInt(countPwned) > 1 ? 'breaches' : 'breach'}</a>, ` +
+        `please choose a new password and strongly consider changing this password if you use it elsewhere.`,
         true
       );
       this.submitted = false;
