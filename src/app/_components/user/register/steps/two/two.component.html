@@ -1,0 +1,19 @@
+<div class="uk-flex uk-flex-center uk-flex-middle uk-flex-column">
+  <div uk-spinner="ratio: 3" [ngClass]="loading ? 'loading' : 'idle'"></div>
+  <form [formGroup]="stepTwoForm" (ngSubmit)="onSubmit()" class="register" [ngClass]="loading ? 'loading' : 'idle'">
+    <div class="register_input">
+      <h1 class="title">DataSystem Registration</h1>
+      <div class="message" [ngClass]="{good: messageGoodness === 'good', bad: messageGoodness === 'bad', neutral: messageGoodness === 'neutral', hidden: !messageShow}" [innerHtml]="message"></div>
+
+      <label for="bio" class="inputTitle"><b>Bio</b></label>
+      <input type="text" placeholder="Data scientist" name="bio" id="bio" formControlName="bio">
+      <i class="genericNotice">Describe yourself and/or your work.</i>
+
+      <label for="affiliation" class="inputTitle"><b>Affiliation</b></label>
+      <input type="text" placeholder="NASA" name="affiliation" id="affiliation" formControlName="affiliation">
+      <i class="genericNotice">What organization, institute or company you are affiliated with.</i>
+
+      <input type="submit" class="basic-button blue fw" style="margin-top: 24px;" value="Next"/>
+    </div>
+  </form>
+</div>

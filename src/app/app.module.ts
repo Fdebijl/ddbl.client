@@ -10,6 +10,8 @@ import { FooterComponent, HeaderComponent } from './_components/partials';
 import { MongodbService } from './_services/mongodb.service';
 import { CardComponent } from './_components/card/card.component';
 import { DatalistitemComponent } from './_components/partials/datalistitem/datalistitem.component';
+import { OneComponent } from './_components/user/register/steps/one/one.component';
+import { TwoComponent } from './_components/user/register/steps/two/two.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { DatalistitemComponent } from './_components/partials/datalistitem/datal
     RegisterComponent,
     VisComponent,
     DatalistitemComponent,
+    OneComponent,
+    TwoComponent,
   ],
   imports: [
     BrowserModule,
