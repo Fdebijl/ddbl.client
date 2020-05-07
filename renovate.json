@@ -40,16 +40,9 @@
       ],
       "requiredStatusChecks": null,
       "packageNames": [
-        "body-parser",
-        "express",
         "havetheybeenpwned",
         "moment",
-        "mongodb",
-        "mongoose",
-        "uikit",
-        "concurrently",
-        "cors",
-        "dotenv"
+        "uikit"
       ],
       "rangeStrategy": "pin",
       "stabilityDays": "3",
