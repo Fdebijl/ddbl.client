@@ -57,7 +57,7 @@ export class ProfileComponent implements OnInit {
     this.affiliationEditMode = '';
   }
 
-  public saveChanges() {
+  public onSubmit(): void {
     const u = new User({});
     if (this.user.displayName !== this.displayNameEditMode) {
       u.displayName = this.displayNameEditMode;

@@ -9,13 +9,13 @@
     <h3 *ngIf="user.affiliation && !editMode">{{user.affiliation}}</h3>
     <p *ngIf="user.bio && !editMode">{{user.bio}}</p>
   </aside>
-  <form class="flex column">
-    <input type="text" [(ngModel)]="displayNameEditMode" *ngIf="editMode" name="displayName">
-    <input type="text" [(ngModel)]="affiliationEditMode" *ngIf="editMode" name="affiliation">
-    <input type="text" [(ngModel)]="bioEditMode" *ngIf="editMode" name="bio">
+  <form class="flex column" (submit)="onSubmit()" (keydown.enter)="onSubmit()">
+    <input type="text" [(ngModel)]="displayNameEditMode" *ngIf="editMode" name="displayName" placeholder="Display Name">
+    <input type="text" [(ngModel)]="affiliationEditMode" *ngIf="editMode" name="affiliation" placeholder="Affiliation">
+    <input type="text" [(ngModel)]="bioEditMode" *ngIf="editMode" name="bio" placeholder="Bio">
     <div class="editButtons flex row" *ngIf="editMode">
       <button (click)="deactivateEditMode()">Cancel</button>
-      <button (click)="saveChanges()">Save changes</button>
+      <input type="submit" value="Save changes" class="save-button">
     </div>
   </form>
 </section>

@@ -64,13 +64,35 @@
       max-width: 500px;
       margin-top: 5px;
     }
+  }
+
+  form {
+    margin-left: 1.5em;
     button {
       margin: 0;
       width: fit-content;
       margin-right: 10px;
+      background: none;
+      color: inherit;
+      border: none;
+      padding: 0;
+      font: inherit;
+      cursor: pointer;
+      outline: inherit;
+    }
+    .save-button {
+      background: none;
+      color: inherit;
+      border: none;
+      padding: 0;
+      font: inherit;
+      cursor: pointer;
+      outline: inherit;
+      margin: 0;
+      width: fit-content;
+      margin-right: 15px;
     }
   }
-
 }
 
 .datalist, .collections {
