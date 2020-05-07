@@ -6,6 +6,7 @@ import { LoginComponent, UploadComponent, ProfileComponent, RegisterComponent, M
 @NgModule({
   imports: [RouterModule.forRoot([
     { path: '',   component: MainDashboardComponent },
+    { path: 'home',   redirectTo: '/', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'visualization', component: VisComponent },
