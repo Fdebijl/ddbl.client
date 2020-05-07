@@ -13,6 +13,11 @@ export class ProfileComponent implements OnInit {
   private id: string;
   user: User;
   dataSets: DataSet[] = []; // TODO: Populate datasets from API
+  canBeEdited: boolean;
+  editMode: boolean;
+  displayNameEditMode: string;
+  bioEditMode: string;
+  affiliationEditMode: string;
 
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -20,16 +25,55 @@ export class ProfileComponent implements OnInit {
     private storageService: StorageService) { }
 
   async ngOnInit(): Promise<void> {
+    this.canBeEdited = false;
     if (this.activatedRoute.snapshot.data.showSelf) {
       this.user = this.storageService.user.getValue();
       this.storageService.user.subscribe({
         next: user => this.user = user
       })
-
+      this.canBeEdited = true;
       return;
     }
+    this.editMode = false;
 
     this.id = this.activatedRoute.snapshot.params['id'];
     this.user = await this.userService.getByID(this.id);
+    this.displayNameEditMode = '';
+    this.bioEditMode = '';
+    this.affiliationEditMode = '';
   }
+
+  public updateEditMode() {
+    if (this.editMode) {
+      this.editMode = false;
+      this.displayNameEditMode = '';
+      this.bioEditMode = '';
+      this.affiliationEditMode = '';
+    } else {
+      this.editMode = true;
+      this.displayNameEditMode = this.user.displayName;
+      this.bioEditMode = this.user.bio;
+      this.affiliationEditMode = this.user.affiliation;
+    }
+  }
+
+  public saveChanges() {
+    const u = new User({});
+    if (this.user.displayName !== this.displayNameEditMode) {
+      u.displayName = this.displayNameEditMode;
+    }
+    if (this.user.affiliation !== this.affiliationEditMode) {
+      u.affiliation = this.affiliationEditMode;
+    }
+    if (this.user.bio !== this.bioEditMode) {
+      u.bio = this.bioEditMode;
+    }
+    this.userService.update(u);
+    this.user = this.storageService.user.getValue();
+    this.storageService.user.subscribe({
+      next: user => this.user = user
+    })
+    this.updateEditMode();
+  }
+
 }
