@@ -4,7 +4,7 @@ export class User {
     {id?: string; email?: string; displayName?: string; password?: string; token?: string; tokenExpiration?: Date; bio?: string; affiliation?: string; profilePicture?: string}) {
     this.id = id;
     this.email = email;
-    this.displayName = displayName || 'Floris de Bijl';
+    this.displayName = displayName;
     this.password = password;
     this.token = token;
     this.tokenExpiration = tokenExpiration;

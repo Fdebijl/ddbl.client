@@ -1,0 +1,27 @@
+<div class="uk-flex uk-flex-center uk-flex-middle uk-flex-column">
+  <div uk-spinner="ratio: 3" [ngClass]="loading ? 'loading' : 'idle'"></div>
+  <form [formGroup]="stepOneForm" (ngSubmit)="onSubmit()" class="register" [ngClass]="loading ? 'loading' : 'idle'">
+    <div class="register_input">
+      <h1 class="title">DataSystem Registration</h1>
+      <div class="message" [ngClass]="{good: messageGoodness === 'good', bad: messageGoodness === 'bad', neutral: messageGoodness === 'neutral', hidden: !messageShow}" [innerHtml]="message"></div>
+
+      <label for="displayName" class="inputTitle required"><b>Name</b></label>
+      <input type="text" placeholder="John Doe" name="displayName" id="displayName" required formControlName="displayName">
+      <i class="genericNotice">This is how other people will see you. </i>
+
+      <label for="email" class="inputTitle required"><b>Email</b></label>
+      <input type="email" autocomplete="email" placeholder="john@example.com" name="email" id="email" required formControlName="email">
+      <i class="genericNotice">You'll login and receive status updates with this address.</i>
+
+      <label for="password" class="inputTitle required"><b>Password</b></label>
+      <input type="password" autocomplete="new-password" placeholder="Enter a good password" name="password" id="password" required formControlName="password">
+      <i class="genericNotice">At least 8 characters. Pick or generate a password that you don't use on other sites.</i>
+
+      <input type="submit" class="basic-button blue fw" style="margin-top: 24px;" value="Register"/>
+    </div>
+
+    <div class="register_alt">
+      Already have an account? <a routerLink="/login" class="register_alt_cancel">Login instead.</a>
+    </div>
+  </form>
+</div>

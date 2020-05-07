@@ -17,7 +17,7 @@
     "max-len": [
       2,
       {
-        "code": 250
+        "code": 300
       }
     ],
     "object-curly-newline": 0,

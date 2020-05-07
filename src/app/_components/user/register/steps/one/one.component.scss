@@ -1,4 +1,4 @@
-.login {
+.register {
   margin: 0 auto;
   padding: 80px 24px 40px 24px;
   width: 400px;
@@ -6,14 +6,10 @@
 }
 
 @media screen and (max-width: 528px) {
-  .login {
+  .register {
     padding: 40px 24px 30px 24px;
     width: 100%;
   }
-}
-
-label {
-  margin-top: 1.2em;
 }
 
 .title {
@@ -22,39 +18,34 @@ label {
   margin: 0;
 }
 
-.inputTitle {
+.register_input .inputTitle {
   display: block;
   font-size: 14px;
   font-weight: bold;
   color: #999;
-}
-
- .rememberme {
   margin: 0;
-  cursor: pointer;
+  margin-top: 2em;
 
-  label {
-    cursor: pointer;
-    margin: 0;
-  }
-
-  input {
-    margin-left: .3em;
+  &.noticeRequired {
+    margin: 1em 0 0 0;
   }
 }
 
-.submitGroup {
-  justify-content: space-between;
-  margin-top: 1.2em;
+.genericNotice {
+  font-size: 13px;
 }
 
-.login_alt {
+.register_alt {
   font-size: 14px;
-  margin-top: 20px;
-  text-align: right;
-
-  a {
-    text-decoration: none;
-  }
+  margin-top: 3px;
+  text-align: center;
 }
 
+.register_alt a {
+  text-decoration: none;
+}
+
+input[type=text],
+input[type=password] {
+  margin: 0;
+}
