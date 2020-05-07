@@ -41,6 +41,7 @@ export class UserService {
       .then((response) => {
         if (response.status === 204) {
           resolve();
+          this.storageService.user.next(Object.assign(storedUser, partialUser))
         }
       })
     });
