@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { Messenger } from 'src/app/_domain/class/Messenger';
 import { User } from 'src/app/_domain/class';
-import { AuthenticationService, StorageService, UserService } from 'src/app/_services';
+import { UserService } from 'src/app/_services';
 
 @Component({
   selector: 'steptwo',

@@ -1,0 +1,60 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "lockFileMaintenance": {
+    "enabled": true
+  },
+  "postUpgradeTasks": {
+    "commands": ["npm run updateangular"]
+  },
+  "packageRules": [
+    {
+      "groupName": "angular",
+      "updateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest",
+        "lockFileMaintenance",
+        "rollback",
+        "bump"
+      ],
+      "requiredStatusChecks": null,
+      "packagePatterns": ["^@angular"],
+      "rangeStrategy": "auto",
+      "stabilityDays": "3",
+      "automerge": true,
+      "semanticCommits": true
+    },
+    {
+      "groupName": "VLL dependencies",
+      "updateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest",
+        "lockFileMaintenance",
+        "rollback",
+        "bump"
+      ],
+      "requiredStatusChecks": null,
+      "packageNames": [
+        "body-parser",
+        "express",
+        "havetheybeenpwned",
+        "moment",
+        "mongodb",
+        "mongoose",
+        "uikit",
+        "concurrently",
+        "cors",
+        "dotenv"
+      ],
+      "rangeStrategy": "pin",
+      "stabilityDays": "3",
+      "automerge": true,
+      "semanticCommits": true
+    }
+  ]
+}

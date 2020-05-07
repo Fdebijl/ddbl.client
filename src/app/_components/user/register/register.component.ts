@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { AuthenticationService } from '../../../_services';
 import { Messenger } from 'src/app/_domain/class/Messenger';
 import { User } from 'src/app/_domain/class';
@@ -17,8 +17,6 @@ import { User } from 'src/app/_domain/class';
 })
 export class RegisterComponent extends Messenger implements OnInit {
   registerForm: FormGroup;
-  loading = false;
-  submitted = false;
   redirectTo: string;
   step = 0;
   steps = ['one', 'two'];

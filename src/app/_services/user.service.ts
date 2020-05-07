@@ -26,7 +26,7 @@ export class UserService {
   };
 
   public update(partialUser: User): Promise<User> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       const storedUser = this.storageService.user.getValue();
 
       fetch(`${environment.api_url}/account/${storedUser.id}`, {
@@ -40,7 +40,11 @@ export class UserService {
       })
       .then((response) => {
         if (response.status === 204) {
+          const newUser = new User(Object.assign(storedUser.toObject(), partialUser.toObject()));
+          this.storageService.user.next(newUser);
           resolve();
+        } else {
+          reject();
         }
       })
     });
