@@ -46,4 +46,10 @@ export class User {
       displayName: 'Floris de Bijl'
     });
   }
+
+  public toObject(): object {
+    const u = this as User;
+    Object.keys(u).forEach(key => u[key] === undefined ? delete u[key] : {});
+    return u;
+  }
 }

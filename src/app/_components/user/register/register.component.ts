@@ -17,8 +17,6 @@ import { User } from 'src/app/_domain/class';
 })
 export class RegisterComponent extends Messenger implements OnInit {
   registerForm: FormGroup;
-  loading = false;
-  submitted = false;
   redirectTo: string;
   step = 0;
   steps = ['one', 'two'];

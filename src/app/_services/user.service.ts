@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../_domain/class';
 import { environment } from 'src/environments/environment';
 import { StorageService } from './storage.service';
+import { rejects } from 'assert';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class UserService {
   };
 
   public update(partialUser: User): Promise<User> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       const storedUser = this.storageService.user.getValue();
 
       fetch(`${environment.api_url}/account/${storedUser.id}`, {
@@ -40,8 +41,11 @@ export class UserService {
       })
       .then((response) => {
         if (response.status === 204) {
+          const newUser = new User(Object.assign(storedUser.toObject(), partialUser.toObject()));
+          this.storageService.user.next(newUser);
           resolve();
-          this.storageService.user.next(Object.assign(storedUser, partialUser))
+        } else {
+          reject();
         }
       })
     });
