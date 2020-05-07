@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
+import {SetMeta, User} from '../_domain/class';
+import {mockdata} from '../../assets/datasets/mockdata';
+import {mockusers} from '../../assets/datasets/mockusers';
 
 
 @Injectable({
@@ -8,22 +11,30 @@ import 'rxjs/add/operator/do';
 })
 export class MongodbService {
 
-  GetMetadata(): Promise<unknown> {
-    return fetch('http://localhost:6969/api/getMetadata').then(res => res.json()).then(data => {
-      return data;
-      });
+  GetMetaDataNoAPI(): SetMeta[] {
+    const data: SetMeta[] = mockdata;
+    return data;
   }
 
-  GetMetadataVis(): Promise<unknown> {
-    return fetch('http://localhost:6969/api/getMetadataVisualizations').then(res => res.json()).then(data => {
-      return data;
-    });
+  GetMetadataVisNoAPI(): SetMeta[] {
+    const allData = this.GetMetaDataNoAPI();
+    const data: SetMeta[] = [];
+    for (const m of allData){
+      if (m.type === 'Visualization') {
+        data.push(m);
+      }
+    }
+    return data;
   }
 
-  GetUserById(id: string): Promise<unknown> {
-    console.log('FUCK')
-    return fetch('http://localhost:6969/api/getUserById', {body: id}).then(res => res.json()).then(data => {
-      return data;
-    });
+  GetUserByIdNoAPI(id: string): User {
+    const users: User[] = mockusers
+    for (const u of users)
+    {
+      if (u.id === id) {
+        return u;
+      }
+    }
+    return null;
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SetMeta, User} from '../../_domain/class';
 import { MongodbService } from '../../_services';
-import * as moment from 'moment';
+import moment from 'moment';
 
 declare function mpOverlay(baseMapId, overlayContId, Base, zoomLev, lat, lon);
 
@@ -23,9 +23,13 @@ export class VisComponent implements OnInit {
   public contributor: User;
 
   public getContributor(): void {
+    /*
     this.newService.GetUserById(this.mpNum.contributor.toString()).then( data => {
       this.contributor = data as User;
     });
+     */
+    this.contributor = this.newService.GetUserByIdNoAPI(this.mpNum.contributor.toString());
+    console.log(this.contributor.displayName);
   }
 
   private splitDataArrayToObjects(data: Array<SetMeta>): void {
@@ -91,10 +95,13 @@ export class VisComponent implements OnInit {
   ngOnInit(): void {
     this.mpNum = JSON.parse(localStorage.getItem('visData'));
     this.dateTimePosted = moment(this.mpNum.created).format('ll');
+    /*
     this.newService.GetMetadataVis().then(data => {
       console.log(data);
       this.processData(data as SetMeta[]);
     });
+     */
+    this.processData(this.newService.GetMetadataVisNoAPI());
     this.getContributor();
   }
 }
