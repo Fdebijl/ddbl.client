@@ -14,7 +14,7 @@ export class Messenger {
 
   showMessage(type: 'bad' | 'good' | 'neutral', message: string, stacking = false, timeout = 15): void {
     if (stacking) {
-      this.message += `${message ? '\n\n' : ''}${message}`
+      this.message += `${this.message ? '\n\n' : ''}${message}`
     } else {
       this.message = message;
     }

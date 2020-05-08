@@ -19,7 +19,7 @@ export class TwoComponent extends Messenger implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService
   ) {
-    super('Tell us a little bit more about yourself');
+    super('Tell us a little bit more about yourself. All fields are optional.');
   }
 
   ngOnInit(): void {
