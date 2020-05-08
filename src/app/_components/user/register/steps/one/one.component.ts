@@ -27,7 +27,7 @@ export class OneComponent extends Messenger implements OnInit {
     this.stepOneForm = this.formBuilder.group({
       displayName: ['', Validators.required],
       email: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(8)]]
+      password: ['', [Validators.required, Validators.minLength(12)]]
     });
   }
 
@@ -57,6 +57,8 @@ export class OneComponent extends Messenger implements OnInit {
 
     if (password.length < 12) {
       this.showMessage('bad', 'Please enter a password that is at least 12 characters long', true);
+      this.submitted = false;
+      this.loading = false;
       return;
     }
 
