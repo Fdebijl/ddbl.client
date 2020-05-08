@@ -55,6 +55,11 @@ export class OneComponent extends Messenger implements OnInit {
       this.showMessage('bad', 'Please enter a valid email address');
     }
 
+    if (password.length < 12) {
+      this.showMessage('bad', 'Please enter a password that is at least 12 characters long', true);
+      return;
+    }
+
     // Check in with the HaveIBeenPwned API
     const countPwned = await PwnedService.passwordIsPwnd(password)
 
