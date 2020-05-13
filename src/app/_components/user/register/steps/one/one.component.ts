@@ -27,7 +27,7 @@ export class OneComponent extends Messenger implements OnInit {
     this.stepOneForm = this.formBuilder.group({
       displayName: ['', Validators.required],
       email: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(8)]]
+      password: ['', [Validators.required, Validators.minLength(12)]]
     });
   }
 
@@ -55,13 +55,21 @@ export class OneComponent extends Messenger implements OnInit {
       this.showMessage('bad', 'Please enter a valid email address');
     }
 
+    if (password.length < 12) {
+      this.showMessage('bad', 'Please enter a password that is at least 12 characters long', true);
+      this.submitted = false;
+      this.loading = false;
+      return;
+    }
+
     // Check in with the HaveIBeenPwned API
     const countPwned = await PwnedService.passwordIsPwnd(password)
 
     if (countPwned) {
       this.showMessage(
         'bad',
-        `The password you used was found in <a href="https://haveibeenpwned.com/Passwords" rel="noopener" target="_blank">${countPwned} data ${Number.parseInt(countPwned) > 1 ? 'breaches' : 'breach'}</a>, please choose a new password and strongly consider changing this password if you use it elsewhere.`,
+        `The password you used was found in <a href="https://haveibeenpwned.com/Passwords" rel="noopener" target="_blank">${countPwned} data ${Number.parseInt(countPwned) > 1 ? 'breaches' : 'breach'}</a>, ` +
+        `please choose a new password and strongly consider changing this password if you use it elsewhere.`,
         true
       );
       this.submitted = false;

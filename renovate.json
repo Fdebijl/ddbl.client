@@ -1,0 +1,50 @@
+{
+  "lockFileMaintenance": {
+    "enabled": true
+  },
+  "postUpgradeTasks": {
+    "commands": ["npm run updateangular"]
+  },
+  "packageRules": [
+    {
+      "groupName": "angular",
+      "updateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest",
+        "lockFileMaintenance",
+        "rollback",
+        "bump"
+      ],
+      "requiredStatusChecks": null,
+      "packagePatterns": ["^@angular"],
+      "rangeStrategy": "auto",
+      "stabilityDays": "3",
+      "automerge": true,
+      "semanticCommits": true
+    },
+    {
+      "groupName": "VLL dependencies",
+      "updateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "digest",
+        "lockFileMaintenance",
+        "rollback",
+        "bump"
+      ],
+      "requiredStatusChecks": null,
+      "packageNames": [
+        "havetheybeenpwned",
+        "moment",
+        "uikit"
+      ],
+      "rangeStrategy": "pin",
+      "stabilityDays": "3",
+      "automerge": true,
+      "semanticCommits": true
+    }
+  ]
+}
