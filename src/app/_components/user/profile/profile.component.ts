@@ -36,7 +36,7 @@ export class ProfileComponent implements OnInit {
     }
     this.editMode = false;
 
-    this.id = this.activatedRoute.snapshot.params['id'];
+    this.id = this.activatedRoute.snapshot.params.id;
     this.user = await this.userService.getByID(this.id);
     this.displayNameEditMode = '';
     this.bioEditMode = '';
@@ -59,7 +59,10 @@ export class ProfileComponent implements OnInit {
 
   public onSubmit(): void {
     const u = new User({});
-    if (this.user.displayName !== this.displayNameEditMode) {
+    if (this.user.displayName !== this.displayNameEditMode
+      && this.displayNameEditMode !== null
+      && this.displayNameEditMode !== undefined
+      && this.displayNameEditMode !== '') {
       u.displayName = this.displayNameEditMode;
     }
     if (this.user.affiliation !== this.affiliationEditMode) {
@@ -77,7 +80,8 @@ export class ProfileComponent implements OnInit {
   }
 
   public deleteAccount(): void {
-    // this.storageService.
+    this.userService.delete();
+    this.router.navigate(['/login'],{queryParams: {action: 'logout'}});
   }
 
 }

@@ -4,18 +4,24 @@
     <img [src]="user.profilePicture" *ngIf="user.profilePicture">
     <div *ngIf="!user.profilePicture" class="abbreviation">{{user.getAbbreviation()}}</div>
   </picture>
-  <aside class="flex column displayname" (click)="activateEditMode()">
-    <h1 *ngIf="!editMode">{{user.displayName}}</h1>
-    <h3 *ngIf="user.affiliation && !editMode">{{user.affiliation}}</h3>
-    <p *ngIf="user.bio && !editMode">{{user.bio}}</p>
+  <aside class="flex column displayname" (click)="activateEditMode()" *ngIf="!editMode">
+    <h1>{{user.displayName}}</h1>
+    <h3 *ngIf="user.affiliation">{{user.affiliation}}</h3>
+    <p *ngIf="user.bio">{{user.bio}}</p>
   </aside>
-  <form class="flex column" (submit)="onSubmit()" (keydown.enter)="onSubmit()">
-    <input type="text" [(ngModel)]="displayNameEditMode" *ngIf="editMode" name="displayName" placeholder="Display Name">
-    <input type="text" [(ngModel)]="affiliationEditMode" *ngIf="editMode" name="affiliation" placeholder="Affiliation">
-    <input type="text" [(ngModel)]="bioEditMode" *ngIf="editMode" name="bio" placeholder="Bio">
-    <div class="editButtons flex row" *ngIf="editMode">
-      <button (click)="deactivateEditMode()">Cancel</button>
-      <input type="submit" value="Save changes" class="save-button">
+  <form class="flex column" (ngSubmit)="onSubmit()" (keydown.enter)="onSubmit()" *ngIf="editMode">
+    <label class="inputTitle"><b>displayName</b></label>
+    <input type="text" [(ngModel)]="displayNameEditMode" name="displayName" placeholder="Display Name">
+
+    <label class="inputTitle"><b>Affiliation</b></label>
+    <input type="text" [(ngModel)]="affiliationEditMode" name="affiliation" placeholder="Affiliation">
+
+    <label class="inputTitle"><b>Bio</b></label>
+    <input type="text" [(ngModel)]="bioEditMode" name="bio" placeholder="Bio">
+    <div class="edit-buttons flex row">
+      <input type="submit" value="Save changes" class="save-button uk-button uk-button-primary">
+      <input type="button" (click)="deleteAccount()" value="Delete Account" class="delete-button uk-button uk-button-danger">
+      <input type="button" (click)="deactivateEditMode()" value="Cancel" class="cancel-button uk-button uk-button-default">
     </div>
   </form>
 </section>
