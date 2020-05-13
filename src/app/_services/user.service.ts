@@ -49,4 +49,26 @@ export class UserService {
       })
     });
   }
+
+  public delete(): Promise<User> {
+    return new Promise((resolve, reject) => {
+      const storedUser = this.storageService.user.getValue();
+
+      fetch(`${environment.api_url}/account/${storedUser.id}`, {
+        method: 'DELETE',
+        credentials: 'omit',
+        cache: 'no-cache',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then((response) => {
+          if (response.status === 204) {
+            resolve();
+          } else {
+            reject();
+          }
+        })
+    });
+  }
 }

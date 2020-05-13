@@ -52,6 +52,51 @@
       margin: 0;
       margin-left: .5em;
     }
+    h3 {
+       line-height: 1;
+       margin: 0;
+       margin-left: 0.9em;
+    }
+    p {
+      line-height: 1;
+      margin: 0;
+      margin-left: 1.4em;
+      max-width: 500px;
+      margin-top: 5px;
+    }
+  }
+
+  form {
+    margin-left: 1.5em;
+
+    label {
+      margin-top: 1.2em;
+    }
+
+    .title {
+      font-size: 24pt;
+      font-weight: lighter;
+      margin: 0;
+    }
+
+    .inputTitle {
+      display: block;
+      font-size: 14px;
+      font-weight: bold;
+      color: #999;
+    }
+
+    .edit-buttons {
+      margin-top: 1.2em;
+    }
+
+    .save-button {
+      margin-right: 15px;
+    }
+
+    .delete-button {
+      margin-right: 15px;
+    }
   }
 }
 
