@@ -1,7 +1,7 @@
 import { extendDefault } from './AuthorizedFetch';
 import { deepStrictEqual } from 'assert';
 
-fdescribe('AuthorizedFetch', () => {
+describe('AuthorizedFetch', () => {
   it('should produce options with defaults', () => {
     const expected = {
       method: 'POST',
