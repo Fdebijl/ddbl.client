@@ -76,4 +76,8 @@ export class ProfileComponent implements OnInit {
     this.deactivateEditMode();
   }
 
+  public deleteAccount(): void {
+    // this.storageService.
+  }
+
 }

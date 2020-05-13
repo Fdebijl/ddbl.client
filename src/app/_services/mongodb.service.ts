@@ -11,8 +11,6 @@ import {mockusers} from '../../assets/datasets/mockusers';
   providedIn: 'root'
 })
 export class MongodbService {
-  products: any = (dataset as any).default;
-  productss: any = (userdataset as any).default;
 
   GetMetaDataNoAPI(): SetMeta[] {
     const data: SetMeta[] = mockdata;
