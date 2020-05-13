@@ -4,6 +4,8 @@ import { environment } from '../../environments/environment';
 import { StorageService } from './storage.service';
 import { UserService } from './user.service';
 import { GenericError, User } from '../_domain/class';
+import { AuthorizedFetch } from '../_util/AuthorizedFetch';
+import { Endpoints } from '../_domain/enum/Endpoint';
 
 /**
  * The AuthenticationService handles all methods and checks related to logging in and registering.
@@ -33,18 +35,13 @@ export class AuthenticationService {
 
   public async login(email: string, password: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      fetch(`${environment.api_url}/account/login`, {
+      AuthorizedFetch(Endpoints.accountLogin, {
         method: 'POST',
-        credentials: 'omit',
-        cache: 'no-cache',
-        headers: {
-          'Content-Type': 'application/json'
-        },
         body: JSON.stringify({
           email,
           password
         })
-      })
+      }, false)
         .then((response) => response.json())
         .then(async (data) => {
           if (data.error) {
@@ -84,13 +81,8 @@ export class AuthenticationService {
 
   public async register(pendingUser: User): Promise<User> {
     return new Promise((resolve, reject) => {
-      fetch(`${environment.api_url}/account/`, {
+      AuthorizedFetch(`${environment.api_url}/account/`, {
         method: 'POST',
-        credentials: 'omit',
-        cache: 'no-cache',
-        headers: {
-          'Content-Type': 'application/json'
-        },
         body: JSON.stringify({
           email: pendingUser.email,
           displayName: pendingUser.displayName,

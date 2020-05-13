@@ -43,14 +43,14 @@ export class ProfileComponent implements OnInit {
     this.affiliationEditMode = '';
   }
 
-  public activateEditMode() {
+  public activateEditMode(): void {
     this.editMode = true;
     this.displayNameEditMode = this.user.displayName;
     this.bioEditMode = this.user.bio;
     this.affiliationEditMode = this.user.affiliation;
   }
 
-  public deactivateEditMode() {
+  public deactivateEditMode(): void {
     this.editMode = false;
     this.displayNameEditMode = '';
     this.bioEditMode = '';

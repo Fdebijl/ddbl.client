@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../_domain/class';
-import { environment } from 'src/environments/environment';
 import { StorageService } from './storage.service';
+import { AuthorizedFetch } from '../_util/AuthorizedFetch';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +13,7 @@ export class UserService {
 
   public getByID(id: string): Promise<User> {
     return new Promise((resolve) => {
-      fetch(`${environment.api_url}/account/${id}`, {
-        method: 'GET',
-        credentials: 'omit',
-        cache: 'no-cache'
-      })
+      AuthorizedFetch(`account/${id}`)
       .then((response) => response.json())
       .then((user) => {
         resolve(new User(user));
@@ -29,14 +25,9 @@ export class UserService {
     return new Promise((resolve, reject) => {
       const storedUser = this.storageService.user.getValue();
 
-      fetch(`${environment.api_url}/account/${storedUser.id}`, {
+      AuthorizedFetch(`account/${storedUser.id}`, {
         method: 'PATCH',
-        credentials: 'omit',
-        cache: 'no-cache',
-        body: JSON.stringify(partialUser),
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        body: JSON.stringify(partialUser)
       })
       .then((response) => {
         if (response.status === 204) {
@@ -54,13 +45,8 @@ export class UserService {
     return new Promise((resolve, reject) => {
       const storedUser = this.storageService.user.getValue();
 
-      fetch(`${environment.api_url}/account/${storedUser.id}`, {
-        method: 'DELETE',
-        credentials: 'omit',
-        cache: 'no-cache',
-        headers: {
-          'Content-Type': 'application/json'
-        }
+      AuthorizedFetch(`account/${storedUser.id}`, {
+        method: 'DELETE'
       })
         .then((response) => {
           if (response.status === 204) {
