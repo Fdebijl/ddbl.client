@@ -17,6 +17,7 @@
       <input type="password" autocomplete="new-password" placeholder="Enter a good password" name="password" id="password" required formControlName="password">
       <i class="genericNotice"><span [ngClass]="this.formFields.password.invalid && this.stepOneForm.touched && this.formFields.password.value.length > 1 ? 'emphasize' : 'valid'" class="passwordRequirements">At least 12 characters.</span> Pick or generate a password that you don't use on other sites.</i>
 
+      <p class="terms-of-service"><input type="checkbox" name="termsOfService" required formControlName="termsOfService"> I agree to the <a routerLink="../terms-of-service" target="_blank">terms of service</a></p>
       <input type="submit" class="basic-button blue fw" style="margin-top: 24px;" value="Register" [disabled]="!stepOneForm.valid"/>
     </div>
 

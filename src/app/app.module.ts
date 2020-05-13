@@ -12,6 +12,7 @@ import { CardComponent } from './_components/card/card.component';
 import { DatalistitemComponent } from './_components/partials/datalistitem/datalistitem.component';
 import { OneComponent } from './_components/user/register/steps/one/one.component';
 import { TwoComponent } from './_components/user/register/steps/two/two.component';
+import { TermsComponent } from './_components/terms/terms.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { TwoComponent } from './_components/user/register/steps/two/two.componen
     DatalistitemComponent,
     OneComponent,
     TwoComponent,
+    TermsComponent,
   ],
   imports: [
     BrowserModule,
