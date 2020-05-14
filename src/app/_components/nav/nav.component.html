@@ -1,0 +1,21 @@
+<!-- Don't hardcode links here, use the environment file instead! -->
+<aside id="offcanvas-nav" uk-offcanvas="flip: true; overlay: true; mode: reveal;">
+  <div class="uk-offcanvas-bar">
+      <div class="titlebar">
+        <button class="uk-offcanvas-close" type="button" uk-close></button>
+        <h3>Menu</h3>
+      </div>
+      <nav>
+        <ul class="upper">
+          <li *ngFor="let item of upperItems">
+            <a [routerLink]="[item.url]" [queryParams]="item.query" uk-toggle="target: #offcanvas-nav">{{item.text}}</a>
+          </li>
+        </ul>
+        <ul class="lower">
+          <li *ngFor="let item of lowerItems">
+            <a [routerLink]="[item.url]" [queryParams]="item.query" uk-toggle="target: #offcanvas-nav">{{item.text}}</a>
+          </li>
+        </ul>
+      </nav>
+  </div>
+</aside>
