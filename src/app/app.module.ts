@@ -13,6 +13,7 @@ import { DatalistitemComponent } from './_components/partials/datalistitem/datal
 import { OneComponent } from './_components/user/register/steps/one/one.component';
 import { TwoComponent } from './_components/user/register/steps/two/two.component';
 import { TermsComponent } from './_components/terms/terms.component';
+import { NavComponent } from './_components/nav/nav.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { TermsComponent } from './_components/terms/terms.component';
     OneComponent,
     TwoComponent,
     TermsComponent,
+    NavComponent,
   ],
   imports: [
     BrowserModule,
