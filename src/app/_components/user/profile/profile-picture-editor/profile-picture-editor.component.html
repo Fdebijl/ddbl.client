@@ -1,0 +1,20 @@
+<div class="flex uk-flex-row">
+  <div class="flex uk-flex-column">
+    <image-cropper class="img-cropper"
+      [imageChangedEvent]="imageChangedEvent"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="1 / 1"
+      format="png"
+      (imageCropped)="imageCropped($event)"
+      (imageLoaded)="imageLoaded()"
+      (cropperReady)="cropperReady()"
+      (loadImageFailed)="loadImageFailed()"
+    ></image-cropper>
+    <input type="file" (change)="fileChangeEvent($event)" />
+  </div>
+  <div class="flex uk-flex-column" *ngIf="croppedImage !== ''">
+    <img class="cropped-img" [src]="croppedImage" alt=""/>
+    <input type="button" (click)="save()" value="save"/>
+    <input type="button" value="cancel"/>
+  </div>
+</div>

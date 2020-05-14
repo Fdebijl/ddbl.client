@@ -13,6 +13,8 @@ import { DatalistitemComponent } from './_components/partials/datalistitem/datal
 import { OneComponent } from './_components/user/register/steps/one/one.component';
 import { TwoComponent } from './_components/user/register/steps/two/two.component';
 import { TermsComponent } from './_components/terms/terms.component';
+import { ProfilePictureEditorComponent } from './_components/user/profile/profile-picture-editor/profile-picture-editor.component';
+import {ImageCropperModule} from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { TermsComponent } from './_components/terms/terms.component';
     OneComponent,
     TwoComponent,
     TermsComponent,
+    ProfilePictureEditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,8 @@ import { TermsComponent } from './_components/terms/terms.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ImageCropperModule
   ],
   providers: [
     HttpClient,

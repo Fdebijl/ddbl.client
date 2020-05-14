@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { AuthGuard } from './_services';
 import { LoginComponent, UploadComponent, ProfileComponent, RegisterComponent, MainDashboardComponent, VisComponent } from './_components';
 import {TermsComponent} from './_components/terms/terms.component';
+import {ProfilePictureEditorComponent} from './_components/user/profile/profile-picture-editor/profile-picture-editor.component';
 
 @NgModule({
   imports: [RouterModule.forRoot([
@@ -12,6 +13,7 @@ import {TermsComponent} from './_components/terms/terms.component';
     { path: 'register', component: RegisterComponent },
     { path: 'visualization', component: VisComponent },
     { path: 'terms-of-service', component: TermsComponent },
+    { path: 'pf', component: ProfilePictureEditorComponent },
     // ========= BEGIN PROTECTED COMPONENTS ==========
     // The following components should all use 'canActivate: [AuthGuard]' in order to prevent unauthorized access.
     // Obviously, this can be worked around by an attacker so all API endpoints should still validate that the user is authorized to view a resource.
