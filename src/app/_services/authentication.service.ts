@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { environment } from '../../environments/environment';
 import { StorageService } from './storage.service';
 import { UserService } from './user.service';
 import { GenericError, User } from '../_domain/class';
@@ -104,7 +103,7 @@ export class AuthenticationService {
 
   public async register(pendingUser: User): Promise<User> {
     return new Promise((resolve, reject) => {
-      AuthorizedFetch(`${environment.api_url}/account/`, {
+      AuthorizedFetch(Endpoints.account, {
         method: 'POST',
         body: JSON.stringify({
           email: pendingUser.email,
@@ -150,6 +149,29 @@ export class AuthenticationService {
   }
 
   public async logout(): Promise<void> {
-    return this.storageService.user.clear();
+    const user = this.storageService.user.getValue();
+    this.storageService.user.clear();
+
+    return new Promise((resolve, reject) => {
+      AuthorizedFetch(Endpoints.accountLogout, {
+        method: 'POST',
+        body: JSON.stringify({
+          id: user.id
+        })
+      })
+        .catch((error) => {
+          // Check for internet connection
+          if (!navigator.onLine) {
+            reject(new GenericError({
+              name: 'NoNetworkError',
+              message: 'There is no network connection right now. Check your internet connection and try again.'
+            }));
+            return;
+          }
+
+          console.log(error);
+          reject(error);
+        });
+    });
   }
 }
