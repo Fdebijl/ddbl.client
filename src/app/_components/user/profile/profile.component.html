@@ -1,6 +1,6 @@
 <section class="flex row center fw profile">
   <picture class="profile-picture">
-    <div class="flex center change">Change</div>
+    <div class="flex center change" (click)="updateEditPfp()">Change</div>
     <img [src]="user.profilePicture" *ngIf="user.profilePicture">
     <div *ngIf="!user.profilePicture" class="abbreviation">{{user.getAbbreviation()}}</div>
   </picture>
@@ -50,3 +50,7 @@
     </ul>
   </div>
 </section>
+
+<app-profile-picture-editor class="profile-picture-editor" *ngIf="editPfp" (cancel)="cancel($event)">
+
+</app-profile-picture-editor>

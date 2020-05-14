@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ImageCroppedEvent, ImageCropperModule} from 'ngx-image-cropper';
 import {User} from '../../../../_domain/class';
 import {StorageService} from '../../../../_services';
@@ -9,6 +9,8 @@ import {StorageService} from '../../../../_services';
   styleUrls: ['./profile-picture-editor.component.scss']
 })
 export class ProfilePictureEditorComponent implements OnInit {
+  @Output() cancel: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+
   imageChangedEvent: any = '';
   croppedImage: any = '';
 
@@ -37,12 +39,16 @@ export class ProfilePictureEditorComponent implements OnInit {
   }
 
   save() {
-    const storedUser = this.storageService.user.getValue();
-    const user = new User({
-      profilePicture: this.croppedImage
-    })
-    const newUser = new User(Object.assign(storedUser.toObject(), user.toObject()));
-    this.storageService.user.next(newUser);
+    if (this.croppedImage !== '') {
+      const storedUser = this.storageService.user.getValue();
+      storedUser.profilePicture = this.croppedImage;
+      this.storageService.user.next(storedUser);
+    }
+  }
+
+  reset() {
+    this.imageChangedEvent = '';
+    this.croppedImage = '';
   }
 
 }
