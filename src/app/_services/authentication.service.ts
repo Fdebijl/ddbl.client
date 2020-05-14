@@ -127,6 +127,30 @@ export class AuthenticationService {
   }
 
   public async logout(): Promise<void> {
+    const user = this.storageService.user.getValue();
+
+    return new Promise((resolve, reject) => {
+      AuthorizedFetch(`${environment.api_url}/account/logout/`, {
+        method: 'POST',
+        body: JSON.stringify({
+          id: user.id
+        })
+      })
+        .catch((error) => {
+          // Check for internet connection
+          if (!navigator.onLine) {
+            reject(new GenericError({
+              name: 'NoNetworkError',
+              message: 'There is no network connection right now. Check your internet connection and try again.'
+            }));
+            return;
+          }
+
+          console.log(error);
+          reject(error);
+        });
+    });
+
     return this.storageService.user.clear();
   }
 }
