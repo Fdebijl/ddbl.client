@@ -27,7 +27,8 @@ export class OneComponent extends Messenger implements OnInit {
     this.stepOneForm = this.formBuilder.group({
       displayName: ['', Validators.required],
       email: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(12)]]
+      password: ['', [Validators.required, Validators.minLength(12)]],
+      termsOfService: [false, [Validators.required]]
     });
   }
 
