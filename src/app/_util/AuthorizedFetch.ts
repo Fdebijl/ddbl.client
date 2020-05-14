@@ -64,6 +64,10 @@ export const AuthorizedFetch = (endpoint: Endpoint, options?: RequestInit, autho
       };
     }
 
+    if (!options.headers) {
+      options.headers = {};
+    }
+
     options.headers['Authorization'] = token;
   }
 
