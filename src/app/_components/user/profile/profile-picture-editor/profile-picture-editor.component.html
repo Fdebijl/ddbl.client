@@ -1,5 +1,5 @@
-<div class="flex uk-flex-row">
-  <div class="flex uk-flex-column">
+<div class="flex uk-flex-column">
+  <div class="flex uk-flex-row">
     <image-cropper class="img-cropper"
       [imageChangedEvent]="imageChangedEvent"
       [maintainAspectRatio]="true"
@@ -10,11 +10,11 @@
       (cropperReady)="cropperReady()"
       (loadImageFailed)="loadImageFailed()"
     ></image-cropper>
-    <input type="file" (change)="fileChangeEvent($event)" />
-  </div>
-  <div class="flex uk-flex-column" *ngIf="croppedImage !== ''">
     <img class="cropped-img" [src]="croppedImage" alt=""/>
-    <input type="button" (click)="save()" value="save"/>
-    <input type="button" value="cancel"/>
+  </div>
+  <div class="flex uk-flex-row">
+    <input type="file" (change)="fileChangeEvent($event)" class="uk-button uk-button-default file-upload-button"/>
+    <input type="button" (click)="save()" value="save" class="uk-button uk-button-primary"/>
+    <input type="button" value="cancel" class="uk-button uk-button-default"/>
   </div>
 </div>
