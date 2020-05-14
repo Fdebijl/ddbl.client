@@ -49,11 +49,16 @@ export class AuthenticationService {
             return;
           }
 
-          if (data.id) {
-            const user = await this.userService.getByID(data.id);
-            user.token = data.token;
-            user.tokenExpiration = data.tokenExpiration;
+          // Temporary user to make the getByID request
+          const stubUser = new User({
+            id: data.id,
+            token: data.token,
+            tokenExpiration: data.tokenExpiration
+          });
+          this.storageService.user.next(stubUser);
 
+          if (stubUser.id) {
+            const user = await this.userService.getByID(stubUser.id);
             this.storageService.user.next(user);
             resolve();
           } else {
