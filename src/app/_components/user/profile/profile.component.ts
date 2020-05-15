@@ -86,19 +86,17 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/login'],{queryParams: {action: 'logout'}});
   }
 
-  public updateEditPfp(){
+  public updateEditPfp(): void{
     if (this.editPfp) {
       this.editPfp = false;
     } else {
       this.editPfp = true;
     }
-    return
   }
 
   // Gets used by child component
   cancel(event: MouseEvent): void {
     this.updateEditPfp();
-    return
   }
 
 }
