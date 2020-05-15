@@ -5,6 +5,7 @@ import { UserService } from './user.service';
 import { GenericError, User } from '../_domain/class';
 import { AuthorizedFetch } from '../_util/AuthorizedFetch';
 import { Endpoints } from '../_domain/enum/Endpoint';
+import { BehaviorSubject } from 'rxjs';
 
 /**
  * The AuthenticationService handles all methods and checks related to logging in and registering.
@@ -13,13 +14,30 @@ import { Endpoints } from '../_domain/enum/Endpoint';
   providedIn: 'root'
 })
 export class AuthenticationService {
+  /**
+   * Subscribe to this property to get real-time information on the authentication status of the user.
+   * For one-time checks for authentication, `isAuthenticated` is preferred.
+   *
+   * @type {BehaviorSubject<boolean>}
+   * @memberof AuthenticationService
+   */
+  public isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   constructor(
     private storageService: StorageService,
     private userService: UserService
-  ) { }
+  ) {
+    this.storageService.user.subscribe({
+      next: (user) => {
+        this.isAuthenticatedSubject.next(this.isAuthenticated(user));
+      }
+    })
+  }
 
-  public isAuthenticated(): boolean {
-    const user: User = this.storageService.user.getValue();
+  public isAuthenticated(user?: User): boolean {
+    if (!user) {
+      user = this.storageService.user.getValue();
+    }
 
     if (!user) {
       return false;

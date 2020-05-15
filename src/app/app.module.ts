@@ -15,6 +15,7 @@ import { TwoComponent } from './_components/user/register/steps/two/two.componen
 import { TermsComponent } from './_components/terms/terms.component';
 import { ProfilePictureEditorComponent } from './_components/user/profile/profile-picture-editor/profile-picture-editor.component';
 import {ImageCropperModule} from 'ngx-image-cropper';
+import { NavComponent } from './_components/nav/nav.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import {ImageCropperModule} from 'ngx-image-cropper';
     OneComponent,
     TwoComponent,
     TermsComponent,
+    NavComponent,
     ProfilePictureEditorComponent,
   ],
   imports: [
