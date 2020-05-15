@@ -1,0 +1,20 @@
+<div class="flex uk-flex-column">
+  <div class="flex uk-flex-row">
+    <image-cropper class="img-cropper"
+      [imageChangedEvent]="imageChangedEvent"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="1 / 1"
+      format="png"
+      (imageCropped)="imageCropped($event)"
+      (imageLoaded)="imageLoaded()"
+      (cropperReady)="cropperReady()"
+      (loadImageFailed)="loadImageFailed()"
+    ></image-cropper>
+    <img class="cropped-img" [src]="croppedImage" alt=""/>
+  </div>
+  <div class="flex uk-flex-row buttons">
+    <input type="file" (change)="fileChangeEvent($event)" class="uk-button uk-button-default file-upload-button"/>
+    <input type="button" (click)="save(); cancel.emit($event)" value="save" class="uk-button uk-button-primary" [disabled]="croppedImage === ''"/>
+    <input (click)="cancel.emit($event); reset()" class="uk-button uk-button-default" type="button" value="cancel"/>
+  </div>
+</div>

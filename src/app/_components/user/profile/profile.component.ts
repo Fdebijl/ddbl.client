@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit {
   displayNameEditMode: string;
   bioEditMode: string;
   affiliationEditMode: string;
+  editPfp: boolean;
 
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -35,6 +36,7 @@ export class ProfileComponent implements OnInit {
       return;
     }
     this.editMode = false;
+    this.editPfp = false;
 
     this.id = this.activatedRoute.snapshot.params.id;
     this.user = await this.userService.getByID(this.id);
@@ -82,6 +84,19 @@ export class ProfileComponent implements OnInit {
   public deleteAccount(): void {
     this.userService.delete();
     this.router.navigate(['/login'],{queryParams: {action: 'logout'}});
+  }
+
+  public updateEditPfp(): void{
+    if (this.editPfp) {
+      this.editPfp = false;
+    } else {
+      this.editPfp = true;
+    }
+  }
+
+  // Gets used by child component
+  cancel(event: MouseEvent): void {
+    this.updateEditPfp();
   }
 
 }
