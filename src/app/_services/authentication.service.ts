@@ -110,7 +110,7 @@ export class AuthenticationService {
           displayName: pendingUser.displayName,
           password: pendingUser.password,
         })
-      })
+      }, false)
         .then((response) => response.json())
         .then(async (data) => {
           if (data.error) {
@@ -118,11 +118,16 @@ export class AuthenticationService {
             return;
           }
 
-          if (data.id) {
-            const user = await this.userService.getByID(data.id);
-            user.token = data.token;
-            user.tokenExpiration = data.tokenExpiration;
+          // Temporary user to make the getByID request
+          const stubUser = new User({
+            id: data.id,
+            token: data.token,
+            tokenExpiration: data.tokenExpiration
+          });
+          this.storageService.user.next(stubUser);
 
+          if (stubUser.id) {
+            const user = await this.userService.getByID(stubUser.id);
             this.storageService.user.next(user);
             resolve(user);
           } else {
@@ -150,7 +155,6 @@ export class AuthenticationService {
 
   public async logout(): Promise<void> {
     const user = this.storageService.user.getValue();
-    this.storageService.user.clear();
 
     return new Promise((resolve, reject) => {
       AuthorizedFetch(Endpoints.accountLogout, {
@@ -159,6 +163,9 @@ export class AuthenticationService {
           id: user.id
         })
       })
+        .then(() => {
+          this.storageService.user.clear();
+        })
         .catch((error) => {
           // Check for internet connection
           if (!navigator.onLine) {
