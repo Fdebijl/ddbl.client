@@ -1,6 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ImageCroppedEvent, ImageCropperModule} from 'ngx-image-cropper';
-import {User} from '../../../../_domain/class';
 import {StorageService} from '../../../../_services';
 
 @Component({
@@ -11,8 +10,8 @@ import {StorageService} from '../../../../_services';
 export class ProfilePictureEditorComponent implements OnInit {
   @Output() cancel: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
-  imageChangedEvent: any = '';
-  croppedImage: any = '';
+  imageChangedEvent = '';
+  croppedImage = '';
 
   constructor(private storageService: StorageService) {
     return
@@ -24,18 +23,23 @@ export class ProfilePictureEditorComponent implements OnInit {
 
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;
+    return
   }
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.base64;
+    return
   }
   imageLoaded() {
     // show cropper
+    return
   }
   cropperReady() {
     // cropper ready
+    return
   }
   loadImageFailed() {
     // show message
+    return
   }
 
   save() {
@@ -44,11 +48,12 @@ export class ProfilePictureEditorComponent implements OnInit {
       storedUser.profilePicture = this.croppedImage;
       this.storageService.user.next(storedUser);
     }
+    return
   }
 
   reset() {
     this.imageChangedEvent = '';
     this.croppedImage = '';
+    return
   }
-
 }

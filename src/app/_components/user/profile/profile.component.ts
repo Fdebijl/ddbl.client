@@ -92,10 +92,13 @@ export class ProfileComponent implements OnInit {
     } else {
       this.editPfp = true;
     }
+    return
   }
 
+  // Gets used by child component
   cancel(event: MouseEvent): void {
     this.updateEditPfp();
+    return
   }
 
 }
