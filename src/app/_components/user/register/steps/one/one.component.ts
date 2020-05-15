@@ -91,6 +91,7 @@ export class OneComponent extends Messenger implements OnInit {
       .catch((error) => {
         // Failed login
         this.showMessage('bad', error?.message || 'Invalid email or password');
+        throw(error);
       })
       .finally(() => {
         this.submitted = false;

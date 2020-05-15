@@ -83,5 +83,4 @@ export class ProfileComponent implements OnInit {
     this.userService.delete();
     this.router.navigate(['/login'],{queryParams: {action: 'logout'}});
   }
-
 }

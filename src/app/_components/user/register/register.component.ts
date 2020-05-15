@@ -37,6 +37,7 @@ export class RegisterComponent extends Messenger implements OnInit {
     if (this.step >= this.steps.length - 1) {
       this.router.navigate(['/']);
     }
+
     return this.steps[this.step++];
   }
 }
