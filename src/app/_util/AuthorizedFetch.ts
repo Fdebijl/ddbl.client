@@ -52,6 +52,8 @@ export const AuthorizedFetch = (endpoint: Endpoint, options?: RequestInit, autho
     const tokenIsExpired = moment.utc(tokenExpiration).isBefore(moment.now(), 'milliseconds');
 
     if (tokenIsExpired) {
+      console.log('Clearing session');
+      storageService.user.clear();
       throw new SessionExpiredError({
         name: 'SessionExpiredError',
         message: 'Your session has expired, please log in.'
