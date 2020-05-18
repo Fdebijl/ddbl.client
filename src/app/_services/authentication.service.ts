@@ -76,6 +76,8 @@ export class AuthenticationService {
 
           if (stubUser.id) {
             const user = await this.userService.getByID(stubUser.id);
+            user.token = data.token;
+            user.tokenExpiration = data.tokenExpiration;
             this.storageService.user.next(user);
             resolve();
           } else {
@@ -128,6 +130,8 @@ export class AuthenticationService {
 
           if (stubUser.id) {
             const user = await this.userService.getByID(stubUser.id);
+            user.token = data.token;
+            user.tokenExpiration = data.tokenExpiration;
             this.storageService.user.next(user);
             resolve(user);
           } else {
