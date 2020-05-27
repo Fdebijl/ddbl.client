@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 
-import { environment } from '../../environments/environment';
 import { StorageService } from './storage.service';
 import { UserService } from './user.service';
 import { GenericError, User } from '../_domain/class';
 import { AuthorizedFetch } from '../_util/AuthorizedFetch';
 import { Endpoints } from '../_domain/enum/Endpoint';
+import { BehaviorSubject } from 'rxjs';
 
 /**
  * The AuthenticationService handles all methods and checks related to logging in and registering.
@@ -14,13 +14,30 @@ import { Endpoints } from '../_domain/enum/Endpoint';
   providedIn: 'root'
 })
 export class AuthenticationService {
+  /**
+   * Subscribe to this property to get real-time information on the authentication status of the user.
+   * For one-time checks for authentication, `isAuthenticated` is preferred.
+   *
+   * @type {BehaviorSubject<boolean>}
+   * @memberof AuthenticationService
+   */
+  public isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   constructor(
     private storageService: StorageService,
     private userService: UserService
-  ) { }
+  ) {
+    this.storageService.user.subscribe({
+      next: (user) => {
+        this.isAuthenticatedSubject.next(this.isAuthenticated(user));
+      }
+    })
+  }
 
-  public isAuthenticated(): boolean {
-    const user: User = this.storageService.user.getValue();
+  public isAuthenticated(user?: User): boolean {
+    if (!user) {
+      user = this.storageService.user.getValue();
+    }
 
     if (!user) {
       return false;
@@ -49,11 +66,18 @@ export class AuthenticationService {
             return;
           }
 
-          if (data.id) {
-            const user = await this.userService.getByID(data.id);
+          // Temporary user to make the getByID request
+          const stubUser = new User({
+            id: data.id,
+            token: data.token,
+            tokenExpiration: data.tokenExpiration
+          });
+          this.storageService.user.next(stubUser);
+
+          if (stubUser.id) {
+            const user = await this.userService.getByID(stubUser.id);
             user.token = data.token;
             user.tokenExpiration = data.tokenExpiration;
-
             this.storageService.user.next(user);
             resolve();
           } else {
@@ -81,14 +105,14 @@ export class AuthenticationService {
 
   public async register(pendingUser: User): Promise<User> {
     return new Promise((resolve, reject) => {
-      AuthorizedFetch(`${environment.api_url}/account/`, {
+      AuthorizedFetch(Endpoints.account, {
         method: 'POST',
         body: JSON.stringify({
           email: pendingUser.email,
           displayName: pendingUser.displayName,
           password: pendingUser.password,
         })
-      })
+      }, false)
         .then((response) => response.json())
         .then(async (data) => {
           if (data.error) {
@@ -96,11 +120,18 @@ export class AuthenticationService {
             return;
           }
 
-          if (data.id) {
-            const user = await this.userService.getByID(data.id);
+          // Temporary user to make the getByID request
+          const stubUser = new User({
+            id: data.id,
+            token: data.token,
+            tokenExpiration: data.tokenExpiration
+          });
+          this.storageService.user.next(stubUser);
+
+          if (stubUser.id) {
+            const user = await this.userService.getByID(stubUser.id);
             user.token = data.token;
             user.tokenExpiration = data.tokenExpiration;
-
             this.storageService.user.next(user);
             resolve(user);
           } else {
@@ -127,6 +158,31 @@ export class AuthenticationService {
   }
 
   public async logout(): Promise<void> {
-    return this.storageService.user.clear();
+    const user = this.storageService.user.getValue();
+
+    return new Promise((resolve, reject) => {
+      AuthorizedFetch(Endpoints.accountLogout, {
+        method: 'POST',
+        body: JSON.stringify({
+          id: user.id
+        })
+      })
+        .then(() => {
+          this.storageService.user.clear();
+        })
+        .catch((error) => {
+          // Check for internet connection
+          if (!navigator.onLine) {
+            reject(new GenericError({
+              name: 'NoNetworkError',
+              message: 'There is no network connection right now. Check your internet connection and try again.'
+            }));
+            return;
+          }
+
+          console.log(error);
+          reject(error);
+        });
+    });
   }
 }

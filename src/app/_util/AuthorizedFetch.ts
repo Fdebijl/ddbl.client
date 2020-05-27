@@ -1,4 +1,4 @@
-import { StorageService } from '../_services';
+import { StorageService } from '../_services/storage.service'; // Don't import from the barrel file for services, that will be seen as a circular dependency by angular
 import { Endpoint } from '../_domain/enum/Endpoint';
 import { environment } from 'src/environments/environment';
 import { SessionExpiredError } from '../_domain/class/SessionExpiredError';
@@ -56,6 +56,16 @@ export const AuthorizedFetch = (endpoint: Endpoint, options?: RequestInit, autho
         name: 'SessionExpiredError',
         message: 'Your session has expired, please log in.'
       })
+    }
+
+    if (!options) {
+      options = {
+        headers: {}
+      };
+    }
+
+    if (!options.headers) {
+      options.headers = {};
     }
 
     options.headers['Authorization'] = token;
