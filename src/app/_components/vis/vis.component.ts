@@ -20,17 +20,6 @@ export class VisComponent implements OnInit {
   public mp3Num: SetMeta;
   public mp4Num: SetMeta;
   public dateTimePosted: string;
-  public contributor: User;
-
-  public getContributor(): void {
-    /*
-    this.newService.GetUserById(this.mpNum.contributor.toString()).then( data => {
-      this.contributor = data as User;
-    });
-     */
-    this.contributor = this.newService.GetUserByIdNoAPI(this.mpNum.contributor.toString());
-    console.log(this.contributor.displayName);
-  }
 
   private splitDataArrayToObjects(data: Array<SetMeta>): void {
     console.log(data.length);
@@ -94,14 +83,19 @@ export class VisComponent implements OnInit {
 
   ngOnInit(): void {
     this.mpNum = JSON.parse(localStorage.getItem('visData'));
+    this.mpNum.contributor = new User(this.mpNum.contributor);
     this.dateTimePosted = moment(this.mpNum.created).format('ll');
+
+    setTimeout(() => {
+      this.processData(this.newService.GetMetadataVisNoAPI());
+    }, 1000);
+
+
     /*
     this.newService.GetMetadataVis().then(data => {
       console.log(data);
       this.processData(data as SetMeta[]);
     });
      */
-    this.processData(this.newService.GetMetadataVisNoAPI());
-    this.getContributor();
   }
 }

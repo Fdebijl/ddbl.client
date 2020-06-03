@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SetMeta } from '../../_domain/class';
+import {SetMeta, User} from '../../_domain/class';
 import moment from 'moment';
 
 @Component({
@@ -17,6 +17,7 @@ export class CardComponent implements OnInit {
   public infoSelectAria: string;
   public cardInfoAria: string;
   public legendHiddenAria: string;
+  public contributor: User;
 
   public saveObjForVisualizationPage(): void {
     localStorage.setItem('visData', JSON.stringify(this.cardData));
@@ -38,6 +39,29 @@ export class CardComponent implements OnInit {
         return 'fa-database';
         break;
       }
+    }
+  }
+
+  hasAffiliation(): boolean {
+    try {
+      if (this.cardData.contributor && this.cardData.contributor.affiliation) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  hasContributor(): boolean {
+    try {
+      if (this.cardData.contributor && (this.cardData.contributor.profilePicture || this.cardData.contributor.getAbbreviation())) {
+        return true;
+      }
+      return false;
+
+    } catch (e) {
+      return false;
     }
   }
 
