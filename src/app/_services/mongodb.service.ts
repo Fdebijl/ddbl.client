@@ -14,6 +14,12 @@ export class MongodbService {
 
   GetMetaDataNoAPI(): SetMeta[] {
     const data: SetMeta[] = mockdata;
+    for (const m of data) {
+      if (m.contributor && !m.contributor.id) {
+        const u: User = this.GetUserByIdNoAPI(m.contributor.toString());
+        m.contributor = new User(u);
+      }
+    }
     return data;
   }
 

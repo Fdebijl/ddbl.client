@@ -1117,7 +1117,7 @@ let vizmaps = function vizmaps(container, mapType, purpose, zoomLev, lat, lon, d
 	  }
 	});
 
-	mp5OverlayInput.addEventListener('change', function(event) {
+	/*mp5OverlayInput.addEventListener('change', function(event) {
 	  if (event.target.checked == true) {
 	  	mp5Overlay.setAttribute('aria-hidden', false);
 	  	mp5InputChecked = true;
@@ -1126,6 +1126,7 @@ let vizmaps = function vizmaps(container, mapType, purpose, zoomLev, lat, lon, d
 	  	mp5InputChecked = false;
 	  }
 	});
+	 */
 
    };
 

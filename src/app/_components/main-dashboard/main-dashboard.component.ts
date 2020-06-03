@@ -40,7 +40,7 @@ export class MainDashboardComponent implements OnInit {
   ngOnInit(): void {
 
     this.allData = this.newService.GetMetaDataNoAPI() as SetMeta[];
-    this.showData = this.newService.GetMetaDataNoAPI() as SetMeta[];
+    this.showData = this.allData;
     /*
     this.newService.GetMetadata().then(data => {
       console.log(data);

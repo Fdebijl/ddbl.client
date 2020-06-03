@@ -45,11 +45,17 @@
         </div>
         <div class="user">
           <span class="user_image">
-            <!-- TODO consider different extensions -->
-            <span class="avatar-s" style="background-image: url(../../../assets/images/avatar/user.png)"></span>
+            <picture class="profile-picture avatar-s" *ngIf="cardData.contributor">
+              <img [src]="cardData.contributor.profilePicture" *ngIf="cardData.contributor.profilePicture">
+              <div *ngIf="!cardData.contributor.profilePicture" class="abbreviation">{{cardData.contributor.getAbbreviation()}}</div>
+            </picture>
+            <picture class="profile-picture avatar-s" *ngIf="!cardData.contributor">
+              <img src="../../../assets/images/avatar/user.png">
+            </picture>
           </span>
           <!-- TODO add actual organizations name -->
-          <span class="user_text">Organization's name</span>
+          <span class="user_text" *ngIf="cardData.contributor && cardData.contributor.affiliation">{{cardData.contributor.affiliation}}</span>
+          <span class="user_text" *ngIf="!cardData.contributor || !cardData.contributor.affiliation">Unknown</span>
           <div class="hinder"></div>
         </div>
       </li>
