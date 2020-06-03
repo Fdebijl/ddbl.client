@@ -53,6 +53,18 @@ export class CardComponent implements OnInit {
     }
   }
 
+  hasContributor(): boolean {
+    try {
+      if (this.cardData.contributor && (this.cardData.contributor.profilePicture || this.cardData.contributor.getAbbreviation())) {
+        return true;
+      }
+      return false;
+
+    } catch (e) {
+      return false;
+    }
+  }
+
   ngOnInit(): void {
     this.dateTimePosted = moment(this.cardData.created).format('ll');
     this.cardInfoAria = 'false';
