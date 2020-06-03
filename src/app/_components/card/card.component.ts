@@ -42,6 +42,17 @@ export class CardComponent implements OnInit {
     }
   }
 
+  hasAffiliation(): boolean {
+    try {
+      if (this.cardData.contributor && this.cardData.contributor.affiliation) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
+
   ngOnInit(): void {
     this.dateTimePosted = moment(this.cardData.created).format('ll');
     this.cardInfoAria = 'false';
