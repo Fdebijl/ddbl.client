@@ -147,11 +147,15 @@
           <div class="user">
             <div class="user_cont">
           <span class="user_cont_image">
-            <!-- TODO: consider different extensions -->
-            <span class="avatar-s" style="background-image: url(../../../assets/images/avatar/user.png)"></span>
-            <!-- data[mpNum].contributor.avatar -->
+            <picture class="profile-picture avatar-s" *ngIf="mpNum.contributor">
+              <img [src]="mpNum.contributor.profilePicture" *ngIf="mpNum.contributor.profilePicture">
+              <div *ngIf="!mpNum.contributor.profilePicture" class="abbreviation">{{mpNum.contributor.getAbbreviation()}}</div>
+            </picture>
+            <picture class="profile-picture avatar-s" *ngIf="!mpNum.contributor">
+              <img src="../../../assets/images/avatar/user.png">
+            </picture>
           </span>
-              <span class="user_cont_text">{{contributor.displayName}} ({{contributor.affiliation}})</span>
+              <span class="user_cont_text">{{mpNum.contributor.displayName}} ({{mpNum.contributor.affiliation}})</span>
             </div>
           </div>
           <div class="contact">

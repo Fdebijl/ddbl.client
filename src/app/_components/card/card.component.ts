@@ -1,12 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SetMeta } from '../../_domain/class';
+import {SetMeta, User} from '../../_domain/class';
 import moment from 'moment';
-
-declare function mp1(zoomLev, lat, lon);
-declare function mp2(zoomLev, lat, lon);
-declare function mp3(zoomLev, lat, lon);
-declare function mp4(zoomLev, lat, lon);
-declare function ln1();
 
 @Component({
   selector: 'app-card',
@@ -23,55 +17,10 @@ export class CardComponent implements OnInit {
   public infoSelectAria: string;
   public cardInfoAria: string;
   public legendHiddenAria: string;
+  public contributor: User;
 
   public saveObjForVisualizationPage(): void {
     localStorage.setItem('visData', JSON.stringify(this.cardData));
-  }
-
-  public updateAriaSelected(): void {
-      if (this.infoSelectAria === 'true') {
-        this.infoSelectAria = 'false';
-        this.cardInfoAria = 'true';
-        this.legendHiddenAria = 'false';
-      } else {
-        this.infoSelectAria = 'true';
-        this.cardInfoAria = 'false';
-        this.legendHiddenAria = 'true';
-      }
-      console.log('Update aria');
-  }
-
-  public getVisualizationTypeForClass(): string {
-    if (this.cardData.type === 'Visualization') {
-      return 'visualization';
-    } else {
-      return null;
-    }
-  }
-
-  private initForVisualization(): void {
-    this.cardInfoAria = 'true';
-    this.infoSelectAria = 'false';
-    switch (this.cardData.file) {
-      case 'mp1':
-        mp1(11, 51.46, 5.450);
-        break;
-      case 'mp2':
-        mp2(11, 51.46, 5.450);
-        break;
-      case 'mp3':
-        mp3(11, 51.46, 5.450);
-        break;
-      case 'mp4':
-        mp4(11, 51.46, 5.450);
-        break;
-      case 'mp5':
-        // mp5(11, 51.46, 5.450);
-        break;
-      case 'ln1':
-        ln1();
-        break;
-    }
   }
 
   public getIcon(): string {
@@ -93,14 +42,34 @@ export class CardComponent implements OnInit {
     }
   }
 
+  hasAffiliation(): boolean {
+    try {
+      if (this.cardData.contributor && this.cardData.contributor.affiliation) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  hasContributor(): boolean {
+    try {
+      if (this.cardData.contributor && (this.cardData.contributor.profilePicture || this.cardData.contributor.getAbbreviation())) {
+        return true;
+      }
+      return false;
+
+    } catch (e) {
+      return false;
+    }
+  }
+
   ngOnInit(): void {
     this.dateTimePosted = moment(this.cardData.created).format('ll');
     this.cardInfoAria = 'false';
     this.infoSelectAria = 'true';
     this.legendHiddenAria = 'false';
-    if (this.cardData.type === 'Visualization') {
-      this.initForVisualization();
-    }
   }
 
 }
