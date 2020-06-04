@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
       this.user = this.storageService.user.getValue();
       this.storageService.user.subscribe({
         next: user => this.user = user
-      })
+      });
       this.canBeEdited = true;
       return;
     }

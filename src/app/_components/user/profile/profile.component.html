@@ -1,10 +1,12 @@
+<input class="edit-button uk-button uk-button-default" type="button" *ngIf="canBeEdited" value="edit" (click)="activateEditMode()">
+
 <section class="flex row center fw profile">
   <picture class="profile-picture">
     <div class="flex center change" (click)="updateEditPfp()">Change</div>
     <img [src]="user.profilePicture" *ngIf="user.profilePicture">
     <div *ngIf="!user.profilePicture" class="abbreviation">{{user.getAbbreviation()}}</div>
   </picture>
-  <aside class="flex column displayname" (click)="activateEditMode()">
+  <aside class="flex column displayname">
     <h1>{{user.displayName}}</h1>
     <h3 *ngIf="user.affiliation">{{user.affiliation}}</h3>
     <p *ngIf="user.bio">{{user.bio}}</p>
