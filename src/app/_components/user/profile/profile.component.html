@@ -4,26 +4,11 @@
     <img [src]="user.profilePicture" *ngIf="user.profilePicture">
     <div *ngIf="!user.profilePicture" class="abbreviation">{{user.getAbbreviation()}}</div>
   </picture>
-  <aside class="flex column displayname" (click)="activateEditMode()" *ngIf="!editMode">
+  <aside class="flex column displayname" (click)="activateEditMode()">
     <h1>{{user.displayName}}</h1>
     <h3 *ngIf="user.affiliation">{{user.affiliation}}</h3>
     <p *ngIf="user.bio">{{user.bio}}</p>
   </aside>
-  <form class="flex column" (ngSubmit)="onSubmit()" (keydown.enter)="onSubmit()" *ngIf="editMode">
-    <label class="inputTitle"><b>displayName</b></label>
-    <input type="text" [(ngModel)]="displayNameEditMode" name="displayName" placeholder="Display Name">
-
-    <label class="inputTitle"><b>Affiliation</b></label>
-    <input type="text" [(ngModel)]="affiliationEditMode" name="affiliation" placeholder="Affiliation">
-
-    <label class="inputTitle"><b>Bio</b></label>
-    <input type="text" [(ngModel)]="bioEditMode" name="bio" placeholder="Bio">
-    <div class="edit-buttons flex row">
-      <input type="submit" value="Save changes" class="save-button uk-button uk-button-primary">
-      <input type="button" (click)="deleteAccount()" value="Delete Account" class="delete-button uk-button uk-button-danger">
-      <input type="button" (click)="deactivateEditMode()" value="Cancel" class="cancel-button uk-button uk-button-default">
-    </div>
-  </form>
 </section>
 
 <section class="flex column fw datalist">
@@ -50,7 +35,25 @@
     </ul>
   </div>
 </section>
+<div class="editor-window" *ngIf="editPfp">
+  <app-profile-picture-editor class="profile-picture-editor" (cancel)="cancel($event)"> </app-profile-picture-editor>
+</div>
+<div class="editor-window" *ngIf="editMode">
+  <div class="edit-form">
+    <form class="flex column" (ngSubmit)="onSubmit()" (keydown.enter)="onSubmit()" *ngIf="editMode">
+      <label class="inputTitle"><b>displayName</b></label>
+      <input type="text" [(ngModel)]="displayNameEditMode" name="displayName" placeholder="Display Name">
 
-<app-profile-picture-editor class="profile-picture-editor" *ngIf="editPfp" (cancel)="cancel($event)">
+      <label class="inputTitle"><b>Affiliation</b></label>
+      <input type="text" [(ngModel)]="affiliationEditMode" name="affiliation" placeholder="Affiliation">
 
-</app-profile-picture-editor>
+      <label class="inputTitle"><b>Bio</b></label>
+      <input type="text" [(ngModel)]="bioEditMode" name="bio" placeholder="Bio">
+      <div class="edit-buttons flex row">
+        <input type="submit" value="Save changes" class="save-button uk-button uk-button-primary">
+        <input type="button" (click)="deleteAccount()" value="Delete Account" class="delete-button uk-button uk-button-danger">
+        <input type="button" (click)="deactivateEditMode()" value="Cancel" class="cancel-button uk-button uk-button-default">
+      </div>
+    </form>
+  </div>
+</div>
