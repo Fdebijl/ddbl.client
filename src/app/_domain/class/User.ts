@@ -47,9 +47,10 @@ export class User {
     });
   }
 
-  public toObject(): object {
+  public toObject(): Record<string, unknown> {
     const u = this as User;
     Object.keys(u).forEach(key => u[key] === undefined ? delete u[key] : {});
-    return u;
+    // Workaround so we can return User as an object https://github.com/microsoft/TypeScript/issues/15300#issuecomment-436793742
+    return {...u};
   }
 }
