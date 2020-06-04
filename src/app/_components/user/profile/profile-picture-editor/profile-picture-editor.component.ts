@@ -10,7 +10,7 @@ import {StorageService, UserService} from '../../../../_services';
 export class ProfilePictureEditorComponent implements OnInit {
   @Output() cancel: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
-  imageChangedEvent = '';
+  imageChangedEvent: Event;
   croppedImage = '';
 
   constructor(private storageService: StorageService, private userService: UserService) {
@@ -21,18 +21,22 @@ export class ProfilePictureEditorComponent implements OnInit {
     return
   }
 
-  fileChangeEvent(event: any): void {
+  fileChangeEvent(event: Event): void {
     this.imageChangedEvent = event;
   }
+
   imageCropped(event: ImageCroppedEvent): void {
     this.croppedImage = event.base64;
   }
+
   imageLoaded(): void {
     // show cropper
   }
+
   cropperReady(): void {
     // cropper ready
   }
+
   loadImageFailed(): void {
     // show message
   }
@@ -47,7 +51,7 @@ export class ProfilePictureEditorComponent implements OnInit {
   }
 
   reset(): void {
-    this.imageChangedEvent = '';
+    this.imageChangedEvent = null;
     this.croppedImage = '';
   }
 }

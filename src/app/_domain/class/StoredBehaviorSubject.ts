@@ -44,7 +44,7 @@ export class StoredBehaviorSubject<T> extends BehaviorSubject<T> {
 
   isSet(): boolean {
     return !!localStorage.getItem(this.key);
-  };
+  }
 
   clear(): void {
     this.next(null);

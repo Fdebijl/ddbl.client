@@ -51,24 +51,24 @@ export class VisComponent implements OnInit {
   private setOverlayContent(): void {
     switch (this.mpNum.id) {
       case this.mp1Num.id: {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         window.mpOverlay('mp1', 'mp1OverlayCont', 'Gray', 12, 51.445, 5.450);
         break;
       }
       case this.mp2Num.id: {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         window.mpOverlay('mp2', 'mp2OverlayCont', 'DarkGray', 12, 51.445, 5.450);
         break;
       }
       case this.mp3Num.id: {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         window.mpOverlay('mp3', 'mp3OverlayCont', 'Gray', 12, 51.445, 5.450);
         break; }
       case this.mp4Num.id: {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         window.mpOverlay('mp4', 'mp4OverlayCont', 'Gray', 12, 51.445, 5.450);
         break; }

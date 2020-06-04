@@ -20,7 +20,7 @@ export class UserService {
         resolve(new User(user));
       });
     });
-  };
+  }
 
   public update(partialUser: User): Promise<User> {
     return new Promise((resolve, reject) => {

@@ -6,6 +6,7 @@ import { GenericError, User } from '../_domain/class';
 import { AuthorizedFetch } from '../_util/AuthorizedFetch';
 import { Endpoints } from '../_domain/enum/Endpoint';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 /**
  * The AuthenticationService handles all methods and checks related to logging in and registering.
@@ -25,7 +26,8 @@ export class AuthenticationService {
 
   constructor(
     private storageService: StorageService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {
     this.storageService.user.subscribe({
       next: (user) => {
@@ -177,6 +179,11 @@ export class AuthenticationService {
               name: 'NoNetworkError',
               message: 'There is no network connection right now. Check your internet connection and try again.'
             }));
+            return;
+          }
+
+          if (error.name === 'SessionExpiredError') {
+            this.router.navigate(['/']);
             return;
           }
 

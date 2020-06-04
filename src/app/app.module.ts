@@ -5,17 +5,26 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MainDashboardComponent, UploadComponent, RegisterComponent, ProfileComponent, LoginComponent, ErrorComponent, VisComponent } from './_components';
-import { FooterComponent, HeaderComponent } from './_components/partials';
+import { MainDashboardComponent,
+         UploadComponent,
+         RegisterComponent,
+         ProfileComponent,
+         LoginComponent,
+         ErrorComponent,
+         VisComponent,
+         FooterComponent,
+         HeaderComponent,
+         CardComponent,
+         DatalistitemComponent,
+         OneComponent,
+         TwoComponent,
+         TermsComponent,
+         ProfilePictureEditorComponent,
+         NavComponent
+} from './_components';
+
 import { MongodbService } from './_services/mongodb.service';
-import { CardComponent } from './_components/card/card.component';
-import { DatalistitemComponent } from './_components/partials/datalistitem/datalistitem.component';
-import { OneComponent } from './_components/user/register/steps/one/one.component';
-import { TwoComponent } from './_components/user/register/steps/two/two.component';
-import { TermsComponent } from './_components/terms/terms.component';
-import { ProfilePictureEditorComponent } from './_components/user/profile/profile-picture-editor/profile-picture-editor.component';
-import {ImageCropperModule} from 'ngx-image-cropper';
-import { NavComponent } from './_components/nav/nav.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [
