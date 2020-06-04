@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ImageCroppedEvent} from 'ngx-image-cropper';
-import {StorageService} from '../../../../_services';
+import {StorageService, UserService} from '../../../../_services';
 
 @Component({
   selector: 'app-profile-picture-editor',
@@ -13,7 +13,7 @@ export class ProfilePictureEditorComponent implements OnInit {
   imageChangedEvent = '';
   croppedImage = '';
 
-  constructor(private storageService: StorageService) {
+  constructor(private storageService: StorageService, private userService: UserService) {
     return
   }
 
@@ -39,6 +39,7 @@ export class ProfilePictureEditorComponent implements OnInit {
 
   save(): void {
     if (this.croppedImage !== '') {
+      this.userService.uploadProfilePicture(this.croppedImage.toString());
       const storedUser = this.storageService.user.getValue();
       storedUser.profilePicture = this.croppedImage;
       this.storageService.user.next(storedUser);
