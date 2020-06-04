@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { User } from '../_domain/class';
+import {GenericError, User} from '../_domain/class';
 import { StorageService } from './storage.service';
 import { AuthorizedFetch } from '../_util/AuthorizedFetch';
+import {Endpoints} from "../_domain/enum/Endpoint";
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +56,42 @@ export class UserService {
             reject();
           }
         })
+    });
+  }
+
+  public async uploadProfilePicture(img: string): Promise<void> {
+    const storedUser = this.storageService.user.getValue();
+
+    return new Promise((resolve, reject) => {
+      AuthorizedFetch(`account/upload/${storedUser.id}`, {
+        method: 'POST',
+        body: JSON.stringify({
+          img
+        })
+      })
+        .then((response) => response.json())
+        .then(async (data) => {
+          if (data.error) {
+            reject(data.error as GenericError);
+            return;
+          }
+          storedUser.profilePicture = data.img;
+          this.storageService.user.next(storedUser);
+
+        })
+        .catch((error) => {
+          // Check for internet connection
+          if (!navigator.onLine) {
+            reject(new GenericError({
+              name: 'NoNetworkError',
+              message: 'There is no network connection right now. Check your internet connection and try again.'
+            }));
+            return;
+          }
+
+          console.log(error);
+          reject(error);
+        });
     });
   }
 }

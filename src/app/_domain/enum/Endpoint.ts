@@ -2,19 +2,19 @@ type ArticleEndpoint =
   'article/foo'
 
 type AccountEndpoint =
-  '' |
-  'login' |
-  'logout'
+  'account/' |
+  'account/login' |
+  'account/logout'
 
 export type Endpoint = AccountEndpoint | ArticleEndpoint | string;
 
 
 export const Endpoints: {
-  account: '';
-  accountLogin: 'login';
-  accountLogout: 'logout';
+  account: 'account/';
+  accountLogin: 'account/login';
+  accountLogout: 'account/logout';
 } = {
-  account: '',
-  accountLogin: 'login',
-  accountLogout: 'logout'
+  account: 'account/',
+  accountLogin: 'account/login',
+  accountLogout: 'account/logout',
 }
