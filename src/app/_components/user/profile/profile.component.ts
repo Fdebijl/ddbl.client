@@ -95,8 +95,8 @@ export class ProfileComponent implements OnInit {
   }
 
   // Gets used by child component
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   cancel(event: MouseEvent): void {
     this.updateEditPfp();
   }
-
 }
