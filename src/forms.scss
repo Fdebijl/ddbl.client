@@ -4,6 +4,10 @@
   margin: 45px 0;
 }
 
+.form-group:first-child {
+  margin-top: 20px;
+}
+
 .form-inline > .form-group,
 .form-inline > .btn {
   display: inline-block;

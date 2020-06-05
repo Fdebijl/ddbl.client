@@ -14,6 +14,16 @@
     font-size: 32px;
     font-weight: lighter;
   }
+
+  .dropzone {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .uk-text-middle {
+      margin: 0 0.2em;
+    }
+  }
   
   .card {
     position: relative;
@@ -43,10 +53,6 @@
     &:hover:before {
       -webkit-transform: scale(1);
       transform: scale(1);
-    }
-
-    .form-group {
-      
     }
   }
 }
