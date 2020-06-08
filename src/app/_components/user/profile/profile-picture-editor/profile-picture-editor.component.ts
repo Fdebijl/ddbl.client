@@ -43,11 +43,11 @@ export class ProfilePictureEditorComponent implements OnInit {
 
   save(): void {
     if (this.croppedImage !== '') {
-      this.userService.uploadProfilePicture(this.croppedImage.toString()).catch( i => window.alert('An error occured while saving the picture.')).then(i => this.reloadPage());
+      this.userService.uploadProfilePicture(this.croppedImage.toString()).catch( i => window.alert('An error occured while saving the picture.'));
       const storedUser = this.storageService.user.getValue();
       storedUser.profilePicture = this.croppedImage;
       this.storageService.user.next(storedUser);
-      // window.location.reload();
+      window.location.reload();
     }
   }
 
