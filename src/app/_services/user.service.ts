@@ -59,14 +59,14 @@ export class UserService {
     });
   }
 
-  public async uploadProfilePicture(img: string): Promise<void> {
+  public async uploadProfilePicture(image: string): Promise<void> {
     const storedUser = this.storageService.user.getValue();
 
     return new Promise((resolve, reject) => {
-      AuthorizedFetch(`account/upload/${storedUser.id}`, {
+      AuthorizedFetch(`avatars/${storedUser.id}`, {
         method: 'POST',
         body: JSON.stringify({
-          img
+          image
         })
       })
         .then((response) => response.json())

@@ -46,7 +46,7 @@
         <div class="user">
           <span class="user_image">
             <picture class="profile-picture avatar-s" *ngIf="hasContributor()">
-              <img [src]="cardData.contributor.profilePicture" *ngIf="cardData.contributor.profilePicture">
+              <img [src]="cardData.contributor.getProfilePictureURL()" (error)="cardData.contributor.noProfilePicture()" *ngIf="cardData.contributor.hasProfilePicture">
               <div *ngIf="!cardData.contributor.profilePicture" class="abbreviation">{{cardData.contributor.getAbbreviation()}}</div>
             </picture>
             <picture class="profile-picture avatar-s" *ngIf="!cardData.contributor">

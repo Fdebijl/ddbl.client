@@ -1,7 +1,8 @@
 export class User {
   constructor(
     {id, email, displayName, password, token, tokenExpiration, bio, affiliation, profilePicture}:
-    {id?: string; email?: string; displayName?: string; password?: string; token?: string; tokenExpiration?: Date; bio?: string; affiliation?: string; profilePicture?: string}) {
+    {id?: string; email?: string; displayName?: string; password?: string;
+    token?: string; tokenExpiration?: Date; bio?: string; affiliation?: string; profilePicture?: string}) {
     this.id = id;
     this.email = email;
     this.displayName = displayName;
@@ -13,15 +14,23 @@ export class User {
     this.profilePicture = profilePicture;
   }
 
-  public id: string
-  public email: string
-  public displayName: string
-  public password?: string
-  public token: string
-  public tokenExpiration: Date
-  public bio?: string
-  public affiliation?: string
+  public id: string;
+  public email: string;
+  public displayName: string;
+  public password?: string;
+  public token: string;
+  public tokenExpiration: Date;
+  public bio?: string;
+  public affiliation?: string;
   public profilePicture?: string;
+  public hasProfilePicture = true;
+
+  public static mock(): User {
+    return new User({
+      id: '1',
+      displayName: 'Floris de Bijl'
+    });
+  }
 
   public getAbbreviation(): string {
     if (!this.displayName) {
@@ -40,12 +49,14 @@ export class User {
     return first[0].toUpperCase() + last[0].toUpperCase();
   }
 
-  public static mock(): User {
-    return new User({
-      id: '1',
-      displayName: 'Floris de Bijl'
-    });
-  }
+  public getProfilePictureURL(): string {
+    const url = 'https://vll.floris.amsterdam/static/avatars/' + this.id + '.jpeg';
+    return url;
+}
+
+public noProfilePicture (): void {
+    this.hasProfilePicture = false;
+}
 
   public toObject(): Record<string, unknown> {
     const u = this as User;
