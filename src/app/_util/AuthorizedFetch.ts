@@ -44,7 +44,7 @@ export const extendDefault = (options?: RequestInit): RequestInit => {
  *    console.log(data);
  * })
  */
-export const AuthorizedFetch = (endpoint: Endpoint, options?: RequestInit, authorized = true): Promise<Response> => {
+export const AuthorizedFetch = (endpoint: Endpoint, options?: RequestInit, authorized = true, useDefaults = true): Promise<Response> => {
   if (authorized) {
     const storageService = new StorageService();
     const token = storageService.user.getValue().token;
@@ -74,7 +74,9 @@ export const AuthorizedFetch = (endpoint: Endpoint, options?: RequestInit, autho
   }
 
   const uri = `${environment.api_url}/${endpoint}`;
-  options = extendDefault(options);
+  if (useDefaults) {
+    options = extendDefault(options);
+  }
 
   return fetch(uri, options);
 };

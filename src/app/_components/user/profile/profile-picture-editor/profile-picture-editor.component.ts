@@ -29,24 +29,9 @@ export class ProfilePictureEditorComponent implements OnInit {
     this.croppedImage = event.base64;
   }
 
-  imageLoaded(): void {
-    // show cropper
-  }
-
-  cropperReady(): void {
-    // cropper ready
-  }
-
-  loadImageFailed(): void {
-    // show message
-  }
-
   save(): void {
     if (this.croppedImage !== '') {
       this.userService.uploadProfilePicture(this.croppedImage.toString());
-      const storedUser = this.storageService.user.getValue();
-      storedUser.profilePicture = this.croppedImage;
-      this.storageService.user.next(storedUser);
     }
   }
 

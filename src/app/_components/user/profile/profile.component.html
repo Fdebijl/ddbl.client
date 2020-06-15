@@ -3,8 +3,8 @@
 <section class="flex row center fw profile">
   <picture class="profile-picture">
     <div class="flex center change" (click)="updateEditPfp()">Change</div>
-    <img [src]="user.profilePicture" *ngIf="user.profilePicture">
-    <div *ngIf="!user.profilePicture" class="abbreviation">{{user.getAbbreviation()}}</div>
+    <img [src]="user.getProfilePictureURL()" *ngIf="user.hasExternalProfilePicture">
+    <div *ngIf="!user.hasExternalProfilePicture" class="abbreviation">{{user.getAbbreviation()}}</div>
   </picture>
   <aside class="flex column displayname">
     <h1>{{user.displayName}}</h1>
