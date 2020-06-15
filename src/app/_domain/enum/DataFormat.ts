@@ -1,5 +1,6 @@
 export enum DataFormat {
   'JSON',
   'XML',
-  'CSV'
+  'CSV',
+  'GEOJSON',
 }

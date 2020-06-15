@@ -1,7 +1,7 @@
 export class MetaData {
   title: string;
   description: string;
-  year: int;
+  year: number;
   ageGroup: string;
   contributorId: string;
   credit: string;
