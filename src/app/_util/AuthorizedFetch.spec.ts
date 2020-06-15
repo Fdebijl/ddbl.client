@@ -1,9 +1,8 @@
 import { extendDefault } from './AuthorizedFetch';
-import { deepStrictEqual } from 'assert';
 
 describe('AuthorizedFetch', () => {
   it('should produce options with defaults', () => {
-    const expected = {
+    const expected: RequestInit = {
       method: 'POST',
       credentials: 'omit',
       cache: 'no-cache',
@@ -20,6 +19,6 @@ describe('AuthorizedFetch', () => {
       }
     });
 
-    deepStrictEqual(actual, expected);
+    expect(actual).toEqual(expected);
   });
 });

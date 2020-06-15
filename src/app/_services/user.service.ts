@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {GenericError, User} from '../_domain/class';
 import { StorageService } from './storage.service';
 import { AuthorizedFetch } from '../_util/AuthorizedFetch';
-import {Endpoints} from "../_domain/enum/Endpoint";
 import { Base64ToBlob } from '../_util/Base64ToBlob';
 
 @Injectable({
