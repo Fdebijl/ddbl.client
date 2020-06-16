@@ -7,9 +7,6 @@
       [aspectRatio]="1 / 1"
       format="png"
       (imageCropped)="imageCropped($event)"
-      (imageLoaded)="imageLoaded()"
-      (cropperReady)="cropperReady()"
-      (loadImageFailed)="loadImageFailed()"
     ></image-cropper>
     <img class="cropped-img" [src]="croppedImage" alt=""/>
   </div>

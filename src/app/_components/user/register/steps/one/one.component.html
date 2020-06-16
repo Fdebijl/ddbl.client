@@ -3,7 +3,7 @@
   <form [formGroup]="stepOneForm" (ngSubmit)="onSubmit()" class="register" [ngClass]="loading ? 'loading' : 'idle'">
     <div class="register_input">
       <h1 class="title">DataSystem Registration</h1>
-      <div class="message" [ngClass]="{good: messageGoodness === 'good', bad: messageGoodness === 'bad', neutral: messageGoodness === 'neutral', hidden: !messageShow}" [innerHtml]="message"></div>
+      <div class="message" [ngClass]="{good: messageGoodness === 'good', bad: messageGoodness === 'bad', neutral: messageGoodness === 'neutral', hidden: !messageShow}" [innerHTML]="message"></div>
 
       <label for="displayName" class="inputTitle required"><b>Name</b></label>
       <input type="text" placeholder="John Doe" name="displayName" id="displayName" required formControlName="displayName">

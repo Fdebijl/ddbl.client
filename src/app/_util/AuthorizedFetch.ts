@@ -4,8 +4,10 @@ import { environment } from 'src/environments/environment';
 import { SessionExpiredError } from '../_domain/class/SessionExpiredError';
 
 import moment from 'moment';
+import { GenericError } from '../_domain/class';
 
-export const extendDefault = (options?: RequestInit): RequestInit => {
+/** Internal implementation, do not use */
+export const _extendDefault = (options?: RequestInit): RequestInit => {
   const defaults: RequestInit = {
     method: 'GET',
     credentials: 'omit',
@@ -44,7 +46,7 @@ export const extendDefault = (options?: RequestInit): RequestInit => {
  *    console.log(data);
  * })
  */
-export const AuthorizedFetch = (endpoint: Endpoint, options?: RequestInit, authorized = true): Promise<Response> => {
+export const AuthorizedFetch = (endpoint: Endpoint, options?: RequestInit, authorized = true, useDefaults = true): Promise<Response> => {
   if (authorized) {
     const storageService = new StorageService();
     const token = storageService.user.getValue().token;
@@ -58,6 +60,14 @@ export const AuthorizedFetch = (endpoint: Endpoint, options?: RequestInit, autho
         name: 'SessionExpiredError',
         message: 'Your session has expired, please log in.'
       })
+    }
+
+    // Check for internet connection
+    if (!navigator.onLine) {
+      throw new GenericError({
+        name: 'NoNetworkError',
+        message: 'There is no network connection right now. Check your internet connection and try again.'
+      });
     }
 
     if (!options) {
@@ -74,7 +84,9 @@ export const AuthorizedFetch = (endpoint: Endpoint, options?: RequestInit, autho
   }
 
   const uri = `${environment.api_url}/${endpoint}`;
-  options = extendDefault(options);
+  if (useDefaults) {
+    options = _extendDefault(options);
+  }
 
   return fetch(uri, options);
 };

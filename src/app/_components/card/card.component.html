@@ -35,9 +35,9 @@
         </div>
         <div class="user">
           <span class="user_image">
-            <picture class="profile-picture avatar-s" *ngIf="contributor">
-              <img [src]="contributor.profilePicture" *ngIf="contributor.profilePicture">
-              <div *ngIf="!contributor.profilePicture" class="abbreviation">{{contributor.getAbbreviation()}}</div>
+            <picture class="profile-picture avatar-s" *ngIf="hasContributor()">
+              <img [src]="cardData.contributor.getProfilePictureURL()" *ngIf="cardData.contributor.hasExternalProfilePicture">
+              <div *ngIf="!cardData.contributor.hasExternalProfilePicture" class="abbreviation">{{cardData.contributor.getAbbreviation()}}</div>
             </picture>
             <picture class="profile-picture avatar-s" *ngIf="!contributor">
               <img src="../../../assets/images/avatar/user.png">

@@ -3,7 +3,7 @@
   <form [formGroup]="stepTwoForm" (ngSubmit)="onSubmit()" class="register" [ngClass]="loading ? 'loading' : 'idle'">
     <div class="register_input">
       <h1 class="title">DataSystem Registration</h1>
-      <div class="message" [ngClass]="{good: messageGoodness === 'good', bad: messageGoodness === 'bad', neutral: messageGoodness === 'neutral', hidden: !messageShow}" [innerHtml]="message"></div>
+      <div class="message" [ngClass]="{good: messageGoodness === 'good', bad: messageGoodness === 'bad', neutral: messageGoodness === 'neutral', hidden: !messageShow}" [innerHTML]="message"></div>
 
       <label for="bio" class="inputTitle"><b>Bio</b></label>
       <input type="text" placeholder="Data scientist" name="bio" id="bio" formControlName="bio">
