@@ -2,9 +2,11 @@ import { StorageService } from '../_services/storage.service'; // Don't import f
 import { Endpoint } from '../_domain/enum/Endpoint';
 import { environment } from 'src/environments/environment';
 import { SessionExpiredError } from '../_domain/class/SessionExpiredError';
+import { NoNetworkError } from '../_domain/class/NoNetworkError';
 
 import moment from 'moment';
-import { GenericError } from '../_domain/class';
+import { ToastrService } from 'ngx-toastr';
+import { AppModule } from '../app.module';
 
 /** Internal implementation, do not use */
 export const _extendDefault = (options?: RequestInit): RequestInit => {
@@ -22,16 +24,31 @@ export const _extendDefault = (options?: RequestInit): RequestInit => {
   return Object.assign(defaults, options);
 }
 
+export type AuthorizedFetchContextOptions = {
+  authorized?: boolean;
+  useDefaults?: boolean;
+  surpressToast?: boolean
+}
+
+const DefaultContext: AuthorizedFetchContextOptions = {
+  authorized: true,
+  useDefaults: true,
+  surpressToast: false,
+}
+
 /**
  * Make a call to an endpoint that requires authorization, using sensible defaults.
  * You can manually pass the endpoint as a string, but the recommended usage is to import the `Endpoints` object from `_domain/enum/Endpoint`.
- * Alternativately, you may also omit the authorization header by passing `false` as the third parameter.
+ *
+ * Alternativately, you may also omit the authorization header by passing an object with `authorized: false` as the third parameter.
+ * To prevent AuthorizedFetch from directly showing toasts for any errors, simply pass `surpessToast = true` in the same object.
  *
  * @param endpoint {Endpoint} The endpoint to send this request to. Omit any leading slashes.
  * @param [options] {RequestInit} The same options object as used with the fetch API.
  * @param [authorized] = true Whether to include the token as the Authorization header.
  *
  * @throws SessionExpiredError Handle this error by saving any form data or pending action to localstorage and redirecting the user to the login page.
+ * @throws NoNetworkError Thrown when no network connection exists
  *
  * @author Floris de Bijl <fdebijl>
  *
@@ -46,25 +63,38 @@ export const _extendDefault = (options?: RequestInit): RequestInit => {
  *    console.log(data);
  * })
  */
-export const AuthorizedFetch = (endpoint: Endpoint, options?: RequestInit, authorized = true, useDefaults = true): Promise<Response> => {
-  if (authorized) {
+export const AuthorizedFetch = (endpoint: Endpoint, options?: RequestInit, contextOptions: AuthorizedFetchContextOptions = DefaultContext): Promise<Response> => {
+  // Ensure all defaults are used when the user omits any.
+  contextOptions = Object.assign(DefaultContext, contextOptions);
+
+  const toastr: ToastrService = AppModule.toastr;
+
+  if (contextOptions.authorized) {
     const storageService = new StorageService();
     const token = storageService.user.getValue().token;
     const tokenExpiration = storageService.user.getValue().tokenExpiration;
     const tokenIsExpired = moment.utc(tokenExpiration).isBefore(moment.now(), 'milliseconds');
 
     if (tokenIsExpired) {
-      console.log('Clearing session');
       storageService.user.clear();
+
+      if (!contextOptions.surpressToast) {
+        toastr.error('Your session has expired, please log in.', 'Error');
+      }
+
       throw new SessionExpiredError({
         name: 'SessionExpiredError',
         message: 'Your session has expired, please log in.'
-      })
+      });
     }
 
     // Check for internet connection
     if (!navigator.onLine) {
-      throw new GenericError({
+      if (!contextOptions.surpressToast) {
+        toastr.warning('There is no network connection right now. Check your internet connection and try again.', 'Error');
+      }
+
+      throw new NoNetworkError({
         name: 'NoNetworkError',
         message: 'There is no network connection right now. Check your internet connection and try again.'
       });
@@ -84,7 +114,7 @@ export const AuthorizedFetch = (endpoint: Endpoint, options?: RequestInit, autho
   }
 
   const uri = `${environment.api_url}/${endpoint}`;
-  if (useDefaults) {
+  if (contextOptions.useDefaults) {
     options = _extendDefault(options);
   }
 

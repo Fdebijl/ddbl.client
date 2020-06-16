@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -25,6 +26,7 @@ import { MainDashboardComponent,
 
 import { MongodbService } from './_services/mongodb.service';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ImageCropperModule
+    ImageCropperModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     HttpClient,
@@ -67,4 +71,9 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     CUSTOM_ELEMENTS_SCHEMA
   ]
 })
-export class AppModule { }
+export class AppModule {
+  public static toastr: ToastrService;
+  constructor(private toastrService: ToastrService) {
+    AppModule.toastr = toastrService;
+  }
+}

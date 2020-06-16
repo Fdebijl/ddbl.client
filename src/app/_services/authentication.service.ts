@@ -60,7 +60,9 @@ export class AuthenticationService {
           email,
           password
         })
-      }, false)
+      }, {
+        authorized: false
+      })
         .then((response) => response.json())
         .then(async (data) => {
           if (data.error) {
@@ -105,7 +107,9 @@ export class AuthenticationService {
           displayName: pendingUser.displayName,
           password: pendingUser.password,
         })
-      }, false)
+      }, {
+        authorized: false
+      })
         .then((response) => response.json())
         .then(async (data) => {
           if (data.error) {
