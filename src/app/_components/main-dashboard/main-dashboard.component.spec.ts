@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MainDashboardComponent } from './main-dashboard.component';
 import { CardComponent } from '../card/card.component';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 describe('MainDashboardComponent', () => {
   let component: MainDashboardComponent;

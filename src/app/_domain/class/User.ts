@@ -1,5 +1,4 @@
 import { environment } from 'src/environments/environment';
-import { BehaviorSubject } from 'rxjs';
 
 export class User {
   constructor(

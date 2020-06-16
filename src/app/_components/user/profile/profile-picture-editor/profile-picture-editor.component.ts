@@ -37,6 +37,7 @@ export class ProfilePictureEditorComponent implements OnInit {
         })
         .catch((error) => {
           // An error occured
+          console.log(error);
         })
     }
   }
