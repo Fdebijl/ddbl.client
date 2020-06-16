@@ -68,17 +68,21 @@ export class ProfileComponent implements OnInit {
       && this.displayNameEditMode !== '') {
       u.displayName = this.displayNameEditMode;
     }
+
     if (this.user.affiliation !== this.affiliationEditMode) {
       u.affiliation = this.affiliationEditMode;
     }
+
     if (this.user.bio !== this.bioEditMode) {
       u.bio = this.bioEditMode;
     }
+
     this.userService.update(u);
     this.user = this.storageService.user.getValue();
     this.storageService.user.subscribe({
       next: user => this.user = user
     })
+
     this.deactivateEditMode();
   }
 
@@ -99,5 +103,9 @@ export class ProfileComponent implements OnInit {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   cancel(event: MouseEvent): void {
     this.updateEditPfp();
+  }
+
+  pfpUpdated(): void {
+    this.user.forceRefreshExternalProfilePicture();
   }
 }

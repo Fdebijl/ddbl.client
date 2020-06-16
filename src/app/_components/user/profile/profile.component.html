@@ -37,9 +37,11 @@
     </ul>
   </div>
 </section>
+
 <div class="editor-window" *ngIf="editPfp">
-  <app-profile-picture-editor class="profile-picture-editor" (cancel)="cancel($event)"> </app-profile-picture-editor>
+  <app-profile-picture-editor class="profile-picture-editor" (cancel)="cancel($event)" (pfpUpdated)="pfpUpdated()"> </app-profile-picture-editor>
 </div>
+
 <div class="editor-window" *ngIf="editMode">
   <div class="edit-form">
     <form class="flex column" (ngSubmit)="onSubmit()" (keydown.enter)="onSubmit()" *ngIf="editMode">
