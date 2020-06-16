@@ -90,15 +90,6 @@ export class AuthenticationService {
           }
         })
         .catch((error) => {
-          // Check for internet connection
-          if (!navigator.onLine) {
-            reject(new GenericError({
-              name: 'NoNetworkError',
-              message: 'There is no network connection right now. Check your internet connection and try again.'
-            }));
-            return;
-          }
-
           console.log(error);
           reject(error);
         });
@@ -144,15 +135,6 @@ export class AuthenticationService {
           }
         })
         .catch((error) => {
-          // Check for internet connection
-          if (!navigator.onLine) {
-            reject(new GenericError({
-              name: 'NoNetworkError',
-              message: 'There is no network connection right now. Check your internet connection and try again.'
-            }));
-            return;
-          }
-
           console.log(error);
           reject(error);
         });
@@ -173,15 +155,6 @@ export class AuthenticationService {
           this.storageService.user.clear();
         })
         .catch((error) => {
-          // Check for internet connection
-          if (!navigator.onLine) {
-            reject(new GenericError({
-              name: 'NoNetworkError',
-              message: 'There is no network connection right now. Check your internet connection and try again.'
-            }));
-            return;
-          }
-
           if (error.name === 'SessionExpiredError') {
             this.router.navigate(['/']);
             return;

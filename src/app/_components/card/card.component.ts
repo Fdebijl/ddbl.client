@@ -55,7 +55,7 @@ export class CardComponent implements OnInit {
 
   hasContributor(): boolean {
     try {
-      if (this.cardData.contributor && (this.cardData.contributor.profilePicture || this.cardData.contributor.getAbbreviation())) {
+      if (this.cardData.contributor) {
         return true;
       }
       return false;

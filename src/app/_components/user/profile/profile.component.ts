@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StorageService } from 'src/app/_services';
 import { User, DataSet } from '../../../_domain/class';
@@ -19,11 +19,12 @@ export class ProfileComponent implements OnInit {
   bioEditMode: string;
   affiliationEditMode: string;
   editPfp: boolean;
+  @ViewChild('pfpBlockTarget') pfpBlockTarget: ElementRef;
 
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private storageService: StorageService) { }
+    private storageService: StorageService) {}
 
   async ngOnInit(): Promise<void> {
     this.canBeEdited = false;
@@ -33,13 +34,13 @@ export class ProfileComponent implements OnInit {
         next: user => this.user = user
       });
       this.canBeEdited = true;
-      return;
+    } else {
+      this.id = this.activatedRoute.snapshot.params.id;
+      this.user = await this.userService.getByID(this.id);
     }
+
     this.editMode = false;
     this.editPfp = false;
-
-    this.id = this.activatedRoute.snapshot.params.id;
-    this.user = await this.userService.getByID(this.id);
     this.displayNameEditMode = '';
     this.bioEditMode = '';
     this.affiliationEditMode = '';

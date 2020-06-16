@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProfilePictureEditorComponent } from './profile-picture-editor.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('ProfilePictureCropperComponent', () => {
   let component: ProfilePictureEditorComponent;
@@ -8,7 +9,8 @@ describe('ProfilePictureCropperComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProfilePictureEditorComponent ]
+      declarations: [ ProfilePictureEditorComponent ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     })
     .compileComponents();
   }));

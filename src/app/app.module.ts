@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
@@ -45,6 +45,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     TermsComponent,
     NavComponent,
     ProfilePictureEditorComponent,
+    CardComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,10 +58,13 @@ import { ImageCropperModule } from 'ngx-image-cropper';
   ],
   providers: [
     HttpClient,
-    MongodbService
+    MongodbService,
   ],
   bootstrap: [
     AppComponent
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ]
 })
 export class AppModule { }
