@@ -19,7 +19,7 @@ export class UserService {
       .then((response) => response.json())
       .then((user) => {
         if (user.error){
-          reject();
+          reject(user);
           return;
         }
         resolve(new User(user));

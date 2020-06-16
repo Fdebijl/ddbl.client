@@ -19,10 +19,8 @@
     <ul class="card-info-content">
       <li class="card-description">
         <div class="descImage">
-          <!-- TODO: consider different extensions -->
           <ng-container *ngIf="hasThumbnail">
-            <img src="https://vll.floris.amsterdam/static/thumbnails/' + dataSet.id + '.jpeg" (error)="hasNoThumbnail()" style="display: none">
-            <span class="descImage_inner" [ngStyle]="{ 'background-image': 'url(https://vll.floris.amsterdam/static/thumbnails/' + dataSet.id + '.jpeg)'}"></span>
+            <span class="descImage_inner" [ngStyle]="{ 'background-image': 'url(' + getThumbnailUrl() + ')'}"></span>
           </ng-container>
         </div>
         <p>{{dataSet.metaData.description}}</p>
@@ -35,9 +33,9 @@
         </div>
         <div class="user">
           <span class="user_image">
-            <picture class="profile-picture avatar-s" *ngIf="hasContributor()">
-              <img [src]="cardData.contributor.getProfilePictureURL()" *ngIf="cardData.contributor.hasExternalProfilePicture">
-              <div *ngIf="!cardData.contributor.hasExternalProfilePicture" class="abbreviation">{{cardData.contributor.getAbbreviation()}}</div>
+            <picture class="profile-picture avatar-s" *ngIf="contributor">
+              <img [src]="contributor.getProfilePictureURL()" *ngIf="contributor.hasExternalProfilePicture">
+              <div *ngIf="!contributor.hasExternalProfilePicture" class="abbreviation">{{contributor.getAbbreviation()}}</div>
             </picture>
             <picture class="profile-picture avatar-s" *ngIf="!contributor">
               <img src="../../../assets/images/avatar/user.png">

@@ -74,19 +74,36 @@ export class CardComponent implements OnInit {
     return false;
   }
 
-  public hasNoThumbnail(): void {
-    this.hasThumbnail = false;
+  public forceRefreshHasThumbnail(): void {
+    const avatarUrl = this.getThumbnailUrl();
+    fetch(avatarUrl)
+      .then((res) => {
+        if (res.status !== 200) {
+          this.hasThumbnail = false;
+          return;
+        }
+
+        this.hasThumbnail = true;
+      })
+      .catch(() => {
+        this.hasThumbnail = false;
+      })
+  }
+
+  public getThumbnailUrl(): string {
+    return 'https://vll.floris.amsterdam/static/thumbnails/' + this.dataSet.id + '.jpeg';
   }
 
   ngOnInit(): void {
     this.userService.getByID(this.dataSet.metaData.contributorId).then((user) => {
       this.contributor = user;
-    });
+    }).catch((error) => {});
+    this.hasThumbnail = false;
+    this.forceRefreshHasThumbnail();
     this.dateTimePosted = moment(this.dataSet.metaData.createdAt).format('ll');
     this.cardInfoAria = 'false';
     this.infoSelectAria = 'true';
     this.legendHiddenAria = 'false';
-    this.hasThumbnail = true;
   }
 
 }
