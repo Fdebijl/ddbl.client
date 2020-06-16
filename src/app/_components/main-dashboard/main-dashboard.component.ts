@@ -3,6 +3,7 @@ import { SetMeta } from '../../_domain/class/data/SetMeta';
 import { MongodbService } from '../../_services/mongodb.service';
 import {DataService} from '../../_services/data.service';
 import {AuthenticationService} from '../../_services';
+import {DataSet} from '../../_domain/class';
 
 declare function mp1(zoomLev, lat, lon);
 declare function mp2(zoomLev, lat, lon);
@@ -22,8 +23,8 @@ export class MainDashboardComponent implements OnInit {
 
   constructor(private newService: MongodbService, private service: DataService, private authenticationService: AuthenticationService) { }
 
-  public showData: Array<SetMeta>;
-  public allData: Array<SetMeta>;
+  public showData: Array<DataSet>;
+  public allData: Array<DataSet>;
 
   public filterInputString: string;
   public filterCategoryString = '';
@@ -40,15 +41,14 @@ export class MainDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    /*
     this.allData = this.newService.GetMetaDataNoAPI() as SetMeta[];
     this.showData = this.allData;
+     */
     if (this.authenticationService.isAuthenticated()) {
       this.service.getMainDashboardData().then(data => {
-        /*
-        this.allData = data as SetMeta[];
+        this.allData = data as DataSet[];
         this.showData = this.allData;
-         */
       });
     }
   }
@@ -58,32 +58,32 @@ export class MainDashboardComponent implements OnInit {
     localStorage.setItem('visData', JSON.stringify(obj));
   }
 
-  private filterCat(cat: string, data: SetMeta): boolean {
-    if ((data.category === cat || cat === '')) {
+  private filterCat(cat: string, data: DataSet): boolean {
+    if ((data.metaData.category === cat || cat === '')) {
       return true;
     } else {
       return false;
     }
   }
 
-  private filterInput(input: string, data: SetMeta): boolean {
-    if (input === '' || input === undefined || data.title.toLowerCase().includes(input.toLowerCase())) {
+  private filterInput(input: string, data: DataSet): boolean {
+    if (input === '' || input === undefined || data.metaData.title.toLowerCase().includes(input.toLowerCase())) {
       return true;
     } else {
       return false;
       }
     }
 
-  private filterType(type: string, data: SetMeta): boolean {
-    if ((data.type === type || type === '')) {
+  private filterType(type: string, data: DataSet): boolean {
+    if ((data.dataType.toString() === type || type === undefined)) {
       return true;
     } else {
       return false;
     }
   }
 
-  private filterAgeGroup(ageGroup: string, data: SetMeta): boolean {
-      if (data.ageGroup === ageGroup || ageGroup === '') {
+  private filterAgeGroup(ageGroup: string, data: DataSet): boolean {
+      if (data.metaData.ageGroup === ageGroup || ageGroup === '') {
         return true;
       } else {
         return false;

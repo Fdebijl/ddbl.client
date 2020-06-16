@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {GenericError, User} from '../_domain/class';
 import { StorageService } from './storage.service';
 import { AuthorizedFetch } from '../_util/AuthorizedFetch';
-import {Endpoints} from "../_domain/enum/Endpoint";
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +13,14 @@ export class UserService {
   }
 
   public getByID(id: string): Promise<User> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       AuthorizedFetch(`account/${id}`)
       .then((response) => response.json())
       .then((user) => {
+        if (user.error){
+          reject();
+          return;
+        }
         resolve(new User(user));
       });
     });

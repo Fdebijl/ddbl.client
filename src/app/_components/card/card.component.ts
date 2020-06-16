@@ -1,6 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import {SetMeta, User} from '../../_domain/class';
+import {Component, Input, OnInit} from '@angular/core';
+import {DataSet, SetMeta, User} from '../../_domain/class';
 import moment from 'moment';
+import {DataType} from '../../_domain/enum/DataType';
+import {UserService} from '../../_services';
 
 @Component({
   selector: 'app-card',
@@ -8,30 +10,32 @@ import moment from 'moment';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-  constructor() {
+  constructor(private userService: UserService) {
     return;
   }
 
-  @Input() cardData: SetMeta;
+  @Input() dataSet: DataSet;
+  cardData: SetMeta;
   public dateTimePosted: string;
   public infoSelectAria: string;
   public cardInfoAria: string;
   public legendHiddenAria: string;
   public contributor: User;
+  public hasThumbnail: boolean;
 
   public saveObjForVisualizationPage(): void {
     localStorage.setItem('visData', JSON.stringify(this.cardData));
   }
 
   public getIcon(): string {
-    switch (this.cardData.type) {
-      case 'Visualization': {
+    switch (this.dataSet.dataType) {
+      case DataType.Visualisation: {
         return 'fa-eye';
         break;
       }
-      case 'Image/Graphic':
-      case 'Web Page':
-      case 'link': {
+      case DataType.ImageGraphic:
+      case DataType.Webpage:
+      case DataType.Link: {
         return 'fa-link';
         break;
       }
@@ -42,9 +46,17 @@ export class CardComponent implements OnInit {
     }
   }
 
-  hasAffiliation(): boolean {
+  hasMapVisualizationLink(): boolean {
+    // TODO Check if data.dataset is a map visualization
+    if (this.dataSet.dataType === DataType.Visualisation) {
+      return true;
+    }
+    return false;
+  }
+
+  public hasAffiliation(): boolean {
     try {
-      if (this.cardData.contributor && this.cardData.contributor.affiliation) {
+      if (this.contributor && this.contributor.affiliation) {
         return true;
       }
       return false;
@@ -53,23 +65,28 @@ export class CardComponent implements OnInit {
     }
   }
 
-  hasContributor(): boolean {
-    try {
-      if (this.cardData.contributor && (this.cardData.contributor.profilePicture || this.cardData.contributor.getAbbreviation())) {
-        return true;
-      }
-      return false;
-
-    } catch (e) {
-      return false;
+  public isCertainDataType(): boolean {
+    if (this.dataSet.dataType === DataType.Link ||
+      this.dataSet.dataType === DataType.Webpage ||
+      this.dataSet.dataType === DataType.ImageGraphic) {
+      return true;
     }
+    return false;
+  }
+
+  public hasNoThumbnail(): void {
+    this.hasThumbnail = false;
   }
 
   ngOnInit(): void {
-    this.dateTimePosted = moment(this.cardData.created).format('ll');
+    this.userService.getByID(this.dataSet.metaData.contributorId).then((user) => {
+      this.contributor = user;
+    });
+    this.dateTimePosted = moment(this.dataSet.metaData.createdAt).format('ll');
     this.cardInfoAria = 'false';
     this.infoSelectAria = 'true';
     this.legendHiddenAria = 'false';
+    this.hasThumbnail = true;
   }
 
 }

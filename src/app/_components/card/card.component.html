@@ -1,13 +1,13 @@
 <div class="card">
   <div class="card-title-block">
     <!-- Turns cards with map visualisation to link -->
-    <ng-container *ngIf="cardData.file.indexOf('mp') !== -1 && cardData.type === 'Visualization'; else noLink">
+    <ng-container *ngIf="hasMapVisualizationLink(); else noLink">
       <a routerLink="./visualization" (click)="saveObjForVisualizationPage()">
-        <h2 class="card-title">{{cardData.title}} ({{cardData.year}})</h2>
+        <h2 class="card-title">{{dataSet.metaData.title}} ({{dataSet.metaData.year}})</h2>
       </a>
     </ng-container>
     <ng-template #noLink>
-      <h2 class="card-title">{{cardData.title}} ({{cardData.year}})</h2>
+      <h2 class="card-title">{{dataSet.metaData.title}} ({{dataSet.metaData.year}})</h2>
     </ng-template>
     <div class="hinder"></div>
     <div class="icon">
@@ -18,24 +18,14 @@
   <div class="card-info">
     <ul class="card-info-content">
       <li class="card-description">
-        <div class="descImage" *ngIf="cardData.type != 'Visualization'">
-
+        <div class="descImage">
           <!-- TODO: consider different extensions -->
-          <ng-container *ngIf="cardData.image != ''; else otherBackgroundImg">
-            <span class="descImage_inner" [ngStyle]="{ 'background-image': 'url(../../../assets/images/data/' + cardData.image + '.png)'}"></span>
+          <ng-container *ngIf="hasThumbnail">
+            <img src="https://vll.floris.amsterdam/static/thumbnails/' + dataSet.id + '.jpeg" (error)="hasNoThumbnail()" style="display: none">
+            <span class="descImage_inner" [ngStyle]="{ 'background-image': 'url(https://vll.floris.amsterdam/static/thumbnails/' + dataSet.id + '.jpeg)'}"></span>
           </ng-container>
-          <ng-template #otherBackgroundImg>
-            <ng-container *ngIf="cardData.type == 'link'; else typeDataset">
-              <span class="descImage_inner" style="background-image: url(../../../assets/images/data/link.png)"></span>
-            </ng-container>
-            <ng-template #typeDataset>
-              <ng-container *ngIf="cardData.type == 'dataset'">
-                <span class="descImage_inner" style="background-image: url(../../../assets/images/data/dataset.png)"></span>
-              </ng-container>
-            </ng-template>
-          </ng-template>
         </div>
-        <p>{{cardData.description}}</p>
+        <p>{{dataSet.metaData.description}}</p>
       </li>
       <li class="card-contributor">
         <div class="descHinder"></div>
@@ -45,15 +35,15 @@
         </div>
         <div class="user">
           <span class="user_image">
-            <picture class="profile-picture avatar-s" *ngIf="hasContributor()">
-              <img [src]="cardData.contributor.profilePicture" *ngIf="cardData.contributor.profilePicture">
-              <div *ngIf="!cardData.contributor.profilePicture" class="abbreviation">{{cardData.contributor.getAbbreviation()}}</div>
+            <picture class="profile-picture avatar-s" *ngIf="contributor">
+              <img [src]="contributor.profilePicture" *ngIf="contributor.profilePicture">
+              <div *ngIf="!contributor.profilePicture" class="abbreviation">{{contributor.getAbbreviation()}}</div>
             </picture>
-            <picture class="profile-picture avatar-s" *ngIf="!cardData.contributor">
+            <picture class="profile-picture avatar-s" *ngIf="!contributor">
               <img src="../../../assets/images/avatar/user.png">
             </picture>
           </span>
-          <span class="user_text" *ngIf="hasAffiliation()">{{cardData.contributor.affiliation}}</span>
+          <span class="user_text" *ngIf="hasAffiliation()">{{contributor.affiliation}}</span>
           <span class="user_text" *ngIf="!hasAffiliation()">Unknown</span>
           <div class="hinder"></div>
         </div>
@@ -67,25 +57,29 @@
             <span class="access_text">Public</span>
           </div>
           <!-- add download later -->
-          <ng-container *ngIf="cardData.type == 'Link' || cardData.type == 'Web Page' || cardData.type == 'Image/Graphic' else otherType">
-            <a href="{{cardData.file}}>" class="link-download" target="_blank">
+          <ng-container *ngIf="isCertainDataType() else otherType">
+            <!-- TODO add file download link -->
+            <a href="" class="link-download" target="_blank">
               <div class="icon">
                 <i class="fa fa-external-link-alt"></i>
               </div>
               <div class="format">
                 <p class="format_header">Format: </p>
-                <p class="format_name">{{cardData.format}}</p>
+                <!-- TODO get dataset format -->
+                <p class="format_name">JSON</p>
               </div>
             </a>
           </ng-container>
           <ng-template #otherType>
-            <a href="assets/datasets/{{cardData.file}}.{{cardData.format}}" class="link-download" download="{{cardData.id}}" >
+            <!-- TODO link to download -->
+            <a href="" class="link-download" download="{{dataSet.id}}" >
               <div class="icon">
                 <i class="fas fa-download"></i>
               </div>
               <div class="format">
                 <span class="format_header">Format: </span>
-                <span class="format_name">{{cardData.format}}</span>
+                <!-- TODO get dataset format -->
+                <span class="format_name">Format</span>
               </div>
             </a>
           </ng-template>
@@ -100,7 +94,7 @@
       </li>
       <li class="card-source">
         <p class="header">Source:</p>
-        <p class="content">{{cardData.source}}</p>
+        <p class="content">{{dataSet.metaData.source}}</p>
       <span class="hinder"></span>
     </li>
     </ul>
