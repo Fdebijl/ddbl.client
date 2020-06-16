@@ -31,7 +31,13 @@ export class ProfilePictureEditorComponent implements OnInit {
 
   save(): void {
     if (this.croppedImage !== '') {
-      this.userService.uploadProfilePicture(this.croppedImage.toString());
+      this.userService.uploadProfilePicture(this.croppedImage.toString())
+        .then(() => {
+          // Changed succesfully
+        })
+        .catch((error) => {
+          // An error occured
+        })
     }
   }
 

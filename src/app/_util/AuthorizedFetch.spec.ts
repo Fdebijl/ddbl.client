@@ -1,4 +1,4 @@
-import { extendDefault } from './AuthorizedFetch';
+import { _extendDefault } from './AuthorizedFetch';
 
 describe('AuthorizedFetch', () => {
   it('should produce options with defaults', () => {
@@ -12,7 +12,7 @@ describe('AuthorizedFetch', () => {
       }
     };
 
-    const actual = extendDefault({
+    const actual = _extendDefault({
       method: 'POST',
       headers: {
         'Payload': 'users'

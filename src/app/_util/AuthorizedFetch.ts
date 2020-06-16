@@ -4,8 +4,10 @@ import { environment } from 'src/environments/environment';
 import { SessionExpiredError } from '../_domain/class/SessionExpiredError';
 
 import moment from 'moment';
+import { GenericError } from '../_domain/class';
 
-export const extendDefault = (options?: RequestInit): RequestInit => {
+/** Internal implementation, do not use */
+export const _extendDefault = (options?: RequestInit): RequestInit => {
   const defaults: RequestInit = {
     method: 'GET',
     credentials: 'omit',
@@ -60,6 +62,14 @@ export const AuthorizedFetch = (endpoint: Endpoint, options?: RequestInit, autho
       })
     }
 
+    // Check for internet connection
+    if (!navigator.onLine) {
+      throw new GenericError({
+        name: 'NoNetworkError',
+        message: 'There is no network connection right now. Check your internet connection and try again.'
+      });
+    }
+
     if (!options) {
       options = {
         headers: {}
@@ -75,7 +85,7 @@ export const AuthorizedFetch = (endpoint: Endpoint, options?: RequestInit, autho
 
   const uri = `${environment.api_url}/${endpoint}`;
   if (useDefaults) {
-    options = extendDefault(options);
+    options = _extendDefault(options);
   }
 
   return fetch(uri, options);
