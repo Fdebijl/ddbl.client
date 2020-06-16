@@ -1,4 +1,5 @@
 import { StorageService } from '../_services/storage.service'; // Don't import from the barrel file for services, that will be seen as a circular dependency by angular
+import { ToastComponent } from '../_components/toast/toast.component';
 import { Endpoint } from '../_domain/enum/Endpoint';
 import { environment } from 'src/environments/environment';
 import { SessionExpiredError } from '../_domain/class/SessionExpiredError';
@@ -6,7 +7,6 @@ import { NoNetworkError } from '../_domain/class/NoNetworkError';
 
 import moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
-import { AppModule } from '../app.module';
 
 /** Internal implementation, do not use */
 export const _extendDefault = (options?: RequestInit): RequestInit => {
@@ -67,7 +67,7 @@ export const AuthorizedFetch = (endpoint: Endpoint, options?: RequestInit, conte
   // Ensure all defaults are used when the user omits any.
   contextOptions = Object.assign(DefaultContext, contextOptions);
 
-  const toastr: ToastrService = AppModule.toastr;
+  const toastr: ToastrService = ToastComponent.getInstance();
 
   if (contextOptions.authorized) {
     const storageService = new StorageService();
@@ -114,6 +114,7 @@ export const AuthorizedFetch = (endpoint: Endpoint, options?: RequestInit, conte
   }
 
   const uri = `${environment.api_url}/${endpoint}`;
+
   if (contextOptions.useDefaults) {
     options = _extendDefault(options);
   }

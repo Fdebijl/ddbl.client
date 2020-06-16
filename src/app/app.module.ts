@@ -21,12 +21,13 @@ import { MainDashboardComponent,
          TwoComponent,
          TermsComponent,
          ProfilePictureEditorComponent,
-         NavComponent
+         NavComponent,
+         ToastComponent
 } from './_components';
 
 import { MongodbService } from './_services/mongodb.service';
 import { ImageCropperModule } from 'ngx-image-cropper';
-import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
     NavComponent,
     ProfilePictureEditorComponent,
     CardComponent,
+    ToastComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,7 +64,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
   ],
   providers: [
     HttpClient,
-    MongodbService,
+    MongodbService
   ],
   bootstrap: [
     AppComponent
@@ -71,9 +73,4 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
     CUSTOM_ELEMENTS_SCHEMA
   ]
 })
-export class AppModule {
-  public static toastr: ToastrService;
-  constructor(private toastrService: ToastrService) {
-    AppModule.toastr = toastrService;
-  }
-}
+export class AppModule {}
