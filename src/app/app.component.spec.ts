@@ -2,6 +2,7 @@ import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FooterComponent, HeaderComponent, NavComponent, ToastComponent } from './_components';
+import { ToastrService } from 'ngx-toastr';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -14,6 +15,9 @@ describe('AppComponent', () => {
         NavComponent,
         ToastComponent
       ],
+      providers: [
+        { provide: ToastrService, useValue: {} }
+      ]
     }).compileComponents();
   }));
 
