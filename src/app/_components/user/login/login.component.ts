@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterStateSnapshot  } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { AuthenticationService } from '../../../_services';
+import {AuthenticationService, StorageService} from '../../../_services';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +21,8 @@ export class LoginComponent implements OnInit {
   constructor(
       private formBuilder: FormBuilder,
       private authenticationService: AuthenticationService,
-      private router: Router) {}
+      private router: Router,
+      private storageService: StorageService) {}
 
   ngOnInit(): void {
     const snapshot: RouterStateSnapshot = this.router.routerState.snapshot;
@@ -29,7 +30,7 @@ export class LoginComponent implements OnInit {
     // Allow an action to be passed in the url (i.e. example.com/login?action=logout)
     switch (snapshot.root.queryParams.action) {
       case 'logout': {
-        this.authenticationService.logout();
+        this.storageService.user.clear();
         this.showMessage('good', 'You are now logged out');
         break;
       }

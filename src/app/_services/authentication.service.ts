@@ -7,6 +7,7 @@ import { AuthorizedFetch } from '../_util/AuthorizedFetch';
 import { Endpoints } from '../_domain/enum/Endpoint';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+import {JwthelperService} from "./jwthelper.service";
 
 /**
  * The AuthenticationService handles all methods and checks related to logging in and registering.
@@ -27,7 +28,8 @@ export class AuthenticationService {
   constructor(
     private storageService: StorageService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private jwthelperService: JwthelperService
   ) {
     this.storageService.user.subscribe({
       next: (user) => {
@@ -57,29 +59,35 @@ export class AuthenticationService {
       AuthorizedFetch(Endpoints.accountLogin, {
         method: 'POST',
         body: JSON.stringify({
-          email,
+          username: email,
           password
         })
       }, false)
-        .then((response) => response.json())
+        .then((response) => response.headers.get('Authorization'))
         .then(async (data) => {
-          if (data.error) {
-            reject(data.error as GenericError);
-            return;
-          }
+          // if (data.error) {
+          //   reject(data.error as GenericError);
+          //   return;
+          // }
 
+          const token = data;
+          const tokenWithoutBearer = data.replace('Bearer ', '');
+          const x = this.jwthelperService.decodeToken(tokenWithoutBearer);
+          const date = new Date();
+          date.setTime(new Date().getTime() + (24 * 60 * 60 * 1000));
+          console.log(x);
           // Temporary user to make the getByID request
           const stubUser = new User({
-            id: data.id,
-            token: data.token,
-            tokenExpiration: data.tokenExpiration
+            id: '',
+            token: token,
+            tokenExpiration: date
           });
           this.storageService.user.next(stubUser);
 
           if (stubUser.id) {
             const user = await this.userService.getByID(stubUser.id);
-            user.token = data.token;
-            user.tokenExpiration = data.tokenExpiration;
+            user.token = token;
+            user.tokenExpiration = date;
             this.storageService.user.next(user);
             resolve();
           } else {
@@ -135,31 +143,6 @@ export class AuthenticationService {
           }
         })
         .catch((error) => {
-          console.log(error);
-          reject(error);
-        });
-    });
-  }
-
-  public async logout(): Promise<void> {
-    const user = this.storageService.user.getValue();
-
-    return new Promise((resolve, reject) => {
-      AuthorizedFetch(Endpoints.accountLogout, {
-        method: 'POST',
-        body: JSON.stringify({
-          id: user.id
-        })
-      })
-        .then(() => {
-          this.storageService.user.clear();
-        })
-        .catch((error) => {
-          if (error.name === 'SessionExpiredError') {
-            this.router.navigate(['/']);
-            return;
-          }
-
           console.log(error);
           reject(error);
         });
