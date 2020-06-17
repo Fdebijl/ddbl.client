@@ -80,7 +80,7 @@ export class AuthenticationService {
 
           // Temporary user to make the getByID request
           const stubUser = new User({
-            id: decoded.userId,
+            id: decoded.userId as string,
             token: token,
             tokenExpiration: date
           });

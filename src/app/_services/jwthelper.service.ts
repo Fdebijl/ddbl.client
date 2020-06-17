@@ -5,7 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class JwthelperService {
 
-  constructor() { }
+  constructor() {
+    return;
+  }
 
   private urlBase64Decode(str: string) {
     let output = str.replace(/-/g, '+').replace(/_/g, '/');
@@ -22,10 +24,11 @@ export class JwthelperService {
         // tslint:disable-next-line:no-string-throw
         throw 'Illegal base64url string!';
     }
-    return decodeURIComponent((<any>window).escape(window.atob(output)));
+
+    return decodeURIComponent(window.escape(window.atob(output)));
   }
 
-  public decodeToken(token: string = '') {
+  public decodeToken(token = ''): Record<string, unknown> {
     if (token === null || token === '') { return { 'upn': '' }; }
     const parts = token.split('.');
     if (parts.length !== 3) {
