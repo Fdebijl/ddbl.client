@@ -63,25 +63,28 @@ export class AuthenticationService {
           password
         })
       }, false)
-        .then((response) => response.headers.get('Authorization'))
-        .then(async (data) => {
-          // if (data.error) {
-          //   reject(data.error as GenericError);
-          //   return;
-          // }
+        .then((response) => {
+          if (response.status !== 200) {
+            throw new Error('Failed to login, could not connect to server')
+          }
 
+          const authHeader = response.headers.get('Authorization');
+          return authHeader;
+        })
+        .then(async (data) => {
           const token = data;
           const tokenWithoutBearer = data.replace('Bearer ', '');
-          const x = this.jwthelperService.decodeToken(tokenWithoutBearer);
+          const decoded = this.jwthelperService.decodeToken(tokenWithoutBearer);
           const date = new Date();
           date.setTime(new Date().getTime() + (24 * 60 * 60 * 1000));
-          console.log(x);
+
           // Temporary user to make the getByID request
           const stubUser = new User({
-            id: '',
+            id: decoded.userId,
             token: token,
             tokenExpiration: date
           });
+
           this.storageService.user.next(stubUser);
 
           if (stubUser.id) {
