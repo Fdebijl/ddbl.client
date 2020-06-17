@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SetMeta, User} from '../../_domain/class';
-import { MongodbService } from '../../_services';
+import {DataSet, SetMeta, User} from '../../_domain/class';
+import {MongodbService, UserService} from '../../_services';
 import moment from 'moment';
+import {DataService} from '../../_services/data.service';
 
 declare function mpOverlay(baseMapId, overlayContId, Base, zoomLev, lat, lon);
 
@@ -12,18 +13,20 @@ declare function mpOverlay(baseMapId, overlayContId, Base, zoomLev, lat, lon);
 })
 export class VisComponent implements OnInit {
 
-  constructor(private newService: MongodbService) { }
+  constructor(private newService: MongodbService, private userService: UserService, private dataService: DataService) { }
 
-  public mpNum: SetMeta;
-  public mp1Num: SetMeta;
-  public mp2Num: SetMeta;
-  public mp3Num: SetMeta;
-  public mp4Num: SetMeta;
+  public mpNum: DataSet;
+  public mp1Num: DataSet;
+  public mp2Num: DataSet;
+  public mp3Num: DataSet;
+  public mp4Num: DataSet;
+  public contributor: User;
   public dateTimePosted: string;
 
-  private splitDataArrayToObjects(data: Array<SetMeta>): void {
+  private splitDataArrayToObjects(data: Array<DataSet>): void {
     console.log(data.length);
     for (let i = 0, len = data.length; i < len; i++) {
+      /*
       console.log(data[i].file);
       switch (data[i].file) {
         case 'mp1': {
@@ -45,6 +48,8 @@ export class VisComponent implements OnInit {
         default: {
           break; }
       }
+
+       */
     }
   }
 
@@ -76,18 +81,20 @@ export class VisComponent implements OnInit {
         break; }
     }
   }
-  private processData(data: Array<SetMeta>): void {
+  private processData(data: Array<DataSet>): void {
     this.splitDataArrayToObjects(data);
     this.setOverlayContent();
   }
 
   ngOnInit(): void {
     this.mpNum = JSON.parse(localStorage.getItem('visData'));
-    this.mpNum.contributor = new User(this.mpNum.contributor);
-    this.dateTimePosted = moment(this.mpNum.created).format('ll');
+    this.userService.getByID(this.mpNum.metaData.contributorId).then((user) => {
+      this.contributor = user;
+    }).catch((error) => {});
+    this.dateTimePosted = moment(this.mpNum.metaData.createdAt).format('ll');
 
     setTimeout(() => {
-      this.processData(this.newService.GetMetadataVisNoAPI());
+      // this.processData(this.dataService.getMainDashboardData());
     }, 1000);
 
 

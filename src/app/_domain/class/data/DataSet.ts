@@ -8,6 +8,6 @@ export class DataSet extends Set {
   id: string;
   data: string;
   dataType: DataType;
-  dataset: DataSet;
+  dataformat: DataFormat;
   metaData: MetaData;
 }

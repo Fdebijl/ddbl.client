@@ -24,18 +24,18 @@ export class CardComponent implements OnInit {
   public hasThumbnail: boolean;
 
   public saveObjForVisualizationPage(): void {
-    localStorage.setItem('visData', JSON.stringify(this.cardData));
+    localStorage.setItem('visData', JSON.stringify(this.dataSet));
   }
 
   public getIcon(): string {
     switch (this.dataSet.dataType) {
-      case DataType.Visualisation: {
+      case DataType.VISUALIZATION: {
         return 'fa-eye';
         break;
       }
-      case DataType.ImageGraphic:
-      case DataType.Webpage:
-      case DataType.Link: {
+      case DataType.IMAGEGRAPHIC:
+      case DataType.WEBPAGE:
+      case DataType.LINK: {
         return 'fa-link';
         break;
       }
@@ -48,7 +48,7 @@ export class CardComponent implements OnInit {
 
   hasMapVisualizationLink(): boolean {
     // TODO Check if data.dataset is a map visualization
-    if (this.dataSet.dataType === DataType.Visualisation) {
+    if (this.dataSet.dataType === DataType.VISUALIZATION) {
       return true;
     }
     return false;
@@ -66,9 +66,9 @@ export class CardComponent implements OnInit {
   }
 
   public isCertainDataType(): boolean {
-    if (this.dataSet.dataType === DataType.Link ||
-      this.dataSet.dataType === DataType.Webpage ||
-      this.dataSet.dataType === DataType.ImageGraphic) {
+    if (this.dataSet.dataType === DataType.LINK ||
+      this.dataSet.dataType === DataType.WEBPAGE ||
+      this.dataSet.dataType === DataType.IMAGEGRAPHIC) {
       return true;
     }
     return false;
