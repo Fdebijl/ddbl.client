@@ -67,13 +67,17 @@ export class UserService {
       AuthorizedFetch(`avatars/upload/${storedUser.id}`, {
         method: 'POST',
         body: fd
-      }, true, false)
+      }, {
+        useDefaults: false
+      })
         .then((response) => response.json())
         .then(async (data) => {
           if (data.error) {
             reject(data.error as GenericError);
             return;
           }
+
+          resolve();
         })
         .catch((error) => {
           console.log(error);

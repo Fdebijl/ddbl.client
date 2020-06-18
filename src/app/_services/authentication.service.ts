@@ -62,7 +62,9 @@ export class AuthenticationService {
           username: email,
           password
         })
-      }, false)
+      }, {
+        authorized: false
+      })
         .then((response) => {
           if (response.status !== 200) {
             throw new Error('Failed to login, could not connect to server')
@@ -116,7 +118,9 @@ export class AuthenticationService {
           displayName: pendingUser.displayName,
           password: pendingUser.password,
         })
-      }, false)
+      }, {
+        authorized: false
+      })
         .then((response) => response.json())
         .then(async (data) => {
           if (data.error) {

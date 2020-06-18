@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
   bioEditMode: string;
   affiliationEditMode: string;
   editPfp: boolean;
+  profilePictureUrl: string;
   @ViewChild('pfpBlockTarget') pfpBlockTarget: ElementRef;
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -44,6 +45,7 @@ export class ProfileComponent implements OnInit {
     this.displayNameEditMode = '';
     this.bioEditMode = '';
     this.affiliationEditMode = '';
+    this.setProfilePictureURL();
   }
 
   public activateEditMode(): void {
@@ -68,17 +70,21 @@ export class ProfileComponent implements OnInit {
       && this.displayNameEditMode !== '') {
       u.displayName = this.displayNameEditMode;
     }
+
     if (this.user.affiliation !== this.affiliationEditMode) {
       u.affiliation = this.affiliationEditMode;
     }
+
     if (this.user.bio !== this.bioEditMode) {
       u.bio = this.bioEditMode;
     }
+
     this.userService.update(u);
     this.user = this.storageService.user.getValue();
     this.storageService.user.subscribe({
       next: user => this.user = user
     })
+
     this.deactivateEditMode();
   }
 
@@ -87,7 +93,7 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/login'],{queryParams: {action: 'logout'}});
   }
 
-  public updateEditPfp(): void{
+  public toggleEditPfpStatus(): void{
     if (this.editPfp) {
       this.editPfp = false;
     } else {
@@ -95,9 +101,20 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  setProfilePictureURL(): void {
+    this.profilePictureUrl = `${this.user.getProfilePictureURL()}?${(new Date()).getTime()}`;
+  }
+
   // Gets used by child component
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  cancel(event: MouseEvent): void {
-    this.updateEditPfp();
+  cancelledOrUpdated(status: string): void {
+    if (status === 'cancelled') {
+      this.toggleEditPfpStatus();
+    } else if (status === 'updated') {
+      this.user.forceRefreshExternalProfilePicture();
+      this.setProfilePictureURL();
+      this.toggleEditPfpStatus();
+    }
   }
+
 }

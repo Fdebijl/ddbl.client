@@ -2,8 +2,8 @@
 
 <section class="flex row center fw profile">
   <picture class="profile-picture">
-    <div class="flex center change" (click)="updateEditPfp()">Change</div>
-    <img [src]="user.getProfilePictureURL()" *ngIf="user.hasExternalProfilePicture">
+    <div class="flex center change" (click)="toggleEditPfpStatus()">Change</div>
+    <img [src]="profilePictureUrl" *ngIf="user.hasExternalProfilePicture">
     <div *ngIf="!user.hasExternalProfilePicture" class="abbreviation">{{user.getAbbreviation()}}</div>
   </picture>
   <aside class="flex column displayname">
@@ -37,9 +37,11 @@
     </ul>
   </div>
 </section>
+
 <div class="editor-window" *ngIf="editPfp">
-  <app-profile-picture-editor class="profile-picture-editor" (cancel)="cancel($event)"> </app-profile-picture-editor>
+  <app-profile-picture-editor class="profile-picture-editor" (cancelledOrUpdated)="cancelledOrUpdated($event)"></app-profile-picture-editor>
 </div>
+
 <div class="editor-window" *ngIf="editMode">
   <div class="edit-form">
     <form class="flex column" (ngSubmit)="onSubmit()" (keydown.enter)="onSubmit()" *ngIf="editMode">
