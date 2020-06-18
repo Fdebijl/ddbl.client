@@ -1,3 +1,4 @@
+<div uk-spinner="ratio: 3" [ngClass]="loading ? 'loading' : 'idle'"></div>
 <div class="dataUpload">
   <div class="content">
     <h1 class="title">Upload a new dataset</h1>
@@ -123,7 +124,7 @@
         <div class="dataset-currentfile filename" *ngIf="dataContentFileName">{{dataContentFileName}} ({{dataContentFileSize}})</div>
         
         <div class="button-container upmargin">
-          <button type="submit" class="basic-button blue">Upload data</button>
+          <button type="submit" class="basic-button blue" [disabled]="loading">Upload data</button>
         </div>
       </form>
 

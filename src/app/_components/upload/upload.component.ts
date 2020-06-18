@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterStateSnapshot  } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import {AuthenticationService, StorageService} from '../../_services';
+import { StorageService} from '../../_services';
 import { DataSet } from 'src/app/_domain/class';
 import { ToastComponent } from '../toast/toast.component';
 import { DataService } from 'src/app/_services/data.service';
@@ -16,6 +16,7 @@ declare const UIkit: any;
   styleUrls: ['./upload.component.scss']
 })
 export class UploadComponent implements OnInit {
+  loading = false;
   uploadForm: FormGroup;
   thumbnail: FormData;
   thumbnailFileName: string;
@@ -48,24 +49,29 @@ export class UploadComponent implements OnInit {
       dataLink: ['', Validators.required],
       dataAccess: ['', Validators.required]
     });
-
-    (window as any).f = this.f;
     return;
   }
 
   async onSubmit(): Promise<void> {
+    this.loading = true;
+
     if (!this.dataContent || !this.dataContent.get('file')) {
-      ToastComponent.getInstance().error('Please upload a dataset!');
+      ToastComponent.getInstance().error('Please upload a dataset!', 'Error');
       return;
     }
 
     if (!this.thumbnail || !this.thumbnail.get('file')) {
-      ToastComponent.getInstance().error('Please upload a thumbnail!');
+      ToastComponent.getInstance().error('Please upload a thumbnail!', 'Error');
       return;
     }
 
     const data = await this.formDataToString(this.dataContent);
     const format = (this.dataContent.get('file') as File).name.split('.').pop();
+
+    if (format !== 'json') {
+      ToastComponent.getInstance().error('VLL DataSystem currently only supports GeoJSON!', 'Error');
+      return;
+    }
 
     const dataSet = new DataSet({
       data,
@@ -93,6 +99,7 @@ export class UploadComponent implements OnInit {
     await this.dataService.uploadThumbnail(this.thumbnail, createdDataSetId);
 
     // Redirect to newly created visualization
+    this.loading = false;
     ToastComponent.getInstance().success('Your dataset was uploaded succesfully! You will be redirected shortly.', 'Upload successful');
     setTimeout(() => {
       this.router.navigate([`/`])
