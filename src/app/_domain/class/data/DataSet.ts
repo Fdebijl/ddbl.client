@@ -10,13 +10,13 @@ export class DataSet {
     this.id = id;
     this.data = data;
     this.dataType = dataType;
-    this.dataformat = dataFormat;
+    this.dataFormat = dataFormat;
     this.metaData = metaData;
   }
 
   id: string;
   data: string;
   dataType: DataType;
-  dataformat: DataFormat;
+  dataFormat: DataFormat;
   metaData: MetaData;
 }
