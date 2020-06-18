@@ -61,6 +61,8 @@ import { ToastrModule } from 'ngx-toastr';
     ReactiveFormsModule,
     HttpClientModule,
     AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBcHEEojCwlSjVtgX_bg-JXpZY5JWu6uPc'
+    }),
     LeafletModule,
     ImageCropperModule,
     BrowserAnimationsModule,

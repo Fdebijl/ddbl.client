@@ -3,6 +3,7 @@ import {DataSet, SetMeta, User} from '../../_domain/class';
 import moment from 'moment';
 import {DataType} from '../../_domain/enum/DataType';
 import {UserService} from '../../_services';
+import {DataFormat} from "../../_domain/enum/DataFormat";
 
 @Component({
   selector: 'app-card',
@@ -47,8 +48,7 @@ export class CardComponent implements OnInit {
   }
 
   hasMapVisualizationLink(): boolean {
-    // TODO Check if data.dataset is a map visualization
-    if (this.dataSet.dataType === DataType.VISUALIZATION) {
+    if (this.dataSet.dataType === DataType.VISUALIZATION && this.dataSet.dataFormat === DataFormat.GEOJSON) {
       return true;
     }
     return false;
