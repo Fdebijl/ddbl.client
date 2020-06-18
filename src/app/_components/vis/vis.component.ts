@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {DataSet, User} from '../../_domain/class';
-import {MongodbService, UserService} from '../../_services';
+import {UserService} from '../../_services';
 import moment from 'moment';
-import {DataService} from '../../_services/data.service';
-import {mockdataset} from '../../../assets/datasets/mockdataset';
 
-declare function mpOverlay(baseMapId, overlayContId, Base, zoomLev, lat, lon);
 
 @Component({
   selector: 'app-vis-component',

@@ -35,7 +35,6 @@
             "styles": [
               "src/styles.scss",
               "src/dataviz.scss",
-              "./node_modules/leaflet/dist/leaflet.css",
               "node_modules/uikit/dist/css/uikit.min.css",
               "node_modules/ngx-toastr/toastr.css"
             ],
@@ -112,8 +111,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
-              "./node_modules/leaflet/dist/leaflet.scss"
+              "src/styles.scss"
             ],
             "scripts": []
           }
