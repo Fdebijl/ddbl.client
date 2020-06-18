@@ -2,10 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import {ajax} from 'rxjs/ajax';
 import { StorageService } from './storage.service';
-import {DataSet, GenericError, User} from '../_domain/class';
+import {DataSet} from '../_domain/class';
 import {AuthorizedFetch} from '../_util/AuthorizedFetch';
-import { Endpoints } from '../_domain/enum/Endpoint';
-import { ResolveEnd } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +14,7 @@ export class DataService {
 
   public async getMainDashboardData(): Promise<DataSet[]> {
     return new Promise((resolve, reject) => {
-      AuthorizedFetch(`/article/`).
+      AuthorizedFetch(`article/`).
       then()
         .then((response) => response.json())
         .then((data) => {
@@ -44,11 +42,6 @@ export class DataService {
       }).subscribe({
         error: () => {
           reject();
-        },
-        next: data => {
-          // TODO see which data
-          // data.status;
-          resolve('Return json');
         }
       });
     });

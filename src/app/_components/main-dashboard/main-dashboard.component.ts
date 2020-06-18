@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SetMeta } from '../../_domain/class/data/SetMeta';
 import { MongodbService } from '../../_services/mongodb.service';
 import {DataService} from '../../_services/data.service';
 import {AuthenticationService} from '../../_services';

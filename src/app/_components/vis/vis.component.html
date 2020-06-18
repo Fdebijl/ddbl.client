@@ -6,48 +6,25 @@
 <div class="mp5-tooltip data-tooltip" aria-hidden="true"></div>
 
 <main class="vizEach">
-<section class="vizEach_content" title="{{mpNum.metaData.title}}">
+<section class="vizEach_content" title="{{dataSet.metaData.title}}">
   <div class="vizEach_content_title">
-    <h1 class="text">{{mpNum.metaData.title}} ({{mpNum.metaData.year}})</h1>
+    <h1 class="text">{{dataSet.metaData.title}} ({{dataSet.metaData.year}})</h1>
     <div class="hinder"></div>
   </div>
 
   <div class="vizEach_content_visframe">
     <!-- TODO add filename -->
-    <div id="mpNum.file" class="vizEach_content_visframe_canvas"><!-- datavis comes here --></div>
+    <agm-map class="map" [zoom]="12" [latitude]="latitude" [longitude]="longitude" >
+      <agm-data-layer [geoJson]="geoJson"></agm-data-layer>
+    </agm-map>
     <!-- Only for "map" visualizations -->
     <!-- TODO add filename -->
-    <ng-container *ngIf="mpNum.metaData.title.indexOf('mp') !== -1">
-      <!-- if the name of file contains "mp" -->
-      <div class="mp-layers" aria-hidden="true">
-        <!-- TODO add filename -->
-        <ul class="mp-layers_list" id="on{\{mpNum.file}}"></ul>
-      </div>
+    <ng-container *ngIf="dataSet.metaData.title.indexOf('mp') !== -1">
 
-      <!-- selection for air quality data -->
-      <!--
-      <% if (data[mpNum].file == "mp5") { %>
-    <div id="mp5filter" class="filter-general" aria-hidden="false">
-      <% } else { %>
-      <div id="mp5filter" class="filter-general" aria-hidden="true">
-        <% } %>
-      <div class="filter-general_select">
-        <select id="mp5select">
-          <option value="PM1">PM1</option>
-          <option value="PM2.5">PM2.5</option>
-          <option value="PM10">PM10</option>
-          <option value="UFP">UFP</option>
-          <option value="Ozone">Ozone</option>
-          <option value="NO2">NO2</option>
-        </select>
-        <div class="filter-arrow"></div>
-      </div>
-  </div>
-  -->
       <!-- TODO add filename -->
-      <div class="map_legend" id="mpNum.file-legend" aria-hidden="false">
+      <div class="map_legend" id="mp1-legend" aria-hidden="false">
         <!-- add by js -->
-        <ng-container *ngIf="mpNum.metaData.title == 'mp1' else mp3">
+        <ng-container>
           <span class="map_legend_title">Legend (%)</span>
           <table class="map_legend_table">
             <col width="16">
@@ -79,7 +56,7 @@
           if mp5 gets added use this:
          <ng-container *ngIf="mpNum.file == 'mp3' else 'mp5'">
          -->
-          <ng-container *ngIf="mpNum.metaData.title == 'mp3'">
+          <ng-container *ngIf="dataSet.metaData.title == 'mp3'">
             <span class="map_legend_title">Legend (Type)</span>
             <table class="map_legend_table">
               <col width="16">
@@ -120,7 +97,7 @@
           </ng-container>
         </ng-template>
         <ng-template #mp5>
-          <ng-container *ngIf="mpNum.metaData.title == 'mp5'">
+          <ng-container *ngIf="dataSet.metaData.title == 'mp5'">
             <div class="content"></div>
             <div class="labels">
               <span class="labels_low">Low</span>
@@ -133,9 +110,6 @@
       <!-- Ends-Only for "map" visualizations -->
     </ng-container>
     <!-- TODO add filename -->
-    <div id="mpNum.file-loader" class="loader" aria-hidden="false">
-      <span class="loader_spin" style="background-image: url(../../../assets/images/loader.png)"></span>
-    </div>
 
     </div><!-- vizEach_content_visframe -->
 
@@ -158,7 +132,8 @@
               <img src="../../../assets/images/avatar/user.png">
             </picture>
           </span>
-              <span class="user_cont_text">{{contributor.displayName}} ({{contributor.affiliation}})</span>
+              <span class="user_cont_text" *ngIf="contributor">{{contributor.displayName}} ({{contributor.affiliation}})</span>
+              <span class="user_cont_text" *ngIf="!contributor">Unknown</span>
             </div>
           </div>
           <div class="contact">
@@ -175,7 +150,7 @@
             <span class="text">Description</span>
           </div>
           <div class="desc-cont">
-            <p>{{mpNum.metaData.description}}</p>
+            <p>{{dataSet.metaData.description}}</p>
           </div>
         </li>
         <li class="vizEach_content_info_cont_utility">
@@ -187,13 +162,13 @@
             <span class="access_text">Public</span>
           </div>
           <!-- TODO add download -->
-          <a href="" class="link-download" download="{{mpNum.id}}" >
+          <a href="" class="link-download" download="{{dataSet.id}}" >
             <div class="icon">
               <i class="fas fa-download"></i>
             </div>
             <div class="format">
               <span class="format_header">Format: </span>
-              <span class="format_name">{{mpNum.dataType}}</span>
+              <span class="format_name">{{dataSet.dataFormat}}</span>
             </div>
           </a>
           <button id="printSingleDataviz" class="print">
@@ -203,7 +178,7 @@
         </li>
         <li class="vizEach_content_info_cont_source">
           <span class="header">Source</span>
-          <span class="content">{{mpNum.metaData.source}}</span>
+          <span class="content">{{dataSet.metaData.source}}</span>
         </li>
       </ul>
     </div>
@@ -247,116 +222,7 @@
     </div>
     <div class="vizEach_side_layers_base">
       <span class="title">Base data</span>
-      <span class="baseData">{{mpNum.metaData.title}} ({{mpNum.metaData.year}})</span>
-    </div>
-    <div class="vizEach_side_layers_options">
-      <div class="vizEach_side_layers_options_title">
-        Layering options
-      </div>
-      <ul class="vizEach_side_layers_options_content">
-        <li id="mp1OverlaySelect" class="vizEach_side_layers_options_content_each">
-          <div class="md-checkbox vizEach_side_layers_options_content_each_checkbox">
-            <input id="mp1Overlay-input" type="checkbox">
-            <label for="mp1Overlay-input">{{mp1Num.metaData.title}} ({{mp1Num.metaData.year}})</label>
-          </div>
-          <div class="vizEach_side_layers_options_content_each_legend">
-            <div class="legend-controller" aria-selected="false">
-              <i class="legend-arrow fas fa-angle-right"></i>
-              <span class="legend-title">Legend (%)</span>
-            </div>
-
-            <table id="mp1-legend" class="legend-table" aria-hidden="true">
-              <col width="16">
-              <col width="">
-              <tr class="value4 row">
-                <td class="box"></td>
-                <td class="text">70 < 80</td>
-              </tr>
-              <tr class="value3 row">
-                <td class="box"></td>
-                <td class="text">60 < 70</td>
-              </tr>
-              <tr class="value2 row">
-                <td class="box"></td>
-                <td class="text">50 < 60</td>
-              </tr>
-              <tr class="value1 row">
-                <td class="box"></td>
-                <td class="text">40 < 50</td>
-              </tr>
-              <tr class="noData row">
-                <td class="box"></td>
-                <td class="text">No data</td>
-              </tr>
-            </table>
-          </div>
-        </li>
-        <li id="mp2OverlaySelect" class="vizEach_side_layers_options_content_each">
-          <div class="md-checkbox vizEach_side_layers_options_content_each_checkbox">
-            <input id="mp2Overlay-input" type="checkbox">
-            <label for="mp2Overlay-input">{{mp2Num.metaData.title}} ({{mp2Num.metaData.year}})</label>
-          </div>
-        </li>
-        <li id="mp3OverlaySelect" class="vizEach_side_layers_options_content_each">
-          <div class="md-checkbox vizEach_side_layers_options_content_each_checkbox">
-            <input id="mp3Overlay-input" type="checkbox">
-            <label for="mp3Overlay-input">{{mp3Num.metaData.title}} ({{mp3Num.metaData.year}})</label>
-          </div>
-          <div class="vizEach_side_layers_options_content_each_legend">
-            <div class="legend-controller" aria-selected="false">
-
-              <i class="legend-arrow fas fa-angle-right"></i>
-
-              <span class="legend-title">Legend (Type)</span>
-            </div>
-
-            <table id="mp3-legend" class="legend-table" aria-hidden="true">
-              <col width="16">
-              <col width="">
-              <tr class="value7 row">
-                <td class="box"></td>
-                <td class="text">Allotments</td>
-              </tr>
-              <tr class="value6 row">
-                <td class="box"></td>
-                <td class="text">Farm</td>
-              </tr>
-              <tr class="value5 row">
-                <td class="box"></td>
-                <td class="text">Forest</td>
-              </tr>
-              <tr class="value4 row">
-                <td class="box"></td>
-                <td class="text">Grass</td>
-              </tr>
-              <tr class="value3 row">
-                <td class="box"></td>
-                <td class="text">Meadow</td>
-              </tr>
-              <tr class="value2 row">
-                <td class="box"></td>
-                <td class="text">Orchard</td>
-              </tr>
-              <tr class="value1 row">
-                <td class="box"></td>
-                <td class="text">Park</td>
-              </tr>
-              <tr class="noData row">
-                <td class="box"></td>
-                <td class="text">Not Identified</td>
-              </tr>
-            </table>
-          </div>
-        </li>
-        <li id="mp4OverlaySelect" class="vizEach_side_layers_options_content_each">
-          <div class="md-checkbox vizEach_side_layers_options_content_each_checkbox">
-            <input id="mp4Overlay-input" type="checkbox">
-            <label for="mp4Overlay-input">{{mp4Num.metaData.title}} ({{mp4Num.metaData.year}})</label>
-          </div>
-        </li>
-
-
-      </ul>
+      <span class="baseData">{{dataSet.metaData.title}} ({{dataSet.metaData.year}})</span>
     </div>
   </div>
   <div class="vizEach_side_analysis">

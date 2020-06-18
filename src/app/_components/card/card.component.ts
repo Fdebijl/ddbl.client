@@ -3,6 +3,7 @@ import {DataSet, SetMeta, User} from '../../_domain/class';
 import moment from 'moment';
 import {DataType} from '../../_domain/enum/DataType';
 import {UserService} from '../../_services';
+import {DataFormat} from "../../_domain/enum/DataFormat";
 
 @Component({
   selector: 'app-card',
@@ -15,7 +16,6 @@ export class CardComponent implements OnInit {
   }
 
   @Input() dataSet: DataSet;
-  cardData: SetMeta;
   public dateTimePosted: string;
   public infoSelectAria: string;
   public cardInfoAria: string;
@@ -47,8 +47,7 @@ export class CardComponent implements OnInit {
   }
 
   hasMapVisualizationLink(): boolean {
-    // TODO Check if data.dataset is a map visualization
-    if (this.dataSet.dataType === DataType.VISUALIZATION) {
+    if (this.dataSet.dataType === DataType.VISUALIZATION && this.dataSet.dataFormat === DataFormat.GEOJSON) {
       return true;
     }
     return false;
@@ -97,7 +96,7 @@ export class CardComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getByID(this.dataSet.metaData.contributorId).then((user) => {
       this.contributor = user;
-    }).catch((error) => {});
+    }).catch();
     this.hasThumbnail = false;
     this.forceRefreshHasThumbnail();
     this.dateTimePosted = moment(this.dataSet.metaData.createdAt).format('ll');

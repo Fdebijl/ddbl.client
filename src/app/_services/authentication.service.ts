@@ -7,7 +7,7 @@ import { AuthorizedFetch } from '../_util/AuthorizedFetch';
 import { Endpoints } from '../_domain/enum/Endpoint';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
-import {JwthelperService} from "./jwthelper.service";
+import {JwthelperService} from './jwthelper.service';
 
 /**
  * The AuthenticationService handles all methods and checks related to logging in and registering.
