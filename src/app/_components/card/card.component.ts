@@ -16,7 +16,6 @@ export class CardComponent implements OnInit {
   }
 
   @Input() dataSet: DataSet;
-  cardData: SetMeta;
   public dateTimePosted: string;
   public infoSelectAria: string;
   public cardInfoAria: string;
