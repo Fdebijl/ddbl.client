@@ -14,14 +14,19 @@ export const _extendDefault = (options?: RequestInit): RequestInit => {
     method: 'GET',
     credentials: 'omit',
     cache: 'no-cache',
-    headers: Object.assign({
+    headers: {
       'Content-Type': 'application/json'
-    }, options.headers),
+    }
   }
 
-  delete options.headers;
-
-  return Object.assign(defaults, options);
+  if (!options) {
+    return defaults;
+  } else {
+    debugger;
+    defaults.headers = Object.assign(defaults.headers, options.headers || {});
+    delete options.headers;
+    return Object.assign(defaults, options);
+  }
 }
 
 export type AuthorizedFetchContextOptions = {
@@ -65,7 +70,7 @@ const DefaultContext: AuthorizedFetchContextOptions = {
  */
 export const AuthorizedFetch = (endpoint: Endpoint, options?: RequestInit, contextOptions: AuthorizedFetchContextOptions = DefaultContext): Promise<Response> => {
   // Ensure all defaults are used when the user omits any.
-  contextOptions = Object.assign(DefaultContext, contextOptions);
+  contextOptions = Object.assign(JSON.parse(JSON.stringify(DefaultContext)), contextOptions);
 
   const toastr: ToastrService = ToastComponent.getInstance();
 

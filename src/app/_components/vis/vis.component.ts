@@ -3,7 +3,6 @@ import {DataSet, User} from '../../_domain/class';
 import {UserService} from '../../_services';
 import moment from 'moment';
 
-
 @Component({
   selector: 'app-vis-component',
   templateUrl: './vis.component.html',

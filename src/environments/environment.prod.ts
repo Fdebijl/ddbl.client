@@ -32,6 +32,10 @@ export const environment = {
       {
         text: 'Settings',
         url: '/settings'
+      },
+      {
+        text: 'Upload',
+        url: '/upload'
       }
     ],
     lower: [

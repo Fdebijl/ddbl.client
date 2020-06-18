@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {DataSet, SetMeta, User} from '../../_domain/class';
+import {DataSet, User} from '../../_domain/class';
 import moment from 'moment';
 import {DataType} from '../../_domain/enum/DataType';
 import {UserService} from '../../_services';
