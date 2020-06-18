@@ -1,6 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import {SetMeta, User} from '../../_domain/class';
+import {Component, Input, OnInit} from '@angular/core';
+import {DataSet, SetMeta, User} from '../../_domain/class';
 import moment from 'moment';
+import {DataType} from '../../_domain/enum/DataType';
+import {UserService} from '../../_services';
 
 @Component({
   selector: 'app-card',
@@ -8,30 +10,32 @@ import moment from 'moment';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-  constructor() {
+  constructor(private userService: UserService) {
     return;
   }
 
-  @Input() cardData: SetMeta;
+  @Input() dataSet: DataSet;
+  cardData: SetMeta;
   public dateTimePosted: string;
   public infoSelectAria: string;
   public cardInfoAria: string;
   public legendHiddenAria: string;
   public contributor: User;
+  public hasThumbnail: boolean;
 
   public saveObjForVisualizationPage(): void {
-    localStorage.setItem('visData', JSON.stringify(this.cardData));
+    localStorage.setItem('visData', JSON.stringify(this.dataSet));
   }
 
   public getIcon(): string {
-    switch (this.cardData.type) {
-      case 'Visualization': {
+    switch (this.dataSet.dataType) {
+      case DataType.VISUALIZATION: {
         return 'fa-eye';
         break;
       }
-      case 'Image/Graphic':
-      case 'Web Page':
-      case 'link': {
+      case DataType.IMAGEGRAPHIC:
+      case DataType.WEBPAGE:
+      case DataType.LINK: {
         return 'fa-link';
         break;
       }
@@ -42,9 +46,17 @@ export class CardComponent implements OnInit {
     }
   }
 
-  hasAffiliation(): boolean {
+  hasMapVisualizationLink(): boolean {
+    // TODO Check if data.dataset is a map visualization
+    if (this.dataSet.dataType === DataType.VISUALIZATION) {
+      return true;
+    }
+    return false;
+  }
+
+  public hasAffiliation(): boolean {
     try {
-      if (this.cardData.contributor && this.cardData.contributor.affiliation) {
+      if (this.contributor && this.contributor.affiliation) {
         return true;
       }
       return false;
@@ -53,20 +65,42 @@ export class CardComponent implements OnInit {
     }
   }
 
-  hasContributor(): boolean {
-    try {
-      if (this.cardData.contributor) {
-        return true;
-      }
-      return false;
-
-    } catch (e) {
-      return false;
+  public isCertainDataType(): boolean {
+    if (this.dataSet.dataType === DataType.LINK ||
+      this.dataSet.dataType === DataType.WEBPAGE ||
+      this.dataSet.dataType === DataType.IMAGEGRAPHIC) {
+      return true;
     }
+    return false;
+  }
+
+  public forceRefreshHasThumbnail(): void {
+    const avatarUrl = this.getThumbnailUrl();
+    fetch(avatarUrl)
+      .then((res) => {
+        if (res.status !== 200) {
+          this.hasThumbnail = false;
+          return;
+        }
+
+        this.hasThumbnail = true;
+      })
+      .catch(() => {
+        this.hasThumbnail = false;
+      })
+  }
+
+  public getThumbnailUrl(): string {
+    return 'https://vll.floris.amsterdam/static/thumbnails/' + this.dataSet.id + '.jpeg';
   }
 
   ngOnInit(): void {
-    this.dateTimePosted = moment(this.cardData.created).format('ll');
+    this.userService.getByID(this.dataSet.metaData.contributorId).then((user) => {
+      this.contributor = user;
+    }).catch((error) => {});
+    this.hasThumbnail = false;
+    this.forceRefreshHasThumbnail();
+    this.dateTimePosted = moment(this.dataSet.metaData.createdAt).format('ll');
     this.cardInfoAria = 'false';
     this.infoSelectAria = 'true';
     this.legendHiddenAria = 'false';

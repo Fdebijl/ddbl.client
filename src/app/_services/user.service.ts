@@ -4,6 +4,7 @@ import { StorageService } from './storage.service';
 import { AuthorizedFetch } from '../_util/AuthorizedFetch';
 import { Base64ToBlob } from '../_util/Base64ToBlob';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,10 +14,14 @@ export class UserService {
   }
 
   public getByID(id: string): Promise<User> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       AuthorizedFetch(`account/${id}`)
       .then((response) => response.json())
       .then((user) => {
+        if (user.error){
+          reject(user);
+          return;
+        }
         resolve(new User(user));
       });
     });

@@ -1,6 +1,7 @@
 export enum DataType {
-  'Visualisation',
-  'Report',
-  'Image/Graphic',
-  'Webpage'
+  'VISUALIZATION',
+  'REPORT',
+  'IMAGEGRAPHIC',
+  'WEBPAGE',
+  'LINK'
 }
