@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -20,13 +21,15 @@ import { MainDashboardComponent,
          TwoComponent,
          TermsComponent,
          ProfilePictureEditorComponent,
-         NavComponent
+         NavComponent,
+         ToastComponent
 } from './_components';
 
 import { MongodbService } from './_services/mongodb.service';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {AgmCoreModule} from '@agm/core';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -48,6 +51,7 @@ import {AgmCoreModule} from '@agm/core';
     NavComponent,
     ProfilePictureEditorComponent,
     CardComponent,
+    ToastComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,15 +60,15 @@ import {AgmCoreModule} from '@agm/core';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ImageCropperModule,
-    LeafletModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBcHEEojCwlSjVtgX_bg-JXpZY5JWu6uPc'
-    })
+    LeafletModule,
+    ImageCropperModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     HttpClient,
-    MongodbService,
+    MongodbService
   ],
   bootstrap: [
     AppComponent
@@ -73,4 +77,4 @@ import {AgmCoreModule} from '@agm/core';
     CUSTOM_ELEMENTS_SCHEMA
   ]
 })
-export class AppModule { }
+export class AppModule {}

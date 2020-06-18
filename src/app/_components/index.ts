@@ -6,5 +6,5 @@ export * from './partials';
 export * from './terms/terms.component';
 export * from './upload/upload.component';
 export * from './user';
-export * from './vis/vis.component';
-
+export * from './vis/vis.component'
+export * from './toast/toast.component';

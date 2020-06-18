@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ImageCroppedEvent} from 'ngx-image-cropper';
 import {StorageService, UserService} from '../../../../_services';
+import { ToastComponent } from 'src/app/_components/toast/toast.component';
 
 @Component({
   selector: 'app-profile-picture-editor',
@@ -8,7 +9,7 @@ import {StorageService, UserService} from '../../../../_services';
   styleUrls: ['./profile-picture-editor.component.scss']
 })
 export class ProfilePictureEditorComponent implements OnInit {
-  @Output() cancel: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output() cancelledOrUpdated: EventEmitter<'cancelled' | 'updated'> = new EventEmitter<'cancelled' | 'updated'>();
 
   imageChangedEvent: Event;
   croppedImage = '';
@@ -33,11 +34,11 @@ export class ProfilePictureEditorComponent implements OnInit {
     if (this.croppedImage !== '') {
       this.userService.uploadProfilePicture(this.croppedImage.toString())
         .then(() => {
-          // Changed succesfully
+          this.cancelledOrUpdated.emit('updated');
         })
         .catch((error) => {
-          // An error occured
-          console.log(error);
+          this.cancelledOrUpdated.emit('cancelled');
+          ToastComponent.getInstance().error(error.error || error);
         })
     }
   }
