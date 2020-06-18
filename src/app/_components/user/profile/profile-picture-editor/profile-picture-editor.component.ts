@@ -9,8 +9,7 @@ import { ToastComponent } from 'src/app/_components/toast/toast.component';
   styleUrls: ['./profile-picture-editor.component.scss']
 })
 export class ProfilePictureEditorComponent implements OnInit {
-  @Output() cancel: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
-  @Output() pfpUpdated: EventEmitter<void> = new EventEmitter<void>();
+  @Output() cancelledOrUpdated: EventEmitter<'cancelled' | 'updated'> = new EventEmitter<'cancelled' | 'updated'>();
 
   imageChangedEvent: Event;
   croppedImage = '';
@@ -35,9 +34,10 @@ export class ProfilePictureEditorComponent implements OnInit {
     if (this.croppedImage !== '') {
       this.userService.uploadProfilePicture(this.croppedImage.toString())
         .then(() => {
-          this.pfpUpdated.emit();
+          this.cancelledOrUpdated.emit('updated');
         })
         .catch((error) => {
+          this.cancelledOrUpdated.emit('cancelled');
           ToastComponent.getInstance().error(error.error || error);
         })
     }

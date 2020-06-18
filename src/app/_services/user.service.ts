@@ -76,6 +76,8 @@ export class UserService {
             reject(data.error as GenericError);
             return;
           }
+
+          resolve();
         })
         .catch((error) => {
           console.log(error);
