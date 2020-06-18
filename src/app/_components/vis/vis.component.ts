@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SetMeta, User} from '../../_domain/class';
-import { MongodbService } from '../../_services';
+import {DataSet, User} from '../../_domain/class';
+import {UserService} from '../../_services';
 import moment from 'moment';
 
-declare function mpOverlay(baseMapId, overlayContId, Base, zoomLev, lat, lon);
 
 @Component({
   selector: 'app-vis-component',
@@ -12,84 +11,32 @@ declare function mpOverlay(baseMapId, overlayContId, Base, zoomLev, lat, lon);
 })
 export class VisComponent implements OnInit {
 
-  constructor(private newService: MongodbService) { }
+  constructor(private userService: UserService) { }
 
-  public mpNum: SetMeta;
-  public mp1Num: SetMeta;
-  public mp2Num: SetMeta;
-  public mp3Num: SetMeta;
-  public mp4Num: SetMeta;
+  public contributor: User;
   public dateTimePosted: string;
+  public dataSet: DataSet;
+  public latitude: number;
+  public longitude: number;
+  public geoJson;
 
-  private splitDataArrayToObjects(data: Array<SetMeta>): void {
-    console.log(data.length);
-    for (let i = 0, len = data.length; i < len; i++) {
-      console.log(data[i].file);
-      switch (data[i].file) {
-        case 'mp1': {
-          console.log('set mp1Num');
-          this.mp1Num = data[i];
-          break; }
-        case 'mp2': {
-          console.log('set mp2Num');
-          this.mp2Num = data[i];
-          break; }
-        case 'mp3': {
-          console.log('set mp3Num');
-          this.mp3Num = data[i];
-          break; }
-        case 'mp4': {
-          console.log('set mp4Num');
-          this.mp4Num = data[i];
-          break; }
-        default: {
-          break; }
-      }
-    }
-  }
-
-  private setOverlayContent(): void {
-    switch (this.mpNum.id) {
-      case this.mp1Num.id: {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        window.mpOverlay('mp1', 'mp1OverlayCont', 'Gray', 12, 51.445, 5.450);
-        break;
-      }
-      case this.mp2Num.id: {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        window.mpOverlay('mp2', 'mp2OverlayCont', 'DarkGray', 12, 51.445, 5.450);
-        break;
-      }
-      case this.mp3Num.id: {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        window.mpOverlay('mp3', 'mp3OverlayCont', 'Gray', 12, 51.445, 5.450);
-        break; }
-      case this.mp4Num.id: {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        window.mpOverlay('mp4', 'mp4OverlayCont', 'Gray', 12, 51.445, 5.450);
-        break; }
-      default: {
-        break; }
-    }
-  }
-  private processData(data: Array<SetMeta>): void {
-    this.splitDataArrayToObjects(data);
-    this.setOverlayContent();
-  }
 
   ngOnInit(): void {
-    this.mpNum = JSON.parse(localStorage.getItem('visData'));
-    this.mpNum.contributor = new User(this.mpNum.contributor);
-    this.dateTimePosted = moment(this.mpNum.created).format('ll');
+    this.dataSet = JSON.parse(localStorage.getItem('visData'));
+    // this.dataSet = mockdataset;
+    this.userService.getByID(this.dataSet.metaData.contributorId).then((user) => {
+      console.log(user);
+      this.contributor = new User(user);
+    }).catch();
+    this.dateTimePosted = moment(this.dataSet.metaData.createdAt).format('ll');
 
     setTimeout(() => {
-      this.processData(this.newService.GetMetadataVisNoAPI());
+      // this.processData(this.dataService.getMainDashboardData());
     }, 1000);
 
+    this.latitude = 51.445;
+    this.longitude = 5.450;
+    this.geoJson = this.dataSet.data;
 
     /*
     this.newService.GetMetadataVis().then(data => {

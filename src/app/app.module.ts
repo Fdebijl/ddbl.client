@@ -27,6 +27,8 @@ import { MainDashboardComponent,
 
 import { MongodbService } from './_services/mongodb.service';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import {LeafletModule} from '@asymmetrik/ngx-leaflet';
+import {AgmCoreModule} from '@agm/core';
 import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -58,6 +60,10 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBcHEEojCwlSjVtgX_bg-JXpZY5JWu6uPc'
+    }),
+    LeafletModule,
     ImageCropperModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot()

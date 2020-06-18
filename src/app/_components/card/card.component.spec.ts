@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CardComponent } from './card.component';
-import { SetMeta } from '../../_domain/class';
+import {mockdataset} from '../../../assets/datasets/mockdataset';
 
 describe('CardComponent', () => {
   let component: CardComponent;
@@ -17,7 +17,7 @@ describe('CardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CardComponent);
     component = fixture.componentInstance;
-    component.cardData = SetMeta.mock();
+    component.dataSet = mockdataset;
     (window as unknown as {mp1}).mp1 = (): void => {return;};
     fixture.detectChanges();
   });
