@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ImageCroppedEvent} from 'ngx-image-cropper';
-import {StorageService} from '../../../../_services';
+import {StorageService, UserService} from '../../../../_services';
+import { ToastComponent } from 'src/app/_components/toast/toast.component';
 
 @Component({
   selector: 'app-profile-picture-editor',
@@ -8,12 +9,12 @@ import {StorageService} from '../../../../_services';
   styleUrls: ['./profile-picture-editor.component.scss']
 })
 export class ProfilePictureEditorComponent implements OnInit {
-  @Output() cancel: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output() cancelledOrUpdated: EventEmitter<'cancelled' | 'updated'> = new EventEmitter<'cancelled' | 'updated'>();
 
   imageChangedEvent: Event;
   croppedImage = '';
 
-  constructor(private storageService: StorageService) {
+  constructor(private storageService: StorageService, private userService: UserService) {
     return
   }
 
@@ -29,23 +30,16 @@ export class ProfilePictureEditorComponent implements OnInit {
     this.croppedImage = event.base64;
   }
 
-  imageLoaded(): void {
-    // show cropper
-  }
-
-  cropperReady(): void {
-    // cropper ready
-  }
-
-  loadImageFailed(): void {
-    // show message
-  }
-
   save(): void {
     if (this.croppedImage !== '') {
-      const storedUser = this.storageService.user.getValue();
-      storedUser.profilePicture = this.croppedImage;
-      this.storageService.user.next(storedUser);
+      this.userService.uploadProfilePicture(this.croppedImage.toString())
+        .then(() => {
+          this.cancelledOrUpdated.emit('updated');
+        })
+        .catch((error) => {
+          this.cancelledOrUpdated.emit('cancelled');
+          ToastComponent.getInstance().error(error.error || error);
+        })
     }
   }
 

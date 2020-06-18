@@ -1,29 +1,26 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TwoComponent } from './two.component';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { ToastComponent } from './toast.component';
+import { ToastrService } from 'ngx-toastr';
 
-describe('TwoComponent', () => {
-  let component: TwoComponent;
-  let fixture: ComponentFixture<TwoComponent>;
+describe('ToastComponent', () => {
+  let component: ToastComponent;
+  let fixture: ComponentFixture<ToastComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        TwoComponent
+        ToastComponent,
       ],
       providers: [
-        FormBuilder
+        { provide: ToastrService, useValue: {} }
       ],
-      imports: [
-        ReactiveFormsModule
-      ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TwoComponent);
+    fixture = TestBed.createComponent(ToastComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

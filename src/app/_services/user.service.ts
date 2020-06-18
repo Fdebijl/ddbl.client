@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { User } from '../_domain/class';
+import {GenericError, User} from '../_domain/class';
 import { StorageService } from './storage.service';
 import { AuthorizedFetch } from '../_util/AuthorizedFetch';
+import { Base64ToBlob } from '../_util/Base64ToBlob';
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +56,33 @@ export class UserService {
             reject();
           }
         })
+    });
+  }
+
+  public async uploadProfilePicture(img: string): Promise<void> {
+    const storedUser = this.storageService.user.getValue();
+
+    return new Promise(async (resolve, reject) => {
+      const fd = await Base64ToBlob(img);
+      AuthorizedFetch(`avatars/upload/${storedUser.id}`, {
+        method: 'POST',
+        body: fd
+      }, {
+        useDefaults: false
+      })
+        .then((response) => response.json())
+        .then(async (data) => {
+          if (data.error) {
+            reject(data.error as GenericError);
+            return;
+          }
+
+          resolve();
+        })
+        .catch((error) => {
+          console.log(error);
+          reject(error);
+        });
     });
   }
 }
