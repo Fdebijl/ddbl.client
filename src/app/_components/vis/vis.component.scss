@@ -19,3 +19,12 @@
     padding: 0;
   }
 }
+
+.map {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: calc(100% - 12px);
+  height: 600px;
+  padding: 0;
+}

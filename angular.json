@@ -24,13 +24,19 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": [
+              {
+                "glob": "**/*",
+                "input": "./node_modules/leaflet/dist/images",
+                "output": "leaflet/"
+              },
               "src/assets",
               "src/_redirects"
             ],
             "styles": [
               "src/styles.scss",
               "src/dataviz.scss",
-              "node_modules/uikit/dist/css/uikit.min.css"
+              "node_modules/uikit/dist/css/uikit.min.css",
+              "./node_modules/leaflet/dist/leaflet.css"
             ],
             "scripts": [
               "node_modules/uikit/dist/js/uikit.min.js",
@@ -96,11 +102,17 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
+              {
+                "glob": "**/*",
+                "input": "./node_modules/leaflet/dist/images",
+                "output": "leaflet/"
+              },
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "./node_modules/leaflet/dist/leaflet.scss"
             ],
             "scripts": []
           }

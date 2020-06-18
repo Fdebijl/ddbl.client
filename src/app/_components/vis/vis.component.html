@@ -14,36 +14,13 @@
 
   <div class="vizEach_content_visframe">
     <!-- TODO add filename -->
-    <div id="mpNum.file" class="vizEach_content_visframe_canvas"><!-- datavis comes here --></div>
+    <agm-map [latitude]="latitude" [longitude]="longitude">
+      <agm-data-layer [geoJson]="geoJson"></agm-data-layer>
+    </agm-map>
     <!-- Only for "map" visualizations -->
     <!-- TODO add filename -->
     <ng-container *ngIf="mpNum.metaData.title.indexOf('mp') !== -1">
-      <!-- if the name of file contains "mp" -->
-      <div class="mp-layers" aria-hidden="true">
-        <!-- TODO add filename -->
-        <ul class="mp-layers_list" id="on{\{mpNum.file}}"></ul>
-      </div>
 
-      <!-- selection for air quality data -->
-      <!--
-      <% if (data[mpNum].file == "mp5") { %>
-    <div id="mp5filter" class="filter-general" aria-hidden="false">
-      <% } else { %>
-      <div id="mp5filter" class="filter-general" aria-hidden="true">
-        <% } %>
-      <div class="filter-general_select">
-        <select id="mp5select">
-          <option value="PM1">PM1</option>
-          <option value="PM2.5">PM2.5</option>
-          <option value="PM10">PM10</option>
-          <option value="UFP">UFP</option>
-          <option value="Ozone">Ozone</option>
-          <option value="NO2">NO2</option>
-        </select>
-        <div class="filter-arrow"></div>
-      </div>
-  </div>
-  -->
       <!-- TODO add filename -->
       <div class="map_legend" id="mpNum.file-legend" aria-hidden="false">
         <!-- add by js -->

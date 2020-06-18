@@ -3,6 +3,8 @@ import {DataSet, SetMeta, User} from '../../_domain/class';
 import {MongodbService, UserService} from '../../_services';
 import moment from 'moment';
 import {DataService} from '../../_services/data.service';
+import { AgmCoreModule } from '@agm/core';
+import {GeoJSON} from "leaflet";
 
 declare function mpOverlay(baseMapId, overlayContId, Base, zoomLev, lat, lon);
 
@@ -22,6 +24,10 @@ export class VisComponent implements OnInit {
   public mp4Num: DataSet;
   public contributor: User;
   public dateTimePosted: string;
+  public dataSet: DataSet;
+  public latitude: number;
+  public longitude: number;
+  public geoJson: GeoJSON;
 
   private splitDataArrayToObjects(data: Array<DataSet>): void {
     console.log(data.length);
@@ -97,6 +103,9 @@ export class VisComponent implements OnInit {
       // this.processData(this.dataService.getMainDashboardData());
     }, 1000);
 
+    this.latitude = 51.445;
+    this.longitude = 5.450;
+    this.geoJson = JSON.parse(this.dataSet.data);
 
     /*
     this.newService.GetMetadataVis().then(data => {

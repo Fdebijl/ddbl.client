@@ -25,6 +25,8 @@ import { MainDashboardComponent,
 
 import { MongodbService } from './_services/mongodb.service';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import {LeafletModule} from "@asymmetrik/ngx-leaflet";
+import {AgmCoreModule} from "@agm/core";
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ImageCropperModule
+    ImageCropperModule,
+    LeafletModule,
+    AgmCoreModule
   ],
   providers: [
     HttpClient,
