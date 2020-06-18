@@ -97,7 +97,7 @@ export class CardComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getByID(this.dataSet.metaData.contributorId).then((user) => {
       this.contributor = user;
-    }).catch((error) => {});
+    }).catch();
     this.hasThumbnail = false;
     this.forceRefreshHasThumbnail();
     this.dateTimePosted = moment(this.dataSet.metaData.createdAt).format('ll');

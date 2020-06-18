@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {DataSet, SetMeta, User} from '../../_domain/class';
+import {DataSet, User} from '../../_domain/class';
 import {MongodbService, UserService} from '../../_services';
 import moment from 'moment';
 import {DataService} from '../../_services/data.service';
-import { AgmCoreModule } from '@agm/core';
 import {mockdataset} from '../../../assets/datasets/mockdataset';
 
 declare function mpOverlay(baseMapId, overlayContId, Base, zoomLev, lat, lon);
@@ -98,7 +97,7 @@ export class VisComponent implements OnInit {
     this.userService.getByID(this.dataSet.metaData.contributorId).then((user) => {
       console.log(user);
       this.contributor = new User(user);
-    }).catch((error) => {});
+    }).catch();
     this.dateTimePosted = moment(this.dataSet.metaData.createdAt).format('ll');
 
     setTimeout(() => {

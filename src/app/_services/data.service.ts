@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import {SetMeta} from '../_domain/class/data/SetMeta';
 import {ajax} from 'rxjs/ajax';
 import { StorageService } from './storage.service';
-import {DataSet, GenericError, User} from '../_domain/class';
+import {DataSet} from '../_domain/class';
 import {AuthorizedFetch} from '../_util/AuthorizedFetch';
 
 @Injectable({
@@ -43,11 +42,6 @@ export class DataService {
       }).subscribe({
         error: () => {
           reject();
-        },
-        next: data => {
-          // TODO see which data
-          // data.status;
-          resolve('Return json');
         }
       });
     });
