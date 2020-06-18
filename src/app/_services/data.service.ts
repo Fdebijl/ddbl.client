@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import {ajax} from 'rxjs/ajax';
 import { StorageService } from './storage.service';
-import {DataSet} from '../_domain/class';
+import {DataSet, GenericError} from '../_domain/class';
 import {AuthorizedFetch} from '../_util/AuthorizedFetch';
+import { Endpoints } from '../_domain/enum/Endpoint';
 
 @Injectable({
   providedIn: 'root'
