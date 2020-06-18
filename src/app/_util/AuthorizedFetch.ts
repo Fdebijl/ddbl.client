@@ -69,6 +69,16 @@ export const AuthorizedFetch = (endpoint: Endpoint, options?: RequestInit, conte
 
   const toastr: ToastrService = ToastComponent.getInstance();
 
+  if (!options) {
+    options = {
+      headers: {}
+    };
+  }
+
+  if (!options.headers) {
+    options.headers = {};
+  }
+
   if (contextOptions.authorized) {
     const storageService = new StorageService();
     const token = storageService.user.getValue().token;
@@ -98,16 +108,6 @@ export const AuthorizedFetch = (endpoint: Endpoint, options?: RequestInit, conte
         name: 'NoNetworkError',
         message: 'There is no network connection right now. Check your internet connection and try again.'
       });
-    }
-
-    if (!options) {
-      options = {
-        headers: {}
-      };
-    }
-
-    if (!options.headers) {
-      options.headers = {};
     }
 
     options.headers['Authorization'] = token;

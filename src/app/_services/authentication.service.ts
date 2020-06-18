@@ -48,6 +48,12 @@ export class AuthenticationService {
     }
 
     if (!user.token) {
+      this.storageService.user.clear();
+      return false;
+    }
+
+    if (!user.displayName) {
+      this.storageService.user.clear();
       return false;
     }
 

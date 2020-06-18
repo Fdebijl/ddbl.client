@@ -1,5 +1,5 @@
 type DatasetEndpoint =
-  'dataset/'
+  'article/'
 
 type AccountEndpoint =
   'account/' |
@@ -13,10 +13,10 @@ export const Endpoints: {
   account: 'account/';
   accountLogin: 'auth/login';
   accountLogout: 'account/logout';
-  dataset: 'dataset/';
+  dataset: 'article/';
 } = {
   account: 'account/',
   accountLogin: 'auth/login',
   accountLogout: 'account/logout',
-  dataset: 'dataset/',
+  dataset: 'article/',
 }

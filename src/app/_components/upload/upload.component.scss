@@ -19,10 +19,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 0;
 
     .uk-text-middle {
       margin: 0 0.2em;
     }
+  }
+
+  .filename {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border: 1px dashed #e5e5e5;
+    border-width: 0 1px 1px 1px;
+    padding: 10px;
+  }
+
+  .upmargin {
+    margin-top: 20px;
   }
   
   .card {
@@ -55,4 +69,8 @@
       transform: scale(1);
     }
   }
+}
+
+.hidden {
+  display: none;
 }
