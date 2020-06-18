@@ -15,7 +15,7 @@ export class DataService {
 
   public async getMainDashboardData(): Promise<DataSet[]> {
     return new Promise((resolve, reject) => {
-      AuthorizedFetch(`dataset/`).
+      AuthorizedFetch(`article/`).
       then()
         .then((response) => response.json())
         .then((data) => {
