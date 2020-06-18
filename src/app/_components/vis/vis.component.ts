@@ -4,7 +4,7 @@ import {MongodbService, UserService} from '../../_services';
 import moment from 'moment';
 import {DataService} from '../../_services/data.service';
 import { AgmCoreModule } from '@agm/core';
-import {GeoJSON} from "leaflet";
+import {mockdataset} from '../../../assets/datasets/mockdataset';
 
 declare function mpOverlay(baseMapId, overlayContId, Base, zoomLev, lat, lon);
 
@@ -27,7 +27,7 @@ export class VisComponent implements OnInit {
   public dataSet: DataSet;
   public latitude: number;
   public longitude: number;
-  public geoJson: GeoJSON;
+  public geoJson;
 
   private splitDataArrayToObjects(data: Array<DataSet>): void {
     console.log(data.length);
@@ -93,11 +93,13 @@ export class VisComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.mpNum = JSON.parse(localStorage.getItem('visData'));
-    this.userService.getByID(this.mpNum.metaData.contributorId).then((user) => {
-      this.contributor = user;
+    // this.dataSet = JSON.parse(localStorage.getItem('visData'));
+    this.dataSet = mockdataset;
+    this.userService.getByID(this.dataSet.metaData.contributorId).then((user) => {
+      console.log(user);
+      this.contributor = new User(user);
     }).catch((error) => {});
-    this.dateTimePosted = moment(this.mpNum.metaData.createdAt).format('ll');
+    this.dateTimePosted = moment(this.dataSet.metaData.createdAt).format('ll');
 
     setTimeout(() => {
       // this.processData(this.dataService.getMainDashboardData());
@@ -105,7 +107,7 @@ export class VisComponent implements OnInit {
 
     this.latitude = 51.445;
     this.longitude = 5.450;
-    this.geoJson = JSON.parse(this.dataSet.data);
+    this.geoJson = this.dataSet.data;
 
     /*
     this.newService.GetMetadataVis().then(data => {

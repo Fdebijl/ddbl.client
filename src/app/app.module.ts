@@ -25,8 +25,8 @@ import { MainDashboardComponent,
 
 import { MongodbService } from './_services/mongodb.service';
 import { ImageCropperModule } from 'ngx-image-cropper';
-import {LeafletModule} from "@asymmetrik/ngx-leaflet";
-import {AgmCoreModule} from "@agm/core";
+import {LeafletModule} from '@asymmetrik/ngx-leaflet';
+import {AgmCoreModule} from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -58,7 +58,9 @@ import {AgmCoreModule} from "@agm/core";
     HttpClientModule,
     ImageCropperModule,
     LeafletModule,
-    AgmCoreModule
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBcHEEojCwlSjVtgX_bg-JXpZY5JWu6uPc'
+    })
   ],
   providers: [
     HttpClient,
