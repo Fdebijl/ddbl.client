@@ -31,7 +31,7 @@
               "src/styles.scss",
               "src/dataviz.scss",
               "src/forms.scss",
-              "node_modules/uikit/dist/css/uikit.min.css"
+              "node_modules/uikit/dist/css/uikit.min.css",
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [

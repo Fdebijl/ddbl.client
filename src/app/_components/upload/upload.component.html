@@ -4,28 +4,28 @@
     <p>The Vitality Living Lab DataSystem is currently in a beta state, which means we can only accept GeoJSON datasets.</p>
     <p class="italic">* = Required field</p>
     <div class="card">
-      <form>
+      <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="dataTitle" class="control-label" placeholder="">Title *</label>
-          <input type="text" name="dataTitle" required>
+          <input type="text" name="dataTitle" formControlName="dataTitle" required>
           <i class="bar"></i>
         </div>
 
         <div class="form-group">
           <label for="dataYear" class="control-label" >Year *</label>
-          <input type="text" placeholder="YYYY or YYYY-YYYY (e.g. 2000-2029)" name="dataYear" required>
+          <input type="text" placeholder="YYYY or YYYY-YYYY (e.g. 2000-2029)" name="dataYear" formControlName="dataYear" required>
           <i class="bar"></i>
         </div>
 
         <div class="form-group">
           <label for="dataDesc" class="control-label">Description *</label>
-          <textarea name="dataDesc" required></textarea>
+          <textarea name="dataDesc" formControlName="dataDesc" required></textarea>
           <i class="bar"></i>
         </div>
 
         <div class="form-group">
           <label for="dataAgeGroup" class="control-label">Age group of data *</label>
-          <select name="dataAgeGroup" required>
+          <select name="dataAgeGroup" formControlName="dataAgeGroup" required>
             <option name="All" value="All" >All</option>
             <option name="0-11" value="0-11">0-11</option>
             <option name="0-18" value="0-18">0-18</option>
@@ -41,7 +41,7 @@
 
         <div class="form-group">
           <label for="dataCateg" class="control-label">Category *</label>
-          <select name="dataCateg" required>
+          <select name="dataCateg" formControlName="dataCateg" required>
             <option name="Demographic" value="Demographic">Demographic</option>
             <option name="Environment" value="Environment">Environment</option>
             <option name="Infrastructure" value="Infrastructure">Infrastructure</option>
@@ -55,7 +55,7 @@
 
         <div class="form-group">
           <label for="dataType" class="control-label">Type *</label>
-          <select name="dataType" required>
+          <select name="dataType" formControlName="dataType" required>
             <option name="Dataset" value="Dataset">Dataset</option>
             <option name="Report" value="Report">Report</option>
             <option name="Webpage" value="Webpage">Web Page</option>
@@ -69,19 +69,19 @@
         
         <div class="form-group">
           <label for="dataFormat" class="control-label" >Format *</label>
-          <input type="text" placeholder="CSV etc. (CSV/PDF/... for multiple formats)" name="dataFormat" required>
+          <input type="text" placeholder="CSV etc. (CSV/PDF/... for multiple formats)" name="dataFormat" formControlName="dataType" required>
           <i class="bar"></i>
         </div>
 
         <div class="form-group">
           <label for="dataSource" class="control-label" placeholder="">Source *</label>
-          <input type="text" name="dataSource" required>
+          <input type="text" name="dataSource" formControlName="dataSource" required>
           <i class="bar"></i>
         </div>
 
         <div class="form-group">
           <label for="dataLink" class="control-label" placeholder="">Link URL *</label>
-          <input type="text" name="dataLink">
+          <input type="text" name="dataLink" formControlName="dataLink">
           <i class="bar"></i>
         </div>
 
@@ -99,12 +99,12 @@
         <div class="form-radio" style="margin-top: 24px;">
           <div class="radio">
             <label>
-              <input type="radio" name="dataAccess" value="Public" checked="checked"><i class="helper"></i>Public (Data is shared in public)
+              <input type="radio" name="dataAccess" formControlName="dataAccess" value="Public" checked="checked"><i class="helper"></i>Public (Data is shared in public)
             </label>
           </div>
           <div class="radio">
             <label>
-              <input type="radio" name="dataAccess" value="Private"><i class="helper"></i>Private (Data is only accessed by you)
+              <input type="radio" name="dataAccess" formControlName="dataAccess" value="Private"><i class="helper"></i>Private (Data is only accessed by you)
             </label>
           </div>
         </div>

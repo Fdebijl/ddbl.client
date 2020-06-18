@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import {SetMeta} from '../_domain/class/data/SetMeta';
 import {ajax} from 'rxjs/ajax';
 import { StorageService } from './storage.service';
 import {DataSet, GenericError, User} from '../_domain/class';
 import {AuthorizedFetch} from '../_util/AuthorizedFetch';
+import { Endpoints } from '../_domain/enum/Endpoint';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +50,40 @@ export class DataService {
           resolve('Return json');
         }
       });
+    });
+  }
+
+  public async create(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      AuthorizedFetch(Endpoints.dataset, {
+        method: 'POST',
+        body: JSON.stringify({
+          data: "string",
+          metaData: {
+            ageGroup: "string",
+            category: "string",
+            contributorId: "string",
+            createdAt: "2020-06-18T09:33:42.928Z",
+            credit: "string",
+            description: "string",
+            linkToSource: "string",
+            pathToThumbnail: "string",
+            publik: true,
+            source: "string",
+            title: "string",
+            updatedAt: "2020-06-18T09:33:42.929Z",
+            year: 0
+          }
+        })
+      })
+        .then((response) => response.json())
+        .then(async (data) => {
+          // data
+        })
+        .catch((error) => {
+          console.log(error);
+          reject(error);
+        });
     });
   }
 }
