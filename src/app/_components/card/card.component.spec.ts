@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CardComponent } from './card.component';
 import {mockdataset} from '../../../assets/datasets/mockdataset';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('CardComponent', () => {
   let component: CardComponent;
@@ -9,7 +10,8 @@ describe('CardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CardComponent ]
+      declarations: [ CardComponent ],
+      imports: [ RouterTestingModule ]
     })
     .compileComponents();
   }));
