@@ -6,109 +6,18 @@
 <div class="mp5-tooltip data-tooltip" aria-hidden="true"></div>
 
 <main class="vizEach">
-<section class="vizEach_content" title="{{dataSet.metaData.title}}">
+<section class="vizEach_content" *ngIf="dataSet" title="{{dataSet.metaData.title}}">
   <div class="vizEach_content_title">
-    <h1 class="text">{{dataSet.metaData.title}} ({{dataSet.metaData.year}})</h1>
+    <h1 class="text" *ngIf="dataSet">{{dataSet.metaData.title}} ({{dataSet.metaData.year}})</h1>
     <div class="hinder"></div>
   </div>
 
   <div class="vizEach_content_visframe">
     <!-- TODO add filename -->
-    <agm-map class="map" [zoom]="12" [latitude]="latitude" [longitude]="longitude" >
-      <agm-data-layer [geoJson]="geoJson"></agm-data-layer>
+    <agm-map class="map" [zoom]="12" [latitude]="51.445" [longitude]="5.450" >
+      <agm-data-layer *ngIf="geoJson" [geoJson]="geoJson"></agm-data-layer>
     </agm-map>
     <!-- Only for "map" visualizations -->
-    <!-- TODO add filename -->
-    <ng-container *ngIf="dataSet.metaData.title.indexOf('mp') !== -1">
-
-      <!-- TODO add filename -->
-      <div class="map_legend" id="mp1-legend" aria-hidden="false">
-        <!-- add by js -->
-        <ng-container>
-          <span class="map_legend_title">Legend (%)</span>
-          <table class="map_legend_table">
-            <col width="16">
-            <col width="">
-            <tr class="value4 row">
-              <td class="box"></td>
-              <td class="text">70 < 80</td>
-            </tr>
-            <tr class="value3 row">
-              <td class="box"></td>
-              <td class="text">60 < 70</td>
-            </tr>
-            <tr class="value2 row">
-              <td class="box"></td>
-              <td class="text">50 < 60</td>
-            </tr>
-            <tr class="value1 row">
-              <td class="box"></td>
-              <td class="text">40 < 50</td>
-            </tr>
-            <tr class="noData row">
-              <td class="box"></td>
-              <td class="text">No data</td>
-            </tr>
-          </table>
-        </ng-container>
-        <ng-template #mp3>
-          <!--
-          if mp5 gets added use this:
-         <ng-container *ngIf="mpNum.file == 'mp3' else 'mp5'">
-         -->
-          <ng-container *ngIf="dataSet.metaData.title == 'mp3'">
-            <span class="map_legend_title">Legend (Type)</span>
-            <table class="map_legend_table">
-              <col width="16">
-              <col width="">
-              <tr class="value7 row">
-                <td class="box"></td>
-                <td class="text">Allotments</td>
-              </tr>
-              <tr class="value6 row">
-                <td class="box"></td>
-                <td class="text">Farm</td>
-              </tr>
-              <tr class="value5 row">
-                <td class="box"></td>
-                <td class="text">Forest</td>
-              </tr>
-              <tr class="value4 row">
-                <td class="box"></td>
-                <td class="text">Grass</td>
-              </tr>
-              <tr class="value3 row">
-                <td class="box"></td>
-                <td class="text">Meadow</td>
-              </tr>
-              <tr class="value2 row">
-                <td class="box"></td>
-                <td class="text">Orchard</td>
-              </tr>
-              <tr class="value1 row">
-                <td class="box"></td>
-                <td class="text">Park</td>
-              </tr>
-              <tr class="noData row">
-                <td class="box"></td>
-                <td class="text">Not Identified</td>
-              </tr>
-            </table>
-          </ng-container>
-        </ng-template>
-        <ng-template #mp5>
-          <ng-container *ngIf="dataSet.metaData.title == 'mp5'">
-            <div class="content"></div>
-            <div class="labels">
-              <span class="labels_low">Low</span>
-              <span class="labels_mod">Moderate</span>
-              <span class="labels_high">High</span>
-            </div>
-          </ng-container>
-        </ng-template>
-      </div>
-      <!-- Ends-Only for "map" visualizations -->
-    </ng-container>
     <!-- TODO add filename -->
 
     </div><!-- vizEach_content_visframe -->
@@ -150,7 +59,7 @@
             <span class="text">Description</span>
           </div>
           <div class="desc-cont">
-            <p>{{dataSet.metaData.description}}</p>
+            <p *ngIf="dataSet">{{dataSet.metaData.description}}</p>
           </div>
         </li>
         <li class="vizEach_content_info_cont_utility">
@@ -178,7 +87,7 @@
         </li>
         <li class="vizEach_content_info_cont_source">
           <span class="header">Source</span>
-          <span class="content">{{dataSet.metaData.source}}</span>
+          <span class="content" *ngIf="dataSet">{{dataSet.metaData.source}}</span>
         </li>
       </ul>
     </div>
@@ -222,7 +131,7 @@
     </div>
     <div class="vizEach_side_layers_base">
       <span class="title">Base data</span>
-      <span class="baseData">{{dataSet.metaData.title}} ({{dataSet.metaData.year}})</span>
+      <span class="baseData" *ngIf="dataSet">{{dataSet.metaData.title}} ({{dataSet.metaData.year}})</span>
     </div>
   </div>
   <div class="vizEach_side_analysis">

@@ -22,7 +22,6 @@ export const _extendDefault = (options?: RequestInit): RequestInit => {
   if (!options) {
     return defaults;
   } else {
-    debugger;
     defaults.headers = Object.assign(defaults.headers, options.headers || {});
     delete options.headers;
     return Object.assign(defaults, options);
