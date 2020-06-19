@@ -21,5 +21,4 @@ export class ErrorComponent implements OnInit {
   ngOnInit(): void {
     return;
   }
-  // TODO: Add error input;
 }

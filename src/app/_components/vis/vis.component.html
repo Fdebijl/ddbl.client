@@ -6,48 +6,44 @@
 <div class="mp5-tooltip data-tooltip" aria-hidden="true"></div>
 
 <main class="vizEach">
-<section class="vizEach_content" *ngIf="dataSet" title="{{dataSet.metaData.title}}">
-  <div class="vizEach_content_title">
-    <h1 class="text" *ngIf="dataSet">{{dataSet.metaData.title}} ({{dataSet.metaData.year}})</h1>
-    <div class="hinder"></div>
-  </div>
+  <section class="vizEach_content" *ngIf="dataSet">
+    <div class="vizEach_content_title">
+      <h1 class="text" *ngIf="dataSet">{{dataSet.metaData.title}} ({{dataSet.metaData.year}})</h1>
+      <div class="hinder"></div>
+    </div>
 
-  <div class="vizEach_content_visframe">
-    <!-- TODO add filename -->
-    <agm-map class="map" [zoom]="12" [latitude]="51.445" [longitude]="5.450" >
-      <agm-data-layer *ngIf="geoJson" [geoJson]="geoJson"></agm-data-layer>
-    </agm-map>
-    <!-- Only for "map" visualizations -->
-    <!-- TODO add filename -->
-
-    </div><!-- vizEach_content_visframe -->
+    <div class="vizEach_content_visframe">
+      <agm-map class="map" [zoom]="12" [latitude]="51.445" [longitude]="5.450">
+        <agm-data-layer *ngIf="geoJson" [geoJson]="geoJson"></agm-data-layer>
+      </agm-map>
+    </div>
 
     <div class="vizEach_content_info">
       <ul class="vizEach_content_info_cont">
         <li class="vizEach_content_info_cont_contributor">
-          <!-- <div class="descHinder"></div> -->
           <div class="post">
             <span class="post_title">Posted on </span>
             <span class="post_date">{{dateTimePosted}}</span>
           </div>
           <div class="user">
             <div class="user_cont">
-          <span class="user_cont_image">
-            <picture class="profile-picture avatar-s" *ngIf="contributor">
-              <img [src]="contributor.getProfilePictureURL()" *ngIf="contributor.hasExternalProfilePicture">
-              <div *ngIf="!contributor.hasExternalProfilePicture" class="abbreviation">{{contributor.getAbbreviation()}}</div>
-            </picture>
-            <picture class="profile-picture avatar-s" *ngIf="!contributor">
-              <img src="../../../assets/images/avatar/user.png">
-            </picture>
-          </span>
-              <span class="user_cont_text" *ngIf="contributor">{{contributor.displayName}} ({{contributor.affiliation}})</span>
+              <span class="user_cont_image">
+                <picture class="profile-picture avatar-s" *ngIf="contributor">
+                  <img [src]="contributor.getProfilePictureURL()" *ngIf="contributor.hasExternalProfilePicture">
+                  <div *ngIf="!contributor.hasExternalProfilePicture" class="abbreviation">
+                    {{contributor.getAbbreviation()}}</div>
+                </picture>
+                <picture class="profile-picture avatar-s" *ngIf="!contributor">
+                  <img src="../../../assets/images/avatar/user.png">
+                </picture>
+              </span>
+              <span class="user_cont_text" *ngIf="contributor">{{contributor.displayName}}
+                ({{contributor.affiliation}})</span>
               <span class="user_cont_text" *ngIf="!contributor">Unknown</span>
             </div>
           </div>
           <div class="contact">
             <div class="contact_emil" aria-disabled="true">
-              <!-- TODO add action here later -->
               <i class="fas fa-envelope"></i>
             </div>
           </div>
@@ -55,7 +51,6 @@
 
         <li class="vizEach_content_info_cont_desc">
           <div class="desc-head">
-            <!-- <i class="far fa-file-alt"></i> -->
             <span class="text">Description</span>
           </div>
           <div class="desc-cont">
@@ -65,22 +60,21 @@
         <li class="vizEach_content_info_cont_utility">
 
           <div class="access">
-        <span class="access_icon">
-          <i class="fas fa-globe"></i>
-        </span>
+            <span class="access_icon">
+              <i class="fas fa-globe"></i>
+            </span>
             <span class="access_text">Public</span>
           </div>
-          <!-- TODO add download -->
-          <a href="" class="link-download" download="{{dataSet.id}}" >
+          <a href="" class="link-download" download="{{dataSet.id}}">
             <div class="icon">
               <i class="fas fa-download"></i>
             </div>
             <div class="format">
               <span class="format_header">Format: </span>
-              <span class="format_name">{{dataSet.dataFormat}}</span>
+              <span class="format_name">{{dataSet.dataFormat || 'GeoJSON'}}</span>
             </div>
           </a>
-          <button id="printSingleDataviz" class="print">
+          <button id="printSingleDataviz" class="print" (click)="print()">
             <i class="fas fa-print"></i>
             <span class="text">Print</span>
           </button>
@@ -93,67 +87,58 @@
     </div>
 
     <div class="vizEach_content_comments">
-        <div class="vizEach_content_comments_title">
-          <div class="icon">
-            <i class="fas fa-comments"></i>
-          </div>
-          <span class="text">Comments</span>
+      <div class="vizEach_content_comments_title">
+        <div class="icon">
+          <i class="fas fa-comments"></i>
         </div>
-
-        <div class="vizEach_content_comments_post">
-          <textarea class="write-comments" type="text" name="write-comments" placeholder="Write comments..."></textarea>
-          <div class="buttonarea">
-            <button class="post-comments basic-button">Post</button>
-            <button class="cancel-comments">Cancel</button>
-          </div>
-        </div>
-
-        <ul class="vizEach_content_comments_history">
-          <li class="vizEach_content_comments_history_each">
-            <span class="post-user">Admin</span>
-            <span class="post-date">20:02 Sep 21, 2019</span>
-            <span class="post-cont">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla posuere ullamcorper mauris sed tincidunt. Sed elit ex, pharetra vitae condimentum eu, convallis id ligula. Quisque sem turpis, dignissim vel magna eu, eleifend ornare lectus. </span>
-          </li>
-        </ul>
-
+        <span class="text">Comments</span>
       </div>
 
+      <div class="vizEach_content_comments_post">
+        <textarea class="write-comments" type="text" name="write-comments" placeholder="Write comments..."></textarea>
+        <div class="buttonarea">
+          <button class="post-comments basic-button">Post</button>
+          <button class="cancel-comments">Cancel</button>
+        </div>
+      </div>
 
-
-</section>
-
-<!-- data each side control panel -->
-<aside class="vizEach_side">
-  <div class="vizEach_side_layers">
-    <div class="vizEach_side_layers_title">
-      <i class="fas fa-layer-group"></i>
-      <span class="title">Data Layers</span>
-    </div>
-    <div class="vizEach_side_layers_base">
-      <span class="title">Base data</span>
-      <span class="baseData" *ngIf="dataSet">{{dataSet.metaData.title}} ({{dataSet.metaData.year}})</span>
-    </div>
-  </div>
-  <div class="vizEach_side_analysis">
-    <div class="vizEach_side_analysis_title">
-      <i class="fas fa-calculator"></i>
-      <span class="title">Data Analysis</span>
-    </div>
-    <div class="vizEach_side_analysis_tools">
-      <ul class="vizEach_side_analysis_tools_box">
-        <li class="dummy"></li>
-        <li class="dummy"></li>
-        <li class="dummy"></li>
+      <ul class="vizEach_content_comments_history">
+        <li class="vizEach_content_comments_history_each">
+          <span class="post-user">Admin</span>
+          <span class="post-date">20:02 Sep 21, 2019</span>
+          <span class="post-cont">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla posuere ullamcorper
+            mauris sed tincidunt. Sed elit ex, pharetra vitae condimentum eu, convallis id ligula. Quisque sem turpis,
+            dignissim vel magna eu, eleifend ornare lectus. </span>
+        </li>
       </ul>
-    </div>
-  </div>
-</aside>
-</main>
 
-<script>
-  const printSingleDataviz = document.getElementById('printSingleDataviz');
-  printSingleDataviz.addEventListener('click', () => {
-    window.print();
-  });
-</script>
-<!-- javascripts -->
+    </div>
+  </section>
+
+  <!-- data each side control panel -->
+  <aside class="vizEach_side">
+    <div class="vizEach_side_layers">
+      <div class="vizEach_side_layers_title">
+        <i class="fas fa-layer-group"></i>
+        <span class="title">Data Layers</span>
+      </div>
+      <div class="vizEach_side_layers_base">
+        <span class="title">Base data</span>
+        <span class="baseData" *ngIf="dataSet">{{dataSet.metaData.title}} ({{dataSet.metaData.year}})</span>
+      </div>
+    </div>
+    <div class="vizEach_side_analysis">
+      <div class="vizEach_side_analysis_title">
+        <i class="fas fa-calculator"></i>
+        <span class="title">Data Analysis</span>
+      </div>
+      <div class="vizEach_side_analysis_tools">
+        <ul class="vizEach_side_analysis_tools_box">
+          <li class="dummy"></li>
+          <li class="dummy"></li>
+          <li class="dummy"></li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+</main>
