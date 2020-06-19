@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
-import {ajax} from 'rxjs/ajax';
 import { StorageService } from './storage.service';
 import {DataSet, GenericError} from '../_domain/class';
 import {AuthorizedFetch} from '../_util/AuthorizedFetch';
@@ -32,19 +30,21 @@ export class DataService {
     });
   }
 
-  private async getVisualization(visId: string): Promise<string> {
+  public getDataSet(id: string): Promise<DataSet> {
     return new Promise((resolve, reject) => {
-      const url = new URL(`${environment.api_url}/visualization/${visId}`);
-      ajax({
-        url: url.toString(),
-        withCredentials: false,
-        crossDomain: true,
+      AuthorizedFetch(`article/${id}`, {
         method: 'GET'
-      }).subscribe({
-        error: () => {
-          reject();
-        }
-      });
+      }).
+      then()
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.error) {
+            console.log(data);
+            reject();
+            return;
+          }
+          resolve(data);
+        });
     });
   }
 

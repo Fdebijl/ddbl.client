@@ -11,7 +11,7 @@ import {ProfilePictureEditorComponent} from './_components/user/profile/profile-
     { path: 'home',   redirectTo: '/', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'visualization', component: VisComponent },
+    { path: 'visualization/:id', component: VisComponent },
     { path: 'terms-of-service', component: TermsComponent },
     { path: 'pf', component: ProfilePictureEditorComponent },
     // ========= BEGIN PROTECTED COMPONENTS ==========

@@ -3,7 +3,7 @@ import {DataSet, User} from '../../_domain/class';
 import moment from 'moment';
 import {DataType} from '../../_domain/enum/DataType';
 import {UserService} from '../../_services';
-import {DataFormat} from "../../_domain/enum/DataFormat";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-card',
@@ -11,7 +11,7 @@ import {DataFormat} from "../../_domain/enum/DataFormat";
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
     return;
   }
 
@@ -24,7 +24,7 @@ export class CardComponent implements OnInit {
   public hasThumbnail: boolean;
 
   public saveObjForVisualizationPage(): void {
-    localStorage.setItem('visData', JSON.stringify(this.dataSet));
+    this.router.navigate([`visualization/${this.dataSet.id}`])
   }
 
   public getIcon(): string {
@@ -47,10 +47,13 @@ export class CardComponent implements OnInit {
   }
 
   hasMapVisualizationLink(): boolean {
-    if (this.dataSet.dataType === DataType.VISUALIZATION && this.dataSet.dataFormat === DataFormat.GEOJSON) {
+    return true;
+    /*
+    if (this.dataSet.dataType === DataType.VISUALIZATION) {
       return true;
     }
     return false;
+    */
   }
 
   public hasAffiliation(): boolean {
