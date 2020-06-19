@@ -120,28 +120,21 @@ export class AuthenticationService {
         })
       }, {
         authorized: false
-      })
-        .then((response) => response.json())
-        .then(async (data) => {
-          if (data.error) {
-            reject(data.error as GenericError);
+      }).then(async (response) => {
+          if (!response.ok) {
+            reject(new GenericError({
+              name: response.statusText,
+              statusCode: `${response.status}`,
+              message: 'Could not register account'
+            }));
             return;
           }
 
-          // Temporary user to make the getByID request
-          const stubUser = new User({
-            id: data.id,
-            token: data.token,
-            tokenExpiration: data.tokenExpiration
-          });
-          this.storageService.user.next(stubUser);
+          await this.login(pendingUser.email, pendingUser.password);
+          const authorizedUser = this.storageService.user.getValue();
 
-          if (stubUser.id) {
-            const user = await this.userService.getByID(stubUser.id);
-            user.token = data.token;
-            user.tokenExpiration = data.tokenExpiration;
-            this.storageService.user.next(user);
-            resolve(user);
+          if (authorizedUser.id) {
+            resolve(authorizedUser);
           } else {
             reject(new GenericError({
               name: 'NoContentError',

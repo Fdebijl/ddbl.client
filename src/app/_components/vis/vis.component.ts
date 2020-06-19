@@ -19,7 +19,6 @@ export class VisComponent implements OnInit {
   public dataSet: DataSet;
   public geoJson;
 
-
   ngOnInit(): void {
     this.geoJson = [];
     this.route.params.subscribe(params => {
@@ -35,5 +34,9 @@ export class VisComponent implements OnInit {
         this.dateTimePosted = moment(this.dataSet.metaData.createdAt).format('ll');
       });
     });
+  }
+
+  print(): void {
+    window.print()
   }
 }
