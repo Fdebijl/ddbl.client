@@ -19,7 +19,7 @@
     "@angular/animations": "^9.1.11",
     "@agm/core": "^1.1.0",
     "@angular/common": "9.1.11",
-    "@angular/compiler": "9.1.11",
+    "@angular/compiler": "10.0.1",
     "@angular/core": "9.1.11",
     "@angular/forms": "9.1.11",
     "@angular/http": "7.2.16",
