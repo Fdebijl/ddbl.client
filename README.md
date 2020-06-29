@@ -1,6 +1,14 @@
 # Vitality Living Lab Data System Client
 
-[![DeepScan grade](https://deepscan.io/api/teams/7525/projects/10528/branches/147723/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=7525&pid=10528&bid=147723) [![Netlify Status](https://api.netlify.com/api/v1/badges/9156c4df-f86e-4b32-ab4a-9098f55153ad/deploy-status)](https://app.netlify.com/sites/vll/deploys)
-
 The client for the Vitality Living Lab Data System prototype.
-You can view the prototype in action here: https://vll.netlify.app/
+
+### Building/Deploying
+This project can either be built using `ng build` and deploying the files in `dist/ddbl` to a webserver, or by registering the repo on Netlify.
+Make sure to change the `API_URL` environment variable in `src/environment/environment.ts` and `src/environment/environment.prod.ts` to the URL that the API is installed at.
+
+### Development
+For development purposes, simply run `ng serve` and point your browser to <http://localhost:4200>.
+
+### Pull requests
+This repository contains an action that will run whenever a pull request is opened. This action checks whether the project passes all unit and e2e-tests and whether it can be build using `ng build`.
+The recommended workflow is therefore to protect the master branch and only commit new features using a branch and pull request.
