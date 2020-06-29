@@ -1,6 +1,7 @@
 {
   "name": "vll-client",
-  "version": "0.3.0",
+  "private": true,
+  "version": "0.5.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -14,7 +15,6 @@
     "updatewd": "webdriver-manager update",
     "updateangular": "ng update --all=true --allowDirty=true --force"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "^10.0.1",
     "@agm/core": "^1.1.0",
